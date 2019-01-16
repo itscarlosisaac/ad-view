@@ -13,12 +13,16 @@ export default class Input extends Component {
     this.setState({value: newState})
   }
   render() {
-    const { id, name } = this.props;
+    const { id, name, placeholder, type } = this.props;
     const { value } = this.state;
     return (
       <div className="form-control">
-        <input onChange={this.onChange} type="text" id={id} name={name} value={value}/>
+        <input placeholder={placeholder} onChange={this.onChange} type="text" id={id} name={name} value={value} type={type}/>
       </div>
     )
   }
+}
+
+Input.defaultProps = {
+  type: "text"
 }

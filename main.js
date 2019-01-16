@@ -1,9 +1,10 @@
 'use strict'
 
 // Import parts of electron to use
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcRenderer, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
+const createView = require('./electron/createView');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -51,7 +52,7 @@ function createWindow() {
 
   mainWindow.loadURL(indexPath)
 
-  // Don't show until we are ready and loaded
+  // Don't show until we are ready and loaded`
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
 
@@ -91,3 +92,9 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
+ipcMain.on('create-screen', (window, params) => {
+  createView(params)
+  console.log(params)
+});
