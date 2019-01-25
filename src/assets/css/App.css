@@ -1,3 +1,14 @@
 /* Main CSS file */
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,900');
+@import 'components/_reset.css';
+@import 'components/_main.css';
+@import 'components/_sidebar.css';
+@import 'components/_input.css';
+@import 'components/_buttons.css';
+@import 'components/_screenContainer.css';
 
-@import '_example/_example.css';
+#root {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Lato', sans-serif;
+}

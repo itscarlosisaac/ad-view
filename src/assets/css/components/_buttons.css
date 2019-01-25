@@ -1,0 +1,24 @@
+
+.btn__addsize {
+  width: 130px;
+  padding: 8px 0;
+  font-size: 14px;
+  border-radius: 1000px;
+  background: linear-gradient(to bottom, #f1f6f8 0%,#eff5f7 100%);
+  color: #142243;
+  font-weight: 600;
+  border: 1px solid #dfe3ed;
+  cursor: pointer;
+}
+
+.btn__create__screen {
+  width: 150px;
+  padding: 12px 0;
+  font-size: 14px;
+  border-radius: 1000px;
+  background: linear-gradient(to bottom, #4f72f5 0%,#3358e0 100%);
+  color: #ffffff;
+  font-weight: 600;
+  border:none;
+  cursor: pointer;
+}
