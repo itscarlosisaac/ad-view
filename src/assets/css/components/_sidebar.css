@@ -1,8 +1,8 @@
 /* Example stylesheet */
 
 .app__sidebar {
-  width: 400px;
-  max-width: 400px;
+  width: 350px;
+  max-width: 350px;
   height: 100%;
   background: #ffffff;
   display: flex;

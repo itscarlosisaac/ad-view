@@ -20,13 +20,11 @@ export default class addSizes extends Component {
   }
   render() {
     return (
-      <div>
-        <form className="add__sizes" onSubmit={this.handleSubmit}>
-          <Input  placeholder="Width" name="width" id="width" type="number"/>
-          <Input placeholder="Height" name="height" id="height" type="number"/>
-          <Button  cName="btn__addsize" content="Add Size" type="submit"/>
-        </form>
-      </div>
+      <form className="add__sizes" onSubmit={this.handleSubmit}>
+        <Input  placeholder="Width" name="width" id="width" type="number"/>
+        <Input placeholder="Height" name="height" id="height" type="number"/>
+        <Button  cName="btn__addsize" content="Add Size" type="submit"/>
+      </form>
     )
   }
 }

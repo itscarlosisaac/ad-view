@@ -8,6 +8,7 @@
 @import 'components/_input.css';
 @import 'components/_buttons.css';
 @import 'components/_size.css';
+@import 'components/_params.css';
 @import 'components/_screenContainer.css';
 
 #root {

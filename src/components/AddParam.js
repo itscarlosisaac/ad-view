@@ -21,13 +21,11 @@ export default class AddParam extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <Input placeholder="Parameter Name" name="param-name" id="param-name"/>
-          <Input placeholder="Parameter Value" name="param-value" id="param-value"/>
-          <Button content="Add Param" type="submit"/>
-        </form>
-      </div>
+      <form className="add__params" onSubmit={this.handleSubmit}>
+        <Input placeholder="Parameter Name" name="param-name" id="param-name"/>
+        <Input placeholder="Parameter Value" name="param-value" id="param-value"/>
+        <Button cName="btn__addsize" content="Add Param" type="submit"/>
+      </form>
     )
   }
 }

@@ -47,19 +47,37 @@ export default class Sidebar extends Component {
           <Input placeholder="Url" name="url" id="url"/>
         </header>
 
-        <AddParam addParam={this.addParam}/>
-        <ul className="app__params">
-          {
-            this.state.params.map((i, index) => {
-              return <li key={index}><span>{i.name}:</span><span>{i.value}</span><span>Remove</span></li>
-            })
-          }
-        </ul>
+        <section className="app__params">
+          <h3>Parameters</h3>
+          <ul className="app__param__list">
+            {
+              this.state.params.map((i, index) => {
+                return <li key={index}>
+                <span className="param__name">{i.name}:</span>
+                <span className="param__value">{i.value}</span>
+                <i className="material-icons">cancel</i>
+                </li>
+              })
+            }
+          </ul>
+          <AddParam addParam={this.addParam}/>
+        </section>
 
-        <div className="">
-          <input type="checkbox" name="size-param" id="size-param" checked={this.state.sizeParam} onChange={this.toggleSizeParam} />
-          <label htmlFor="size-param">Use size as a parameter</label>
-        </div>
+        <section className="app__size__param">
+          {/* <input type="checkbox" name="size-param" id="size-param" checked={this.state.sizeParam} onChange={this.toggleSizeParam} /> */}
+          <p onClick={this.toggleSizeParam}>
+          <span className="size__param">
+          {
+            this.state.sizeParam ? 
+            <i className="material-icons on">check_box</i> : 
+            <i className="material-icons off">check_box_outline_blank</i>
+          }
+          </span>
+         Use size as a parameter</p>
+         <small className="size__note">
+           This is to use the size of the document as param from the url in combination with the sizes specified below. If not checked the size parameter will have to be specified in the parameters section.
+         </small>
+        </section>
 
         <section className="app__sizes">
           <h3>Sizes</h3>

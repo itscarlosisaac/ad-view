@@ -1,0 +1,88 @@
+.app__params {
+  border-top:1px solid #eaf0f5;
+  border-bottom:1px solid #eaf0f5;
+  padding: 20px;
+  margin: 0 -20px;
+}
+
+.app__params h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #142243;
+  padding-bottom: 10px;
+}
+
+.app__params h3::after{
+  display: block;
+  content: '';
+  width: 20px;
+  height: 2px;
+  background: #142243;
+  margin: 15px 0 0;
+}
+
+.app__param__list {
+  margin: 0;
+  padding: 0;
+}
+
+.app__param__list li {
+  border-bottom:1px solid #eaf0f5;
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.app__param__list li .param__name {
+  font-weight: 600;
+  margin-right: 20px;
+}
+.app__param__list li .param__value {}
+
+.app__param__list li i {
+  position: absolute;
+  right: -30px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 25px;
+  font-size: 20px;
+  color: #f64e64;
+  line-height: 25px;
+  width: 25px;
+  text-align: center;
+  border-radius: 1000px;
+  transition: right 0.2s ease-in;
+  cursor: pointer;
+}
+
+.app__param__list li:hover > i {
+  right: 0;
+}
+
+/* Size param section */
+.app__size__param {
+  margin: 20px 0;
+}
+.app__size__param p {
+  cursor: pointer;
+}
+.app__size__param .size__param i {
+  font-size: 21px;
+  vertical-align: text-top;
+  margin-right: 10px;
+}
+.app__size__param .size__param i.off {
+  color: #98a7b6;
+}
+.app__size__param .size__param i.on {
+  color: #33994d;
+}
+
+.size__note {
+  font-size: 10px;
+  line-height: 12px;
+  color: #949daf;
+  display: none;
+}
