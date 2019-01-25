@@ -1,3 +1,4 @@
 .app__screens{
   width: calc(100% - 400px );
+  background: #eef4f6;
 }

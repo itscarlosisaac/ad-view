@@ -48,7 +48,7 @@ export default class Sidebar extends Component {
         </header>
 
         <AddParam addParam={this.addParam}/>
-        <ul>
+        <ul className="app__params">
           {
             this.state.params.map((i, index) => {
               return <li key={index}><span>{i.name}:</span><span>{i.value}</span><span>Remove</span></li>
@@ -61,16 +61,21 @@ export default class Sidebar extends Component {
           <label htmlFor="size-param">Use size as a parameter</label>
         </div>
 
-        <h3>Sizes</h3>
+        <section className="app__sizes">
+          <h3>Sizes</h3>
+          <ul className="app__size__list">
+            {
+              this.state.sizes.map((i, index) => {
+                return <li key={index}>{i.width}x{i.height} 
+                <i className="material-icons">cancel</i>
+                </li>
+              })
+            }
+          </ul>
+          <AddSizes addSize={this.addSize} />
+        </section>
 
-        <AddSizes addSize={this.addSize} />
-        <ul>
-          {
-            this.state.sizes.map((i, index) => {
-              return <li key={index}>{i.width}x{i.height} <span>Delete</span></li>
-            })
-          }
-        </ul>
+
         <footer className="app__sidebar--footer">
           <Button cName="btn__create__screen" content="Create Screens" onClick={this.createWindow}/>
         </footer>

@@ -51,6 +51,7 @@ button {
 	cursor: pointer;
 }
 
+input,
 button:focus {
 	outline: none;
 }
