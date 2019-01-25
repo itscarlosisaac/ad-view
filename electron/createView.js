@@ -1,30 +1,21 @@
-const {
-  app,
-  BrowserWindow
-} = require('electron');
+const { BrowserView } = require('electron');
 const path = require('path');
 
-const createView = (params) => {
-  const { url, height, width } = params;
-  let newWindow = new BrowserWindow({
-    x:10,
-    y:10,
-    width,
-    height,
-    resizable: false,
-    maximizable: false,
-    // show: false
+const createView = (evt, data) => {
+  const win = data.mainWindow;
+  const { url, height, width } = data.params;
+  let view = new BrowserView({
+    webPreferences: {
+      nodeIntegration: false
+    }
   });
-  
-  newWindow.loadURL(url);
-  newWindow.once('ready-to-show', () => newWindow.show());
-  // newWindow.webContents.on('did-finish-load', () => {
-  //   newWindow.setTitle(name)
-  // })
-  // newWindow.on('focus', () => {
-  //   // windows.forEach(w => w.show() );
-  // });
-  // return newWindow;
+
+  win.setBrowserView(view)
+  view.webContents.loadURL(url);
+  view.once('ready-to-show', () => view.show());
+  view.setBounds({ x: 100, y: 100, width, height })
+  view.on('focus', () => { });
+  return view;
 }
 
  module.exports = createView;

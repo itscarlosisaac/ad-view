@@ -1,4 +1,3 @@
-// const { app, BrowserWindow } = require('electron');
 import { BrowserWindow, remote, ipcRenderer } from 'electron';
 
 const createWindow = (url, width, height) => {

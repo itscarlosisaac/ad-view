@@ -22,9 +22,9 @@ export default class addSizes extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <Input placeholder="Width" name="width" id="width" type="number"/>
+          <Input  placeholder="Width" name="width" id="width" type="number"/>
           <Input placeholder="Height" name="height" id="height" type="number"/>
-          <Button content="Add Size" type="submit"/>
+          <Button  cName="btn__addsize" content="Add Size" type="submit"/>
         </form>
       </div>
     )
