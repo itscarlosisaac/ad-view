@@ -37,13 +37,13 @@ export default class Sidebar extends Component {
   }
 
   createWindow(){
-    createWindow('http://www.google.com', 500, 300)
+    createWindow('http://www.youtube.com', 500, 300)
   }
 
   render() {
     return (
-      <aside>
-        <header className="aside-header">
+      <aside className="app__sidebar">
+        <header className="app__sidebar--header">
           <Input placeholder="Url" name="url" id="url"/>
         </header>
 
@@ -71,7 +71,9 @@ export default class Sidebar extends Component {
             })
           }
         </ul>
-        <Button content="Create Screens" onClick={this.createWindow}/>
+        <footer className="app__sidebar--footer">
+          <Button cName="btn__create__screen" content="Create Screens" onClick={this.createWindow}/>
+        </footer>
       </aside>
     )
   }
