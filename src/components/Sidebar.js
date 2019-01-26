@@ -11,12 +11,14 @@ export default class Sidebar extends Component {
     this.state = {
       params:[],
       sizeParam: true,
-      sizes: []
+      sizes: [],
+      url: ''
     }
     this.addSize = this.addSize.bind(this);
     this.addParam = this.addParam.bind(this);
     this.toggleSizeParam = this.toggleSizeParam.bind(this);
     this.createWindow = this.createWindow.bind(this);
+    this.onUrlChange = this.onUrlChange.bind(this);
   }
 
   addParam(params){
@@ -37,14 +39,21 @@ export default class Sidebar extends Component {
   }
 
   createWindow(){
-    createWindow('http://www.youtube.com', 500, 300)
+    // const { url } = this.state;
+    // console.log(url)
+    // createWindow(url, 500, 300)
+    createWindow("https://electronjs.org/docs/api/browser-view", 500, 300)
+  }
+
+  onUrlChange(e){
+    this.setState({url: e})
   }
 
   render() {
     return (
       <aside className="app__sidebar">
         <header className="app__sidebar--header">
-          <Input placeholder="Url" name="url" id="url"/>
+          <Input onUrlChange={this.onUrlChange} placeholder="Url" name="url" id="url"/>
         </header>
 
         <section className="app__params">

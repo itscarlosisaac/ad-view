@@ -11,6 +11,7 @@ export default class Input extends Component {
   onChange(e){
     const newState = e.target.value;
     this.setState({value: newState})
+    this.props.onUrlChange(this.state.value);
   }
   render() {
     const { id, name, placeholder, type } = this.props;
@@ -24,5 +25,6 @@ export default class Input extends Component {
 }
 
 Input.defaultProps = {
-  type: "text"
+  type: "text",
+  onUrlChange: () => {}
 }
