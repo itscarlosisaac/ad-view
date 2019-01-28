@@ -95,7 +95,7 @@ app.on('activate', () => {
   }
 })
 
-
+const views = []
 ipcMain.on('create-screen', (evt, params) => {
-  createView(evt, {params, mainWindow})
+  views.push(createView(evt, {params, mainWindow}))
 });
