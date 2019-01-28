@@ -71,6 +71,10 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  mainWindow.on('resize', function(e) {
+    e.sender.send('resized', this)
+  });
 }
 
 // This method will be called when Electron has finished

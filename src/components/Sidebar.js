@@ -54,6 +54,7 @@ export default class Sidebar extends Component {
     ]
     temp.map((t) => {
       const { x, y } = this.getPositions(t);
+      console.log(x, y)
       createWindow("https://google.com", t.w, t.h, x, y)
     })
     // createWindow("https://electronjs.org/docs/api/browser-view", 500, 300)

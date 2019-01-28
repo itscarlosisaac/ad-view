@@ -5,11 +5,15 @@ import View from './View';
 export default class ScreensContainer extends Component {
   componentDidMount() {
     const c = document.querySelector('.screens')
+    function onLayout() {
+      console.log('layout done');
+    }
     setTimeout(()=> {
       var pckry = new Packery( c, {
         itemSelector: '.img',
         gutter: 15
       });
+      pckry.on( 'layoutComplete', onLayout );
     }, 10);
   }
 
