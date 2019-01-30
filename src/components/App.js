@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app__container">
-        <Sidebar/>
+        <Sidebar store={this.props.store}/>
         <ScreensContainer/>
       </div>
     )

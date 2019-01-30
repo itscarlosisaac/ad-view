@@ -4,6 +4,8 @@ import Button from './Button';
 import AddParam from './AddParam';
 import AddSizes from './AddSizes';
 import createWindow from '../ipc/createWindow';
+import { url } from 'url'
+import Store from '../store/store';
 
 export default class Sidebar extends Component {
   constructor(props){
@@ -12,7 +14,8 @@ export default class Sidebar extends Component {
       params:[],
       sizeParam: true,
       sizes: [],
-      url: ''
+      url: '',
+      buildUrl: ''
     }
     this.addSize = this.addSize.bind(this);
     this.addParam = this.addParam.bind(this);
@@ -20,17 +23,31 @@ export default class Sidebar extends Component {
     this.createWindow = this.createWindow.bind(this);
     this.onUrlChange = this.onUrlChange.bind(this);
     this.getPositions = this.getPositions.bind(this);
+    this.buildURL = this.buildURL.bind(this);
+  }
+
+  componentDidMount() {
+    // console.log(Store.getSize())
+    // this.props.store.set('size-300x250', {width:300, height:250})
+    this.props.store.getAll().then(i => {
+      console.log(i)
+      this.setState({sizes:i})
+    })
   }
 
   addParam(params){
     const oldParams = this.state.params
-    console.log(this.state)
     this.setState({params: [...oldParams, params]})
+    console.log(this.state)
   }
 
   addSize(size){
-    const oldSizes = this.state.sizes
-    console.log(this.state)
+    const oldSizes = this.state.sizes;
+    const { width, height } = size
+    this.props.store.set(`size-${width}x${height}`, {
+      width: Number(width),
+      height: Number(height)
+    });
     this.setState({sizes: [...oldSizes, size]})
   }
 
@@ -42,6 +59,7 @@ export default class Sidebar extends Component {
   createWindow(){
     const { url } = this.state;
     console.log(url)
+    // http://localhost:9091/?immediate
     let temp = [
       { w: 300, h: 600 },
       { w: 160, h: 600 },
@@ -60,7 +78,6 @@ export default class Sidebar extends Component {
   }
 
   getPositions (size) {
-    
     const images = [...document.querySelectorAll('.screens img')];
     const img = images.filter((img) => img.width === size.w && img.height === size.h )
     return {
@@ -73,11 +90,29 @@ export default class Sidebar extends Component {
     this.setState({url: e})
   }
 
+  buildURL() {
+    const { url, params } = this.state;
+    let n = new URL('/', url );
+
+    if ( params.length > 0){
+      params.map(p => n.searchParams.append(p.name, p.value) );
+    }
+    this.setState({ buildUrl: n.href })
+  }
+
   render() {
     return (
       <aside className="app__sidebar">
         <header className="app__sidebar--header">
           <Input onUrlChange={this.onUrlChange} placeholder="https://example.com" name="url" id="url" type="url"/>
+          <p>
+          Preview Url 
+          <br />
+          <span>
+            { this.state.buildUrl }
+          </span>
+          </p>
+          
         </header>
 
         <section className="app__params">
@@ -125,7 +160,6 @@ export default class Sidebar extends Component {
           </ul>
           <AddSizes addSize={this.addSize} />
         </section>
-
 
         <footer className="app__sidebar--footer">
           <Button disabled={!this.state.url} cName="btn__create__screen" content="Create Screens" onClick={this.createWindow}/>

@@ -21,9 +21,9 @@ export default class addSizes extends Component {
   render() {
     return (
       <form className="add__sizes" onSubmit={this.handleSubmit}>
-        <Input  placeholder="Width" name="width" id="width" type="number"/>
+        <Input placeholder="Width" name="width" id="width" type="number"/>
         <Input placeholder="Height" name="height" id="height" type="number"/>
-        <Button  cName="btn__addsize" content="Add Size" type="submit"/>
+        <Button cName="btn__addsize" content="Add Size" type="submit"/>
       </form>
     )
   }
