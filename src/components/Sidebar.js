@@ -6,6 +6,7 @@ import AddSizes from './AddSizes';
 import createWindow from '../ipc/createWindow';
 import { url } from 'url'
 import Store from '../store/store';
+import uuid from 'uuid';
 
 export default class Sidebar extends Component {
   constructor(props){
@@ -18,6 +19,7 @@ export default class Sidebar extends Component {
       buildUrl: ''
     }
     this.addSize = this.addSize.bind(this);
+    this.deleteSize = this.deleteSize.bind(this);
     this.addParam = this.addParam.bind(this);
     this.toggleSizeParam = this.toggleSizeParam.bind(this);
     this.createWindow = this.createWindow.bind(this);
@@ -27,28 +29,34 @@ export default class Sidebar extends Component {
   }
 
   componentDidMount() {
-    // console.log(Store.getSize())
-    // this.props.store.set('size-300x250', {width:300, height:250})
-    this.props.store.getAll().then(i => {
-      console.log(i)
-      this.setState({sizes:i})
+    // this.props.store.clear();
+    this.props.store.getAll().then(sizes => {
+      console.log(sizes)
+      this.setState({sizes})
     })
   }
 
   addParam(params){
     const oldParams = this.state.params
     this.setState({params: [...oldParams, params]})
-    console.log(this.state)
   }
 
   addSize(size){
     const oldSizes = this.state.sizes;
-    const { width, height } = size
+    const { width, height } = size;
+    
     this.props.store.set(`size-${width}x${height}`, {
       width: Number(width),
-      height: Number(height)
+      height: Number(height),
+      id: uuid()
     });
     this.setState({sizes: [...oldSizes, size]})
+  }
+
+  deleteSize(e){
+    this.props.store.delete(e.currentTarget.id).then(()=>{
+      console.log('Deleted')
+    })
   }
 
   toggleSizeParam(){
@@ -153,7 +161,12 @@ export default class Sidebar extends Component {
             {
               this.state.sizes.map((i, index) => {
                 return <li key={index}>{i.width}x{i.height} 
-                <i className="material-icons">cancel</i>
+                <i 
+                  id={i.id}
+                  className="material-icons"
+                  onClick={this.deleteSize}>
+                  cancel
+                  </i>
                 </li>
               })
             }

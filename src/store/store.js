@@ -1,7 +1,7 @@
 import { openDb } from 'idb';
 
 const StorePromise = openDb('size-store', 1, upgradeDB => {
-  upgradeDB.createObjectStore('sizes')
+  upgradeDB.createObjectStore('sizes', { keyPath: 'id' })
 });
 
 export default {
@@ -22,7 +22,19 @@ export default {
     const store = tx.objectStore('sizes')
     return store.getAll();
   },
-  delete(key){}
+  async delete(key){
+    const db = await StorePromise;
+    const tx = db.transaction('sizes', 'readwrite');
+    const store = tx.objectStore('sizes')
+    store.delete(key)
+    return tx.complete;
+  },
+  async clear() {
+    const db = await StorePromise;
+    const tx = db.transaction('sizes', 'readwrite');
+    tx.objectStore('sizes').clear();
+    return tx.complete;
+  },
 }
 
 // const Store = {
