@@ -11,7 +11,7 @@ const createView = (evt, data) => {
     width,
     height,
     parent: mainWindow,
-    moveable: false,
+    movable: false,
     frame: false,
     show: false,
     resizable: false,

@@ -128,7 +128,7 @@ export default class Sidebar extends Component {
 
 
         <footer className="app__sidebar--footer">
-          <Button cName="btn__create__screen" content="Create Screens" onClick={this.createWindow}/>
+          <Button disabled={!this.state.url} cName="btn__create__screen" content="Create Screens" onClick={this.createWindow}/>
         </footer>
       </aside>
     )

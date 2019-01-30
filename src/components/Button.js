@@ -2,11 +2,16 @@ import React, { Component } from 'react'
 
 export default class Button extends Component {
   render() {
-    const { onClick, content, type, cName } = this.props
+    const { onClick, content, type, cName, disabled } = this.props
     return (
-      <button className={cName} type={type} onClick={onClick}>
+      <button disabled={disabled}  className={cName} type={type} onClick={onClick}>
         {content}
       </button>
     )
   }
+}
+
+
+Button.defaultProps = {
+  disabled: false,
 }

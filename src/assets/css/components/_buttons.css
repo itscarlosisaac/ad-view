@@ -35,3 +35,10 @@
   border:none;
   cursor: pointer;
 }
+
+button:disabled,
+button[disabled]{
+  cursor: not-allowed;
+  background: #f4f4f4;
+  color: #cccccc;
+}

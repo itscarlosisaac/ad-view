@@ -13,11 +13,11 @@ export default class Input extends Component {
   onChange(e){
     const newState = e.target.value;
     const dirty = this.isDirty(newState)
+    this.props.onUrlChange(newState);
     this.setState({
       value: newState,
       dirty,
-    })
-    this.props.onUrlChange(this.state.value);
+    });
   }
   isDirty(v){
     return v !== '' ? 'dirty' : 'not-dirty';

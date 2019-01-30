@@ -24,7 +24,7 @@ export default class AddParam extends Component {
       <form className="add__params" onSubmit={this.handleSubmit}>
         <Input placeholder="Parameter Name" name="param-name" id="param-name"/>
         <Input placeholder="Parameter Value" name="param-value" id="param-value"/>
-        <Button cName="btn__addsize" content="Add Param" type="submit"/>
+        <Button cName="btn__addparam" content="Add Param" type="submit"/>
       </form>
     )
   }
