@@ -40,22 +40,21 @@ export default class Sidebar extends Component {
   }
 
   createWindow(){
-    // const { url } = this.state;
-    // console.log(url)
-    // createWindow(url, 500, 300)
+    const { url } = this.state;
+    console.log(url)
     let temp = [
       { w: 300, h: 600 },
       { w: 160, h: 600 },
-      { w: 300, h: 250 },
-      { w: 320, h: 50 },
-      { w: 728, h: 90 },
-      { w: 400, h: 200 },
-      { w: 500, h: 200 },
+      // { w: 300, h: 250 },
+      // { w: 320, h: 50 },
+      // { w: 728, h: 90 },
+      // { w: 400, h: 200 },
+      // { w: 500, h: 200 },
     ]
     temp.map((t) => {
       const { x, y } = this.getPositions(t);
       console.log(x, y)
-      createWindow("https://google.com", t.w, t.h, x, y)
+      createWindow(url,t.w, t.h, x, y)
     })
     // createWindow("https://electronjs.org/docs/api/browser-view", 500, 300)
   }
@@ -78,7 +77,7 @@ export default class Sidebar extends Component {
     return (
       <aside className="app__sidebar">
         <header className="app__sidebar--header">
-          <Input onUrlChange={this.onUrlChange} placeholder="Url" name="url" id="url"/>
+          <Input onUrlChange={this.onUrlChange} placeholder="https://example.com" name="url" id="url" type="url"/>
         </header>
 
         <section className="app__params">
