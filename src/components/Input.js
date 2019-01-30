@@ -4,21 +4,30 @@ export default class Input extends Component {
   constructor(props){
     super(props)
     this.state = {
-      value: ''
+      value: '',
+      dirty: '',
     }
     this.onChange = this.onChange.bind(this)
+    this.isDirty = this.isDirty.bind(this)
   }
   onChange(e){
     const newState = e.target.value;
-    this.setState({value: newState})
+    const dirty = this.isDirty(newState)
+    this.setState({
+      value: newState,
+      dirty,
+    })
     this.props.onUrlChange(this.state.value);
+  }
+  isDirty(v){
+    return v !== '' ? 'dirty' : 'not-dirty';
   }
   render() {
     const { id, name, placeholder, type } = this.props;
-    const { value } = this.state;
+    const { value, dirty } = this.state;
     return (
       <div className="form-control">
-        <input placeholder={placeholder} onChange={this.onChange} type="text" id={id} name={name} value={value} type={type}/>
+        <input className={dirty} placeholder={placeholder} onChange={this.onChange} type="text" id={id} name={name} value={value} type={type}/>
       </div>
     )
   }

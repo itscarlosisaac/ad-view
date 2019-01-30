@@ -21,6 +21,11 @@
   color: #9da0ac;
 }
 
+.form-control input[type="text"].dirty,
+.form-control input[type="number"].dirty {
+  color: #5c6690;
+}
+
 .add__sizes {
   display: flex;
   justify-content: flex-end;
