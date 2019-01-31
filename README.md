@@ -1,7 +1,7 @@
 ## Todo List
 
 - Add size support
-- Add LocalStore support
+- ~~Add IndexDB Store support~~
 - Add Title size to banners views
 - Double Click to edit added param or size
 - Fix Windows Arrangement
