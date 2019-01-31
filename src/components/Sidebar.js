@@ -4,9 +4,10 @@ import Button from './Button';
 import AddParam from './AddParam';
 import AddSizes from './AddSizes';
 import createWindow from '../ipc/createWindow';
+import uuid from 'uuid';
 import { url } from 'url'
 import Store from '../store/store';
-import uuid from 'uuid';
+import newSizeEmitter from '../emitter/emitter'
 
 export default class Sidebar extends Component {
   constructor(props){
@@ -15,9 +16,10 @@ export default class Sidebar extends Component {
       params:[],
       sizeParam: true,
       sizes: [],
-      url: '',
+      url: 'http://localhost:9091/?immediate',
       buildUrl: ''
     }
+    
     this.addSize = this.addSize.bind(this);
     this.getAllSizes = this.getAllSizes.bind(this);
     this.deleteSize = this.deleteSize.bind(this);
@@ -38,6 +40,11 @@ export default class Sidebar extends Component {
     this.getAllSizes();
     this.getAllParams();
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    newSizeEmitter.emit('new-size-added')
+  }
+  
 
   getAllSizes(){
     this.props.store.getAll().then(sizes => {
@@ -96,7 +103,7 @@ export default class Sidebar extends Component {
   }
 
   createWindow(){
-    const { url } = this.state;
+    const { url , sizes } = this.state;
     console.log(url)
     // http://localhost:9091/?immediate
     let temp = [
@@ -108,17 +115,23 @@ export default class Sidebar extends Component {
       // { w: 400, h: 200 },
       // { w: 500, h: 200 },
     ]
-    temp.map((t) => {
-      const { x, y } = this.getPositions(t);
-      console.log(x, y)
-      createWindow(url,t.w, t.h, x, y)
+    sizes.map((t) => {
+      const { width, height } = t.data;
+      const { x, y } = this.getPositions({width, height});
+      console.log(x, y, width, height)
+      createWindow(url, width, height, x + 365, y + 60)
     })
     // createWindow("https://electronjs.org/docs/api/browser-view", 500, 300)
   }
 
   getPositions (size) {
-    const images = [...document.querySelectorAll('.screens img')];
-    const img = images.filter((img) => img.width === size.w && img.height === size.h )
+    const images = [...document.querySelectorAll('.screens .layoutHolder')];
+    // console.log(size)
+    // console.log(images)
+    const img = images.filter( (img) => {
+      const { offsetHeight, offsetWidth } = img
+      return offsetWidth === size.width &&  offsetHeight === size.height
+    })
     return {
         x: Number(img[0].style.left.replace('px', "")),
         y: Number(img[0].style.top.replace('px', ""))
@@ -198,7 +211,7 @@ export default class Sidebar extends Component {
               this.state.sizes.map((i, index) => {
                 return <li key={i.id}>
                   {i.data.width}x{i.data.height}
-                <i 
+                <i
                   id={i.id}
                   className="material-icons"
                   onClick={this.deleteSize}>

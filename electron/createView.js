@@ -6,8 +6,8 @@ const createView = (evt, data) => {
   const { url, height, width, x, y } = data.params;
   console.log(data.params)
   let view = new BrowserWindow({
-    x: x + 365,
-    y: y + 60,
+    x: x,
+    y: y,
     width,
     height,
     parent: mainWindow,

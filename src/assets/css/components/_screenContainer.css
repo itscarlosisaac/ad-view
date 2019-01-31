@@ -12,3 +12,13 @@
   min-height: 720px;
   min-width: 350px;
 }
+
+.app__screens .screens .layoutHolder{
+  text-align: center;
+  box-sizing: border-box;
+  border: 2px dashed #4194af;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

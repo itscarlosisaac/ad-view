@@ -2,33 +2,63 @@ import React, { Component } from 'react'
 import $ from 'jquery';
 import Packery from 'packery'
 import View from './View';
+import newSizeEmitter from '../emitter/emitter'
 export default class ScreensContainer extends Component {
-  componentDidMount() {
-    const c = document.querySelector('.screens')
-    function onLayout() {
-      console.log('layout done');
+  constructor(props){
+    super(props);
+    this.state = {
+      sizes: []
     }
+
+    this.getAllSizes = this.getAllSizes.bind(this);
+    this.initPickery = this.initPickery.bind(this);
+  }
+
+  componentDidMount() {
+    this.getAllSizes();
+    console.log(newSizeEmitter)
+    newSizeEmitter.on('new-size-added', () => {
+      this.getAllSizes()
+    })
+  }
+
+  initPickery() {
+    function onLayout() { console.log('layout done'); }
+    const c = document.querySelector('.screens')
     setTimeout(()=> {
       var pckry = new Packery( c, {
-        itemSelector: '.img',
+        itemSelector: '.layoutHolder',
         gutter: 15
       });
       pckry.on( 'layoutComplete', onLayout );
-    }, 10);
+    }, 100);
   }
+
+  getAllSizes(){
+    this.props.store.getAll().then(sizes => {
+      this.setState({sizes})
+      this.initPickery();
+    })
+  }
+
 
   render() {
     return (
       <section className="app__screens">
         {/* <h1>ScreensContainer</h1> */}
         <div className="screens">
-          <img className="img" src="http://www.placehold.it/300x600" alt="Image"/>
-          <img className="img" src="http://www.placehold.it/160x600" alt="Image"/>
-          {/* <img className="img" src="http://www.placehold.it/728x90" alt="Image"/>
-          <img className="img" src="http://www.placehold.it/320x50" alt="Image"/>
-          <img className="img" src="http://www.placehold.it/400x200" alt="Image"/>
-          <img className="img" src="http://www.placehold.it/500x200" alt="Image"/>
-          <img className="img" src="http://www.placehold.it/300x250" alt="Image"/> */}
+        {
+          this.state.sizes.map((size, index) => {
+            return <div className="layoutHolder" key={index} style={
+                {
+                  width:size.data.width,
+                  height:size.data.height
+                }
+              }>
+              {size.data.width}x{size.data.height}
+            </div>
+          })
+        }
         </div>
       </section>
     )
