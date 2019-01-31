@@ -19,6 +19,7 @@ export default class Sidebar extends Component {
       buildUrl: ''
     }
     this.addSize = this.addSize.bind(this);
+    this.getAllSizes = this.getAllSizes.bind(this);
     this.deleteSize = this.deleteSize.bind(this);
     this.addParam = this.addParam.bind(this);
     this.toggleSizeParam = this.toggleSizeParam.bind(this);
@@ -30,6 +31,10 @@ export default class Sidebar extends Component {
 
   componentDidMount() {
     // this.props.store.clear();
+    this.getAllSizes();
+  }
+
+  getAllSizes(){
     this.props.store.getAll().then(sizes => {
       console.log(sizes)
       this.setState({sizes})
@@ -42,20 +47,23 @@ export default class Sidebar extends Component {
   }
 
   addSize(size){
-    const oldSizes = this.state.sizes;
     const { width, height } = size;
-    
-    this.props.store.set(`size-${width}x${height}`, {
-      width: Number(width),
-      height: Number(height),
-      id: uuid()
+    this.props.store.set({
+      id: uuid(),
+      data: {
+        width: Number(width),
+        height: Number(height),
+      }
+    }).then(() => {
+      this.getAllSizes();
     });
-    this.setState({sizes: [...oldSizes, size]})
   }
 
   deleteSize(e){
-    this.props.store.delete(e.currentTarget.id).then(()=>{
-      console.log('Deleted')
+    const id = e.currentTarget.id;
+    this.props.store.delete(id).then(()=>{
+      console.log('Deleted:', id)
+      this.getAllSizes();
     })
   }
 
@@ -160,7 +168,8 @@ export default class Sidebar extends Component {
           <ul className="app__size__list">
             {
               this.state.sizes.map((i, index) => {
-                return <li key={index}>{i.width}x{i.height} 
+                return <li key={i.id}>
+                  {i.data.width}x{i.data.height}
                 <i 
                   id={i.id}
                   className="material-icons"
