@@ -4,7 +4,6 @@ const path = require('path');
 const createView = (evt, data) => {
   const mainWindow = data.mainWindow;
   const { url, height, width, x, y } = data.params;
-  console.log(data.params)
   let view = new BrowserWindow({
     x: x,
     y: y,

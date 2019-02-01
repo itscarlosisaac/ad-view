@@ -13,9 +13,14 @@ const createWindow = (url, width, height, x, y) => {
   screens = remote.BrowserWindow.getAllWindows();
   mainScreen = screens.filter(w => w.id === 1)[0];
   views = screens.filter(w => w.id !== 1);
-  // mainScreen.getChildWindows().map(w => w.destroy() )
   viewsCreated = true;
 }
+
+Emitter.screenEmitter.on('destroy-screens', () => {
+  if( views !== undefined ){
+    views.map(view => view.destroy());
+  }
+})
 
 Emitter.layoutEmitter.on('new-layout', (e) => {
   e.forEach(element => {
@@ -23,8 +28,8 @@ Emitter.layoutEmitter.on('new-layout', (e) => {
 
     if( viewsCreated ){
       const view = views.filter(view => view.name === `${w}x${h}` );
-      console.log(view)
       view[0].setPosition( Number(x + offsetX), Number(y + offsetY), true)
+      view[0].setParentWindow(mainScreen);
     }
   });
 });

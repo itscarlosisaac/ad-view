@@ -106,7 +106,8 @@ export default class Sidebar extends Component {
     const { url , sizes, sizeParam, buildUrl } = this.state;
     const ProductionURL = new URL(url)
     console.log("BUILD",buildUrl)
- 
+    Emitter.screenEmitter.emit('destroy-screens');
+    
     if( sizeParam ){
       ProductionURL.searchParams.append('size', '')
     }
