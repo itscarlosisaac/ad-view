@@ -17,7 +17,7 @@ const createWindow = (url, width, height, x, y) => {
 }
 
 Emitter.screenEmitter.on('destroy-screens', () => {
-  if( views !== undefined ){
+  if( viewsCreated ){
     views.map(view => view.destroy());
   }
 })

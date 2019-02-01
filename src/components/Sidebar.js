@@ -8,6 +8,7 @@ import uuid from 'uuid';
 import { url } from 'url'
 import Store from '../store/store';
 import Emitter from '../emitter/emitter'
+import validate from 'validate.js'
 
 export default class Sidebar extends Component {
   constructor(props){
@@ -16,8 +17,8 @@ export default class Sidebar extends Component {
       params:[],
       sizeParam: true,
       sizes: [],
-      url: 'http://localhost:9090/?immediate',
-      buildUrl: ''
+      url: '',
+      validURL: false
     }
     
     this.addSize = this.addSize.bind(this);
@@ -44,7 +45,6 @@ export default class Sidebar extends Component {
   componentDidUpdate(prevProps, prevState) {
     Emitter.newSizeEmitter.emit('new-size-added')
   }
-  
 
   getAllSizes(){
     this.props.store.getAll().then(sizes => {
@@ -103,14 +103,12 @@ export default class Sidebar extends Component {
   }
 
   createWindow(){
-    const { url , sizes, sizeParam, buildUrl } = this.state;
+    const { url , sizes, sizeParam } = this.state;
     const ProductionURL = new URL(url)
-    console.log("BUILD",buildUrl)
     Emitter.screenEmitter.emit('destroy-screens');
-    
-    if( sizeParam ){
-      ProductionURL.searchParams.append('size', '')
-    }
+
+    if( sizeParam ){ ProductionURL.searchParams.append('size', '') }
+
     sizes.map((t) => {
       const { width, height } = t.data;
       const { x, y } = this.getPositions({width, height});
@@ -119,7 +117,6 @@ export default class Sidebar extends Component {
 
       createWindow(ProductionURL.href, width, height, x + 365, y + 60);
     });
-    
   }
 
   getPositions (size) {
@@ -135,30 +132,38 @@ export default class Sidebar extends Component {
   }
 
   onUrlChange(e){
-    this.buildURL();
-    // this.setState({buildUrl: e})
+    const isValid = validate({website: e }, {
+      website: {
+        url: { allowLocal: true }
+      }
+    })
+    if( isValid === undefined){
+      this.setState({ validURL: true })
+      this.buildURL(e);
+    }else {
+      this.setState({ validURL: false })
+    }
   }
 
-  buildURL() {
-    const { url, params, sizeParam } = this.state;
-    let n = new URL( url );
-    console.log(params)
+  buildURL(e) {
+    const { params } = this.state;
+    let n = new URL( e );
     if ( params.length > 0){
       params.map(p => n.searchParams.append(p.param.name, p.param.value) );
     }
-    this.setState({ buildUrl: n.href })
+    this.setState({ url: n.href });
   }
 
   render() {
+    const disabled = !this.state.validURL || this.state.sizes.length === 0;
     return (
       <aside className="app__sidebar">
         <header className="app__sidebar--header">
           <Input onUrlChange={this.onUrlChange} placeholder="https://example.com" name="url" id="url" type="url"/>
           <p>
-          Preview Url 
           <br />
           <span>
-            { this.state.buildUrl }
+            { this.state.url }
           </span>
           </p>
           
@@ -222,7 +227,7 @@ export default class Sidebar extends Component {
         </section>
 
         <footer className="app__sidebar--footer">
-          <Button disabled={!this.state.url} cName="btn__create__screen" content="Create Screens" onClick={this.createWindow}/>
+          <Button disabled={disabled} cName="btn__create__screen" content="Create Screens" onClick={this.createWindow}/>
         </footer>
       </aside>
     )
