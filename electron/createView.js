@@ -20,6 +20,7 @@ const createView = (evt, data) => {
   });
 
   view.loadURL(url);
+  view.name = `${width}x${height}`;
   view.once('ready-to-show', () => view.show());
   view.on('focus', () => {});
   return view;

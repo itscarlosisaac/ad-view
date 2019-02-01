@@ -105,7 +105,7 @@ export default class Sidebar extends Component {
   createWindow(){
     const { url , sizes, sizeParam, buildUrl } = this.state;
     const ProductionURL = new URL(url)
-    // http://localhost:9091/?immediate
+    console.log("BUILD",buildUrl)
  
     if( sizeParam ){
       ProductionURL.searchParams.append('size', '')
@@ -118,13 +118,11 @@ export default class Sidebar extends Component {
 
       createWindow(ProductionURL.href, width, height, x + 365, y + 60);
     });
-    // createWindow("https://electronjs.org/docs/api/browser-view", 500, 300)
+    
   }
 
   getPositions (size) {
     const images = [...document.querySelectorAll('.screens .layoutHolder')];
-    // console.log(size)
-    // console.log(images)
     const img = images.filter( (img) => {
       const { offsetHeight, offsetWidth } = img
       return offsetWidth === size.width &&  offsetHeight === size.height
@@ -136,14 +134,16 @@ export default class Sidebar extends Component {
   }
 
   onUrlChange(e){
-    this.setState({buildUrl: e})
+    this.buildURL();
+    // this.setState({buildUrl: e})
   }
 
   buildURL() {
     const { url, params, sizeParam } = this.state;
-    let n = new URL('/', url );
+    let n = new URL( url );
+    console.log(params)
     if ( params.length > 0){
-      params.map(p => n.searchParams.append(p.name, p.value) );
+      params.map(p => n.searchParams.append(p.param.name, p.param.value) );
     }
     this.setState({ buildUrl: n.href })
   }

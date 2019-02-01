@@ -14,6 +14,8 @@
 - Create Build Process for windows and mac
 - Avoid click on banner open new links.
 - Make click on banner to open new links shows up a message in the console or an alert box.
+- Avoid duplicated params
+- Avoid duplicated screen creation
 
 ---------
 
