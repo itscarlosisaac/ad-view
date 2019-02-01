@@ -7,7 +7,7 @@ import createWindow from '../ipc/createWindow';
 import uuid from 'uuid';
 import { url } from 'url'
 import Store from '../store/store';
-import newSizeEmitter from '../emitter/emitter'
+import Emitter from '../emitter/emitter'
 
 export default class Sidebar extends Component {
   constructor(props){
@@ -16,7 +16,7 @@ export default class Sidebar extends Component {
       params:[],
       sizeParam: true,
       sizes: [],
-      url: 'http://localhost:9091/?immediate',
+      url: 'http://localhost:9090/?immediate',
       buildUrl: ''
     }
     
@@ -42,7 +42,7 @@ export default class Sidebar extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    newSizeEmitter.emit('new-size-added')
+    Emitter.newSizeEmitter.emit('new-size-added')
   }
   
 
@@ -103,24 +103,21 @@ export default class Sidebar extends Component {
   }
 
   createWindow(){
-    const { url , sizes } = this.state;
-    console.log(url)
+    const { url , sizes, sizeParam, buildUrl } = this.state;
+    const ProductionURL = new URL(url)
     // http://localhost:9091/?immediate
-    let temp = [
-      { w: 300, h: 600 },
-      { w: 160, h: 600 },
-      // { w: 300, h: 250 },
-      // { w: 320, h: 50 },
-      // { w: 728, h: 90 },
-      // { w: 400, h: 200 },
-      // { w: 500, h: 200 },
-    ]
+ 
+    if( sizeParam ){
+      ProductionURL.searchParams.append('size', '')
+    }
     sizes.map((t) => {
       const { width, height } = t.data;
       const { x, y } = this.getPositions({width, height});
-      console.log(x, y, width, height)
-      createWindow(url, width, height, x + 365, y + 60)
-    })
+
+      if( sizeParam ){ ProductionURL.searchParams.set('size',`${width}x${height}`); }
+
+      createWindow(ProductionURL.href, width, height, x + 365, y + 60);
+    });
     // createWindow("https://electronjs.org/docs/api/browser-view", 500, 300)
   }
 
@@ -139,13 +136,12 @@ export default class Sidebar extends Component {
   }
 
   onUrlChange(e){
-    this.setState({url: e})
+    this.setState({buildUrl: e})
   }
 
   buildURL() {
-    const { url, params } = this.state;
+    const { url, params, sizeParam } = this.state;
     let n = new URL('/', url );
-
     if ( params.length > 0){
       params.map(p => n.searchParams.append(p.name, p.value) );
     }

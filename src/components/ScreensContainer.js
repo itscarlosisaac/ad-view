@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import $ from 'jquery';
 import Packery from 'packery'
 import View from './View';
-import newSizeEmitter from '../emitter/emitter'
+import Emitter from '../emitter/emitter'
 export default class ScreensContainer extends Component {
   constructor(props){
     super(props);
@@ -16,14 +16,16 @@ export default class ScreensContainer extends Component {
 
   componentDidMount() {
     this.getAllSizes();
-    console.log(newSizeEmitter)
-    newSizeEmitter.on('new-size-added', () => {
+    Emitter.newSizeEmitter.on('new-size-added', () => {
       this.getAllSizes()
-    })
+    });
   }
 
   initPickery() {
-    function onLayout() { console.log('layout done'); }
+    function onLayout() {
+      const e = document.querySelectorAll('.layoutHolder')
+      Emitter.layoutEmitter.emit('new-layout', e)
+    }
     const c = document.querySelector('.screens')
     setTimeout(()=> {
       var pckry = new Packery( c, {

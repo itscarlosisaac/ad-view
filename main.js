@@ -73,7 +73,7 @@ function createWindow() {
   })
 
   mainWindow.on('resize', function(e) {
-    e.sender.send('resized', this)
+    e.sender.send('resized', e)
   });
 }
 
