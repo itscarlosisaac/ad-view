@@ -20,7 +20,7 @@ export default class Sidebar extends Component {
       url: '',
       validURL: false
     }
-    
+
     this.addSize = this.addSize.bind(this);
     this.getAllSizes = this.getAllSizes.bind(this);
     this.deleteSize = this.deleteSize.bind(this);
@@ -60,11 +60,19 @@ export default class Sidebar extends Component {
 
   addParam(params){
     const { name, value } = params
+    const { validURL, url } = this.state;
     this.props.store.setParam({
       id: uuid(),
       param: { name, value }
     }).then(() => {
       this.getAllParams();
+    }).then(()=> {
+      const { validURL, url } = this.state;
+      if( validURL ){
+        setTimeout(()=> {
+          this.buildURL(url);
+        }, 100)
+      }
     })
   }
 
@@ -72,7 +80,16 @@ export default class Sidebar extends Component {
     const id = e.currentTarget.id;
     this.props.store.deleteParam(id).then(()=>{
       console.log('Deleted:', id)
+    }).then(() => {
       this.getAllParams();
+    }).then(()=> {
+      const { validURL, url } = this.state;
+      const n = new URL( url );
+      if( validURL ){
+        setTimeout(()=> {
+          this.buildURL(n.origin + n.pathname);
+        }, 100)
+      }
     })
   }
 
@@ -151,6 +168,7 @@ export default class Sidebar extends Component {
     if ( params.length > 0){
       params.map(p => n.searchParams.append(p.param.name, p.param.value) );
     }
+    console.log(n.href)
     this.setState({ url: n.href });
   }
 
