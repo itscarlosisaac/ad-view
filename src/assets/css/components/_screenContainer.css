@@ -16,9 +16,28 @@
 .app__screens .screens .layoutHolder{
   text-align: center;
   box-sizing: border-box;
-  border: 2px dashed #4194af;
+  /* border: 2px dashed #4194af; */
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+.app__screens .screens .layoutHolder h3 {
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(192, 192, 192);
+  color: #19708d;
+  margin: 0;
+  padding: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  box-sizing: border-box;
 }

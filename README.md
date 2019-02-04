@@ -11,11 +11,12 @@
 - ~~Not allow create screen when the sizes array is empty~~
 - ~~Add support to remove params or sizes~~
 - When sizes are removed should remove the screen if has been created.
-- Create Build Process for windows and mac
+- ~~Create Build Process for windows and mac~~
 - Avoid click on banner open new links.
 - Make click on banner to open new links shows up a message in the console or an alert box.
 - Avoid duplicated params
 - ~~Avoid duplicated screen creation~~ **Partially**
+- When adding a size, if the screen are created, it should destroy the screens and create them again.
 
 ---------
 

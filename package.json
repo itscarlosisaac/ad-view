@@ -1,7 +1,8 @@
 {
   "name": "electron-react-ad-viewer-app",
+  "productName": "Ad Viewer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ad Viewer Application",
   "license": "MIT",
   "private": true,
   "author": {
@@ -20,10 +21,14 @@
     "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js --mode development",
     "build": "webpack --config webpack.build.config.js --mode production",
     "package": "npm run build",
-    "postpackage": "electron-packager ./ --out=./builds"
+    "postpackage": "yarn run build-mac && yarn run build-windows",
+    "build-mac": "electron-packager ./ --platform=darwin --asar --out ./builds --overwrite --icon ./src/icons/Icon.icns",
+    "build-windows": "electron-packager ./ --platform=win32 --arch=x64 --asar --out ./builds --overwrite --icon ./src/icons/Icon.ico",
+    "build-linux": "electron-packager ./ --platform=linux --asar --out ./builds --overwrite --icon ./src/icons/Icon.png"
   },
   "dependencies": {
     "electron": "^4.0.2",
+    "electron-builder": "^20.38.5",
     "idb": "^3.0.2",
     "jquery": "^3.3.1",
     "packery": "^2.1.2",

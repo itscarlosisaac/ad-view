@@ -57,7 +57,7 @@ function createWindow() {
   // Don't show until we are ready and loaded`
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-    createAppMenu();
+    // createAppMenu();
 
     // Open the DevTools automatically if developing
     if (dev) {
@@ -96,7 +96,7 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createWindow()
+    // createWindow()
   }
 })
 

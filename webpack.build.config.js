@@ -38,7 +38,10 @@ module.exports = {
   },
   target: 'electron-renderer',
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: "Ad Viewer",
+      meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
+    }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional

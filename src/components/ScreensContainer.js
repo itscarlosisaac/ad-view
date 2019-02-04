@@ -49,15 +49,18 @@ export default class ScreensContainer extends Component {
       <section className="app__screens">
         {/* <h1>ScreensContainer</h1> */}
         <div className="screens">
+
         {
           this.state.sizes.map((size, index) => {
             return <div className="layoutHolder" key={index} style={
                 {
                   width:size.data.width,
-                  height:size.data.height
+                  height:size.data.height + 40
                 }
               }>
-              {size.data.width}x{size.data.height}
+              <h3>{size.data.width}x{size.data.height}</h3>
+              <View className="layoutHolder" url={`http://localhost:9090?immediate&size=${size.data.width}x${size.data.height}`} key={index} width={size.data.width} height={size.data.height}/>
+              {/* {size.data.width}x{size.data.height} */}
             </div>
           })
         }
