@@ -68,9 +68,10 @@ export default class Sidebar extends Component {
       this.getAllParams();
     }).then(()=> {
       const { validURL, url } = this.state;
+      const n = new URL( url );
       if( validURL ){
         setTimeout(()=> {
-          this.buildURL(url);
+          this.buildURL(n.origin + n.pathname);
         }, 100)
       }
     })
