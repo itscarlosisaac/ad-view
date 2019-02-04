@@ -16,13 +16,17 @@
 .app__screens .screens .layoutHolder{
   text-align: center;
   box-sizing: border-box;
-  /* border: 2px dashed #4194af; */
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
+
+.dashed {
+  border: 2px dashed #4194af;
+}
+
 .app__screens .screens .layoutHolder h3 {
   height: 30px;
   width: 100%;

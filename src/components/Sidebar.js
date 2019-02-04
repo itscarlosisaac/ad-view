@@ -4,6 +4,7 @@ import Button from './Button';
 import AddParam from './AddParam';
 import AddSizes from './AddSizes';
 import createWindow from '../ipc/createWindow';
+import View from './View';
 import uuid from 'uuid';
 import { url } from 'url'
 import Store from '../store/store';
@@ -123,18 +124,19 @@ export default class Sidebar extends Component {
   createWindow(){
     const { url , sizes, sizeParam } = this.state;
     const ProductionURL = new URL(url)
-    Emitter.screenEmitter.emit('destroy-screens');
+    // Emitter.screenEmitter.emit('destroy-screens');
 
     if( sizeParam ){ ProductionURL.searchParams.append('size', '') }
 
-    sizes.map((t) => {
+    const Layouts =  sizes.map((t,index) => {
       const { width, height } = t.data;
-      const { x, y } = this.getPositions({width, height});
+      // const { x, y } = this.getPositions({width, height});
 
       if( sizeParam ){ ProductionURL.searchParams.set('size',`${width}x${height}`); }
-
-      createWindow(ProductionURL.href, width, height, x + 365, y + 60);
+      // createWindow(ProductionURL.href, width, height, x + 365, y + 60);
+      return <View key={index} className="layoutHolder" url={ProductionURL.href} width={width} height={height}/>
     });
+    this.props.views(Layouts)
   }
 
   getPositions (size) {

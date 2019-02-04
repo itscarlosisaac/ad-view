@@ -12,6 +12,8 @@ export default class ScreensContainer extends Component {
 
     this.getAllSizes = this.getAllSizes.bind(this);
     this.initPickery = this.initPickery.bind(this);
+    this.renderViews = this.renderViews.bind(this);
+    this.renderPlaceholders = this.renderPlaceholders.bind(this);
   }
 
   componentDidMount() {
@@ -43,27 +45,37 @@ export default class ScreensContainer extends Component {
     })
   }
 
+  renderViews(){
+    return this.props.views.map(v => {
+      const { width, height } = v.props;
+      return <div className="layoutHolder" key={v.key} style={ { width, height: height + 40 } }>
+        <h3>{width}x{height}</h3>
+        {v}
+      </div>
+    })
+  }
+
+  renderPlaceholders(){
+    return this.state.sizes.map((size, index) => {
+      return <div className="layoutHolder dashed" key={index} style={
+          {
+            width:size.data.width,
+            height:size.data.height + 40
+          }
+        }>
+        {size.data.width}x{size.data.height}
+      </div>
+    })
+  }
 
   render() {
     return (
       <section className="app__screens">
         {/* <h1>ScreensContainer</h1> */}
         <div className="screens">
-
-        {
-          this.state.sizes.map((size, index) => {
-            return <div className="layoutHolder" key={index} style={
-                {
-                  width:size.data.width,
-                  height:size.data.height + 40
-                }
-              }>
-              <h3>{size.data.width}x{size.data.height}</h3>
-              <View className="layoutHolder" url={`http://localhost:9090?immediate&size=${size.data.width}x${size.data.height}`} key={index} width={size.data.width} height={size.data.height}/>
-              {/* {size.data.width}x{size.data.height} */}
-            </div>
-          })
-        }
+        
+        { this.renderViews() }
+        {/* { this.renderPlaceholders() } */}
         </div>
       </section>
     )
