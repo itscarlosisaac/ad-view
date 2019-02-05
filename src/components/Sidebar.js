@@ -113,7 +113,9 @@ export default class Sidebar extends Component {
     this.props.store.delete(id).then(()=>{
       console.log('Deleted:', id)
       this.getAllSizes();
-    })
+    }).then(() => {
+      this.createWindow();
+    });
   }
 
   toggleSizeParam(){
@@ -124,16 +126,14 @@ export default class Sidebar extends Component {
   createWindow(){
     const { url , sizes, sizeParam } = this.state;
     const ProductionURL = new URL(url)
-    // Emitter.screenEmitter.emit('destroy-screens');
 
     if( sizeParam ){ ProductionURL.searchParams.append('size', '') }
 
     const Layouts =  sizes.map((t,index) => {
       const { width, height } = t.data;
-      // const { x, y } = this.getPositions({width, height});
 
       if( sizeParam ){ ProductionURL.searchParams.set('size',`${width}x${height}`); }
-      // createWindow(ProductionURL.href, width, height, x + 365, y + 60);
+
       return <View key={index} className="layoutHolder" url={ProductionURL.href} width={width} height={height}/>
     });
     this.props.views(Layouts)
@@ -187,7 +187,6 @@ export default class Sidebar extends Component {
             { this.state.url }
           </span>
           </p>
-          
         </header>
 
         <section className="app__params">
@@ -217,7 +216,7 @@ export default class Sidebar extends Component {
           <span className="size__param">
           {
             this.state.sizeParam ? 
-            <i className="material-icons on">check_box</i> : 
+            <i className="material-icons on">check_box</i> :
             <i className="material-icons off">check_box_outline_blank</i>
           }
           </span>

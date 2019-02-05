@@ -6,6 +6,7 @@ builds/
 #################################
 .tmp/
 dist/
+_design/
 node_modules/
 *.compiled.*
 

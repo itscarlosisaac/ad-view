@@ -2,7 +2,7 @@
 
 - ~~Add size support~~
 - ~~Add IndexDB Store support~~
-- Add Title size to banners views
+- ~~Add Title size to banners views~~
 - Double Click to edit added param or size
 - ~~Fix Windows Arrangement~~ **Partially**
 - ~~Make `Use size as param work`~~

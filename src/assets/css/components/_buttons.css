@@ -42,3 +42,14 @@ button[disabled]{
   background: #f4f4f4;
   color: #cccccc;
 }
+
+.btn__make__screen {
+  font-weight: bold;
+  background: var(--main-purple);
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.23);
+  border-radius: 20px;
+  font-size: 14px;
+  color: #FFFFFF;
+  width: 144px;
+  height: 40px;
+}

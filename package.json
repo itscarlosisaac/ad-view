@@ -22,7 +22,7 @@
     "build": "webpack --config webpack.build.config.js --mode production",
     "package": "npm run build",
     "postpackage": "yarn run build-mac && yarn run build-windows",
-    "build-mac": "electron-packager ./ --platform=darwin --asar --out ./builds --overwrite --icon ./src/icons/Icon.icns",
+    "build-mac": "electron-packager ./ --platform=darwin --out ./builds --overwrite --icon ./src/icons/Icon.icns",
     "build-windows": "electron-packager ./ --platform=win32 --arch=x64 --asar --out ./builds --overwrite --icon ./src/icons/Icon.ico",
     "build-linux": "electron-packager ./ --platform=linux --asar --out ./builds --overwrite --icon ./src/icons/Icon.png"
   },

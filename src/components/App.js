@@ -2,7 +2,7 @@ import '../assets/css/App.css'
 import React, { Component } from 'react'
 import ScreensContainer from './ScreensContainer';
 import Sidebar from './Sidebar';
-import View from './View';
+import Header from './Header';
 class App extends React.Component {
   constructor(props){
     super(props)
@@ -20,6 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app__container">
+        {/* <Header/> */}
         <Sidebar store={this.props.store} views={this.createViews}/>
         <ScreensContainer store={this.props.store} views={this.state.views} />
       </div>

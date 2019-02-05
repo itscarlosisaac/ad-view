@@ -1,0 +1,15 @@
+.app__header {
+  align-items: center;
+  background: var(--main-dark-blue);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: 80px;
+  justify-content: space-between;
+  padding: 0 20px;
+  width: 100vw;
+}
+
+.flex__end {
+  justify-self: flex-end;
+}

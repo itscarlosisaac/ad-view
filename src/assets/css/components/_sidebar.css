@@ -4,7 +4,7 @@
   width: 350px;
   max-width: 350px;
   height: 100%;
-  background: #ffffff;
+  /* background: var(--main-darker-blue); */
   display: flex;
   flex-direction: column;
   padding: 20px;
