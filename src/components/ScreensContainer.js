@@ -54,7 +54,6 @@ export default class ScreensContainer extends Component {
           <span>{width}x{height}</span>
           <CloseAd />
         </div> 
-        
         {v}
       </div>
     })
