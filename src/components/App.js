@@ -20,7 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app__container">
-        {/* <Header/> */}
+        <Header/>
         <Sidebar store={this.props.store} views={this.createViews}/>
         <ScreensContainer store={this.props.store} views={this.state.views} />
       </div>

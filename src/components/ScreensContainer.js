@@ -3,6 +3,7 @@ import $ from 'jquery';
 import Packery from 'packery'
 import View from './View';
 import Emitter from '../emitter/emitter'
+import CloseAd from './Close';
 export default class ScreensContainer extends Component {
   constructor(props){
     super(props);
@@ -48,8 +49,12 @@ export default class ScreensContainer extends Component {
   renderViews(){
     return this.props.views.map(v => {
       const { width, height } = v.props;
-      return <div className="layoutHolder" key={v.key} style={ { width, height: height + 40 } }>
-        <h3>{width}x{height}</h3>
+      return <div className="layoutHolder" key={v.key} style={ { width, height: height + 30 } }>
+        <div className="title__bar">
+          <span>{width}x{height}</span>
+          <CloseAd />
+        </div> 
+        
         {v}
       </div>
     })
