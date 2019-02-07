@@ -7,9 +7,11 @@ export default class Header extends Component {
     super(props);
     this.state = {
       protocol: "Http://",
-      isOpen: true,
+      isOpen: false,
+      url: ""
     }
     this.toggleProtocol = this.toggleProtocol.bind(this);
+    this.toggleChange = this.toggleChange.bind(this);
   }
 
   toggleProtocol(e){
@@ -21,8 +23,14 @@ export default class Header extends Component {
     });
   }
 
+  toggleChange(e){
+    const temp = e.target.value;
+    this.props.getURL(temp)
+    this.setState({url: temp})
+  }
+
   render() {
-    const { protocol, isOpen } = this.state;
+    const { protocol, isOpen, url } = this.state;
     return (
       <header className="app__header">
         <Logo />
@@ -42,7 +50,7 @@ export default class Header extends Component {
               </ul> ) : ""
             }
           </span>
-          <input className="input__url" type="url" placeholder="example.com"/>
+          <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>
         </div>
         <div className="action__container">
           <button className="btn__make__screen">Make Screens</button>

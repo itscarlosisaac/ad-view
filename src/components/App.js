@@ -7,20 +7,25 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      views: []
+      views: [],
+      url: ""
     }
     this.createViews = this.createViews.bind(this);
+    this.getURL = this.getURL.bind(this);
+  }
+
+  getURL(url){
+    this.setState({url})
   }
 
   createViews(layout){
     this.setState({views:layout})
-    // return <View className="layoutHolder" url={url} width={w} height={h}/>
   }
 
   render() {
     return (
       <div className="app__container">
-        <Header/>
+        <Header getURL={this.getURL}/>
         <Sidebar store={this.props.store} views={this.createViews}/>
         <ScreensContainer store={this.props.store} views={this.state.views} />
       </div>
