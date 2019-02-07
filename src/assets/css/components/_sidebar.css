@@ -4,16 +4,35 @@
   width: 350px;
   max-width: 350px;
   height: 100%;
-  /* background: var(--main-darker-blue); */
+  background: var(--main-darker-blue);
   display: flex;
   flex-direction: column;
   padding: 20px;
   box-sizing: border-box;
+  overflow: scroll;
 }
 
 .app__sidebar--header {
   padding: 20px 0;
   margin: 20px 0;
+}
+
+.app__sidebar--title {
+  font-weight: 500;
+  font-size: 16px;
+  color: #FFFFFF;
+  letter-spacing: 0.36px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.app__sidebar--title .add{
+  position: relative;
+  top:5px;
+  cursor: pointer;
 }
 
 .app__sidebar--footer {

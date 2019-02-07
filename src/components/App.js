@@ -8,7 +8,10 @@ class App extends React.Component {
     super(props)
     this.state = {
       views: [],
-      url: ""
+      sizes: [],
+      params: [],
+      url: "",
+      useSizeAsParam: true,
     }
     this.createViews = this.createViews.bind(this);
     this.getURL = this.getURL.bind(this);

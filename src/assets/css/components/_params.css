@@ -1,4 +1,4 @@
-.app__params {
+/* .app__params {
   border-top:1px solid #eaf0f5;
   border-bottom:1px solid #eaf0f5;
   padding: 20px;
@@ -61,23 +61,57 @@
 
 .app__param__list li:hover > i {
   right: 0;
+} */
+
+.app__param__list {
+  margin: 20px 0 0 0;
+  padding: 0;
+  font-size: 14px;
+  color: #6A81B8;
+  letter-spacing: 0.31px;
+}
+
+.app__param__list .app__param {
+  border-bottom: 1px solid rgba(106, 129, 184, 0.219);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.app__param__list span:first-of-type {
+  margin-right: 10px;
+}
+
+.app__param__list i {
+  justify-self: flex-end;
+  cursor: pointer;
+  margin-left: auto;
+  color:var(--main-red)
 }
 
 /* Size param section */
+.hidden {
+  display: none;
+}
 .app__size__param {
   margin: 20px 0;
 }
 .app__size__param p {
   cursor: pointer;
 }
+
 .app__size__param .size__param i {
   font-size: 21px;
   vertical-align: text-top;
   margin-right: 10px;
 }
+
 .app__size__param .size__param i.off {
   color: #98a7b6;
 }
+
 .app__size__param .size__param i.on {
   color: #33994d;
 }

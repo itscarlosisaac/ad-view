@@ -50,6 +50,7 @@
   padding-left: 10px;
   cursor: pointer;
   position: relative;
+  min-width: 95px;
 }
 
 .input__container .input__protocol .input__protocol__list{

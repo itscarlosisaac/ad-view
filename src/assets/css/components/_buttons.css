@@ -11,6 +11,17 @@
   cursor: pointer;
 }
 
+.btn.primary {
+  font-weight: 500;
+  font-size: 12px;
+  color: #055065;
+  letter-spacing: 0.26px;
+  text-align: center;
+  background: #45D6FF;
+  height: 30px;
+  width: 120px;
+  margin-top: 10px;
+}
 
 .btn__addparam {
   width: 130px;

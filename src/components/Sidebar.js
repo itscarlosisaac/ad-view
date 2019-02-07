@@ -3,11 +3,8 @@ import Input from './Input';
 import Button from './Button';
 import AddParam from './AddParam';
 import AddSizes from './AddSizes';
-import createWindow from '../ipc/createWindow';
 import View from './View';
 import uuid from 'uuid';
-import { url } from 'url'
-import Store from '../store/store';
 import Emitter from '../emitter/emitter'
 import validate from 'validate.js'
 
@@ -179,7 +176,7 @@ export default class Sidebar extends Component {
     const disabled = !this.state.validURL || this.state.sizes.length === 0;
     return (
       <aside className="app__sidebar">
-        <header className="app__sidebar--header">
+        {/* <header className="app__sidebar--header">
           <Input onUrlChange={this.onUrlChange} placeholder="https://example.com" name="url" id="url" type="url"/>
           <p>
           <br />
@@ -187,12 +184,20 @@ export default class Sidebar extends Component {
             { this.state.url }
           </span>
           </p>
-        </header>
+        </header> */}
 
         <section className="app__params">
-          <h3>Parameters</h3>
+          <div className="app__sidebar--title">
+            <span>Parameters</span>
+            <i className="material-icons add">add</i>
+          </div>
           <ul className="app__param__list">
-            {
+            <li className="app__param">
+              <span>Immediate:</span>
+              <span>True</span>
+              <i className="material-icons"> cancel </i>
+            </li>
+            {/* {
               this.state.params.map((i, index) => {
                 return <li key={index}>
                 <span className="param__name">{i.param.name}:</span>
@@ -205,12 +210,12 @@ export default class Sidebar extends Component {
                   </i>
                 </li>
               })
-            }
+            } */}
           </ul>
           <AddParam addParam={this.addParam}/>
         </section>
 
-        <section className="app__size__param">
+        <section className="app__size__param hidden">
           {/* <input type="checkbox" name="size-param" id="size-param" checked={this.state.sizeParam} onChange={this.toggleSizeParam} /> */}
           <p onClick={this.toggleSizeParam}>
           <span className="size__param">
@@ -226,8 +231,11 @@ export default class Sidebar extends Component {
          </small>
         </section>
 
-        <section className="app__sizes">
-          <h3>Sizes</h3>
+        <section className="app__sizes hidden">
+          <div className="app__sidebar--title">
+            <span>Sizes</span>
+            <i className="material-icons add">add</i>
+          </div>
           <ul className="app__size__list">
             {
               this.state.sizes.map((i, index) => {
@@ -246,9 +254,9 @@ export default class Sidebar extends Component {
           <AddSizes addSize={this.addSize} />
         </section>
 
-        <footer className="app__sidebar--footer">
+        {/* <footer className="app__sidebar--footer">
           <Button disabled={disabled} cName="btn__create__screen" content="Create Screens" onClick={this.createWindow}/>
-        </footer>
+        </footer> */}
       </aside>
     )
   }

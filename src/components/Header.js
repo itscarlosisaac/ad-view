@@ -25,7 +25,7 @@ export default class Header extends Component {
 
   toggleChange(e){
     const temp = e.target.value;
-    this.props.getURL(temp)
+    this.props.getURL(this.state.protocol + temp)
     this.setState({url: temp})
   }
 
