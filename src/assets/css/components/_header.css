@@ -41,7 +41,7 @@
 
 .input__container .input__protocol {
   width: 95px;
-  background: var(--main-darker-blue);
+  background: #21242A;
   height: 100%;
   display: flex;
   align-items: center;
@@ -49,6 +49,24 @@
   color: #ffffff;
   padding-left: 10px;
   cursor: pointer;
+  position: relative;
+}
+
+.input__container .input__protocol .input__protocol__list{
+  position: absolute;
+  left:0;
+  top:100%;
+  background-color: #474c57;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input__container .input__protocol .input__protocol__list li {
+  padding: 10px;
+}
+
+.input__container .input__protocol .input__protocol__list li:hover {
+  background-color: #21242A;
 }
 
 .input__container .input__protocol svg {
@@ -58,6 +76,7 @@
 .input__container .input__url::placeholder {
   color: #7F93A7;
 }
+
 .input__container .input__url {
   height: 100%;
   border:none;
