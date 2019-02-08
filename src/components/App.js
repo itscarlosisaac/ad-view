@@ -59,7 +59,7 @@ class App extends React.Component {
         const views = this.state.views.filter(v => v.props.id !== e);
         this.setState({views});
       });
-      
+
     })
   }
 
@@ -109,7 +109,12 @@ class App extends React.Component {
     const id = e.currentTarget.id;
     this.props.store.delete(id).then(()=>{
       this.getAllSizes();
-    })
+    });
+
+    process.nextTick(() => {
+      const views = this.state.views.filter(v => v.props.id !== id);
+      this.setState({views});
+    });
   }
 
   toggleSizeParam(){
