@@ -9,7 +9,9 @@ export default class Input extends Component {
     }
     this.onChange = this.onChange.bind(this)
     this.isDirty = this.isDirty.bind(this)
+    this.resetField = this.resetField.bind(this)
   }
+
   onChange(e){
     const newState = e.target.value;
     const dirty = this.isDirty(newState)
@@ -19,15 +21,29 @@ export default class Input extends Component {
       dirty,
     });
   }
+
   isDirty(v){
     return v !== '' ? 'dirty' : 'not-dirty';
   }
+
+  resetField(){
+    this.setState({value:"", isDirty: false});
+  }
+
   render() {
-    const { id, name, placeholder, type } = this.props;
+    const { id, name, placeholder, type, resetField } = this.props;
     const { value, dirty } = this.state;
     return (
       <div className="form-control">
-        <input className={dirty} placeholder={placeholder} onChange={this.onChange} type="text" id={id} name={name} value={value} type={type}/>
+        <input 
+          className={dirty} 
+          placeholder={placeholder} 
+          onChange={this.onChange}  
+          type={type} 
+          id={id} 
+          name={name} 
+          value={value} 
+          type={type}/>
       </div>
     )
   }
@@ -35,5 +51,6 @@ export default class Input extends Component {
 
 Input.defaultProps = {
   type: "text",
+  resetField: () => {},
   onUrlChange: () => {}
 }

@@ -6,6 +6,8 @@ export default class AddParam extends Component {
   constructor(props){
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.nameRef = React.createRef();
+    this.valueRef = React.createRef();
   }
 
   handleSubmit(e){
@@ -15,6 +17,8 @@ export default class AddParam extends Component {
         name: e.target.elements[0].value,
         value: e.target.elements[1].value === "" ? "true" : e.target.elements[1].value
       })
+      this.nameRef.current.resetField()
+      this.valueRef.current.resetField()
     }
   }
 
@@ -22,8 +26,8 @@ export default class AddParam extends Component {
     return (
       <form className="add__params" onSubmit={this.handleSubmit}>
         <div className="inputs">
-          <Input placeholder="Parameter Name" name="param-name" id="param-name"/>
-          <Input placeholder="Parameter Value" name="param-value" id="param-value"/>
+          <Input ref={this.nameRef} placeholder="Parameter Name" name="param-name" id="param-name"/>
+          <Input ref={this.valueRef} placeholder="Parameter Value" name="param-value" id="param-value"/>
         </div>
         <Button type="submit" content="Add Param" cName="btn primary"/>
       </form>
