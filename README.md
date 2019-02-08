@@ -4,7 +4,7 @@
 - ~~Add IndexDB Store support~~
 - ~~Add Title size to banners views~~
 - Double Click to edit added param or size
-- ~~Fix Windows Arrangement~~ **Partially**
+- ~~Fix Windows Arrangement~~
 - ~~Make `Use size as param work`~~
 - Add visual for wrong forms ( url , params. size )
 - Add support for Dev tools for banners ( This should change on focus of the banner view )
@@ -15,7 +15,7 @@
 - Avoid click on banner open new links.
 - Make click on banner to open new links shows up a message in the console or an alert box.
 - Avoid duplicated params
-- ~~Avoid duplicated screen creation~~ **Partially**
+- Avoid duplicated screen creation
 - When adding a size, if the screen are created, it should destroy the screens and create them again.
 
 ---------

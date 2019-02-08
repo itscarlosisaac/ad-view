@@ -51,6 +51,7 @@
   cursor: pointer;
   position: relative;
   min-width: 95px;
+  text-transform: lowercase;
 }
 
 .input__container .input__protocol .input__protocol__list{

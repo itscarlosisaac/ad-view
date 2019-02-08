@@ -35,14 +35,14 @@ export default class Input extends Component {
     const { value, dirty } = this.state;
     return (
       <div className="form-control">
-        <input 
-          className={dirty} 
-          placeholder={placeholder} 
-          onChange={this.onChange}  
-          type={type} 
-          id={id} 
-          name={name} 
-          value={value} 
+        <input
+          className={dirty}
+          placeholder={placeholder}
+          onChange={this.onChange}
+          type={type}
+          id={id}
+          name={name}
+          value={value}
           type={type}/>
       </div>
     )

@@ -9,6 +9,7 @@ import View from './View';
 
 // Import helpers
 import uuid from 'uuid';
+import Emitter from '../emitter/emitter'
 
 class App extends React.Component {
   constructor(props){
@@ -17,13 +18,13 @@ class App extends React.Component {
       views: [],
       sizes: [],
       params: [],
-      url: "",
+      url: "localhost:909",
       useSizeAsParam: true,
     }
 
     // Header Methods
     this.createViews = this.createViews.bind(this);
-    this.createWindows = this.createWindows.bind(this);
+    this.createViews = this.createViews.bind(this);
     this.getURL = this.getURL.bind(this);
 
     // Params Methods
@@ -39,11 +40,27 @@ class App extends React.Component {
     this.addSize = this.addSize.bind(this);
     this.deleteSize = this.deleteSize.bind(this);
 
+    // Helper Methods
+    this.instantiateEmitters = this.instantiateEmitters.bind(this)
   }
 
   componentWillMount() {
     this.getAllParams();
     this.getAllSizes();
+    this.getAllSizes();
+    this.instantiateEmitters();
+  }
+
+  instantiateEmitters(){
+    Emitter.screenEmitter.on('remove-screen', (e)=> {
+      this.props.store.delete(e).then(e => this.getAllSizes() )
+
+      process.nextTick(() => {
+        const views = this.state.views.filter(v => v.props.id !== e);
+        this.setState({views});
+      });
+      
+    })
   }
 
   getAllParams(){
@@ -108,31 +125,34 @@ class App extends React.Component {
     this.setState({views:layout})
   }
 
-  createWindows(){
+  createViews(){
     const { url , sizes, params, useSizeAsParam } = this.state;
     const ProductionURL = new URL(url)
     if ( params.length > 0){
       params.map(p => ProductionURL.searchParams.append(p.param.name, p.param.value) );
     }
     const views =  sizes.map((t,index) => {
-      const { width, height } = t.data;
+      const id = t.id
+      const { width, height,  } = t.data;
+      console.log(t)
       if( useSizeAsParam ) {
         ProductionURL.searchParams.append('size', '')
         ProductionURL.searchParams.set('size',`${width}x${height}`);
       }
-      return <View key={index} className="layoutHolder" url={ProductionURL.href} width={width} height={height}/>
+      return <View key={index} className="layoutHolder" id={id} url={ProductionURL.href} width={width} height={height}/>
     });
     this.setState({views})
   }
 
   render() {
+    const { sizes, views } = this.state;
     return (
       <div className="app__container">
         <Header
           getURL={this.getURL}
           getProtocol={this.getProtocol}
           url={this.state.url}
-          createWindows={this.createWindows}
+          createViews={this.createViews}
         />
         <Sidebar
           useSizeAsParam={this.state.useSizeAsParam}
@@ -144,7 +164,7 @@ class App extends React.Component {
           sizes={this.state.sizes}
           views={this.createViews}
         />
-        <ScreensContainer store={this.props.store} views={this.state.views} />
+        <ScreensContainer sizes={sizes} views={views} />
       </div>
     )
   }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import AddParam from './AddParam';
 import AddSizes from './AddSizes';
-import Emitter from '../emitter/emitter'
 
 export default class Sidebar extends Component {
   constructor(props){
@@ -13,10 +12,6 @@ export default class Sidebar extends Component {
     this.addParam = this.addParam.bind(this);
     this.deleteParam = this.deleteParam.bind(this);
 
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    Emitter.newSizeEmitter.emit('new-size-added')
   }
 
   addParam(params){

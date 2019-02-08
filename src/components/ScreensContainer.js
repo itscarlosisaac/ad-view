@@ -1,35 +1,27 @@
 import React, { Component } from 'react'
 import $ from 'jquery';
 import Packery from 'packery'
-import View from './View';
 import Emitter from '../emitter/emitter'
-import CloseAd from './Close';
 export default class ScreensContainer extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      sizes: []
-    }
 
-    this.getAllSizes = this.getAllSizes.bind(this);
     this.initPickery = this.initPickery.bind(this);
     this.renderViews = this.renderViews.bind(this);
     this.renderPlaceholders = this.renderPlaceholders.bind(this);
+    this.removeScreen = this.removeScreen.bind(this);
   }
 
-  componentDidMount() {
-    this.getAllSizes();
-    Emitter.newSizeEmitter.on('new-size-added', () => {
-      this.getAllSizes()
-    });
+  componentDidUpdate() {
+    this.initPickery();
   }
 
   initPickery() {
     function onLayout() {
-      const e = document.querySelectorAll('.layoutHolder')
-      Emitter.layoutEmitter.emit('new-layout', e)
+      const e = document.querySelectorAll('.layoutHolder');
+      Emitter.layoutEmitter.emit('new-layout', e);
     }
-    const c = document.querySelector('.screens')
+    const c = document.querySelector('.screens');
     setTimeout(()=> {
       var pckry = new Packery( c, {
         itemSelector: '.layoutHolder',
@@ -39,21 +31,18 @@ export default class ScreensContainer extends Component {
     }, 100);
   }
 
-  getAllSizes(){
-    this.props.store.getAllSizes().then(sizes => {
-      this.setState({sizes})
-      this.initPickery();
-    })
+  removeScreen(e){
+    Emitter.screenEmitter.emit('remove-screen', e.target.id)
   }
 
   renderViews(){
     return this.props.views.map(v => {
-      const { width, height } = v.props;
-      return <div className="layoutHolder" key={v.key} style={ { width, height: height + 30 } }>
+      const { width, height, id } = v.props;
+      return <div className="layoutHolder" id={id}  key={v.key} style={ { width, height: height + 30 } }>
         <div className="title__bar">
           <span>{width}x{height}</span>
-          <CloseAd />
-        </div> 
+          <i className="material-icons close" id={id} onClick={this.removeScreen}>clear</i>
+        </div>
         {v}
       </div>
     })
