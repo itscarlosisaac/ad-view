@@ -23,7 +23,7 @@ export default class Sidebar extends Component {
     this.getAllSizes = this.getAllSizes.bind(this);
     this.deleteSize = this.deleteSize.bind(this);
 
-    this.addParam = this.addParam.bind(this);
+    this.submitParam = this.submitParam.bind(this);
     this.getAllParams = this.getAllParams.bind(this);
     this.deleteParam = this.deleteParam.bind(this);
 
@@ -56,7 +56,7 @@ export default class Sidebar extends Component {
     })
   }
 
-  addParam(params){
+  submitParam(params){
     const { name, value } = params
     const { validURL, url } = this.state;
     this.props.store.setParam({
@@ -65,13 +65,14 @@ export default class Sidebar extends Component {
     }).then(() => {
       this.getAllParams();
     }).then(()=> {
-      const { validURL, url } = this.state;
-      const n = new URL( url );
-      if( validURL ){
+      // const { validURL, url } = this.state;
+      // const n = new URL( url );
+      // if( validURL ){
         setTimeout(()=> {
-          this.buildURL(n.origin + n.pathname);
+          console.log(this.state.params)
+          // this.buildURL(n.origin + n.pathname);
         }, 100)
-      }
+      // }
     })
   }
 
@@ -82,13 +83,13 @@ export default class Sidebar extends Component {
     }).then(() => {
       this.getAllParams();
     }).then(()=> {
-      const { validURL, url } = this.state;
-      const n = new URL( url );
-      if( validURL ){
-        setTimeout(()=> {
-          this.buildURL(n.origin + n.pathname);
-        }, 100)
-      }
+      // const { validURL, url } = this.state;
+      // const n = new URL( url );
+      // if( validURL ){
+      //   setTimeout(()=> {
+      //     this.buildURL(n.origin + n.pathname);
+      //   }, 100)
+      // }
     })
   }
 
@@ -192,27 +193,24 @@ export default class Sidebar extends Component {
             <i className="material-icons add">add</i>
           </div>
           <ul className="app__param__list">
-            <li className="app__param">
+            {/* <li className="app__param">
               <span>Immediate:</span>
               <span>True</span>
-              <i className="material-icons"> cancel </i>
-            </li>
-            {/* {
+              <i className="material-icons"> clear </i>
+            </li> */}
+            {
               this.state.params.map((i, index) => {
-                return <li key={index}>
-                <span className="param__name">{i.param.name}:</span>
-                <span className="param__value">{i.param.value}</span>
-                <i 
-                  id={i.id}
-                  className="material-icons"
-                  onClick={this.deleteParam}>
-                  cancel
-                  </i>
-                </li>
+                return (
+                  <li key={index} className="app__param">
+                    <span className="param__name">{i.param.name}:</span>
+                    <span className="param__value">{i.param.value}</span>
+                    <i id={i.id} onClick={this.deleteParam} className="material-icons"> clear </i>
+                  </li>
+                )
               })
-            } */}
+            }
           </ul>
-          <AddParam addParam={this.addParam}/>
+          <AddParam submitParam={this.submitParam}/>
         </section>
 
         <section className="app__size__param hidden">

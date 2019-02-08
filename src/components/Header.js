@@ -53,7 +53,10 @@ export default class Header extends Component {
           <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>
         </div>
         <div className="action__container">
-          <button className="btn__make__screen">Make Screens</button>
+          <button className="btn__make__screen">
+          Make Screens
+          <span className="material-icons">send</span>
+          </button>
         </div>
       </header>
     )

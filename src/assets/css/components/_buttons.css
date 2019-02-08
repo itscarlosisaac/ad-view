@@ -64,3 +64,10 @@ button[disabled]{
   width: 144px;
   height: 40px;
 }
+
+.btn__make__screen span {
+  font-size: 12px;
+  position: relative;
+  top: 2px;
+  margin-left: 10px;
+}
