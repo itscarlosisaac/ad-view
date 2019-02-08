@@ -40,7 +40,7 @@ export default class ScreensContainer extends Component {
   }
 
   getAllSizes(){
-    this.props.store.getAll().then(sizes => {
+    this.props.store.getAllSizes().then(sizes => {
       this.setState({sizes})
       this.initPickery();
     })
@@ -75,9 +75,7 @@ export default class ScreensContainer extends Component {
   render() {
     return (
       <section className="app__screens">
-        {/* <h1>ScreensContainer</h1> */}
         <div className="screens">
-        
         { this.renderViews() }
         {/* { this.renderPlaceholders() } */}
         </div>

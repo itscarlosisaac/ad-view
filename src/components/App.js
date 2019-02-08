@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import ScreensContainer from './ScreensContainer';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import View from './View';
 
 // Import helpers
 import uuid from 'uuid';
@@ -19,7 +20,10 @@ class App extends React.Component {
       url: "",
       useSizeAsParam: true,
     }
+
+    // Header Methods
     this.createViews = this.createViews.bind(this);
+    this.createWindows = this.createWindows.bind(this);
     this.getURL = this.getURL.bind(this);
 
     // Params Methods
@@ -58,8 +62,6 @@ class App extends React.Component {
   deleteParam(e){
     const id = e.currentTarget.id;
     this.props.store.deleteParam(id).then(()=>{
-      console.log('Deleted:', id)
-    }).then(() => {
       this.getAllParams();
     })
   }
@@ -86,11 +88,9 @@ class App extends React.Component {
   deleteSize(e){
     const id = e.currentTarget.id;
     this.props.store.delete(id).then(()=>{
-      console.log('Deleted:', id)
       this.getAllSizes();
     })
   }
-
 
   getURL(url){
     this.setState({url})
@@ -100,19 +100,34 @@ class App extends React.Component {
     this.setState({views:layout})
   }
 
+  createWindows(){
+    const { url , sizes, params } = this.state;
+    const ProductionURL = new URL(url)
+    const views =  sizes.map((t,index) => {
+    const { width, height } = t.data;
+      return <View key={index} className="layoutHolder" url={ProductionURL.href} width={width} height={height}/>
+    });
+    this.setState({views})
+  }
+
   render() {
     return (
       <div className="app__container">
-        <Header getURL={this.getURL}/>
+        <Header 
+          getURL={this.getURL}
+          getProtocol={this.getProtocol}
+          url={this.state.url}
+          createWindows={this.createWindows}
+        />
         <Sidebar
           store={this.props.store}
-          paramMethods={{add:this.addParam, delete: this.deleteParam}} 
-          sizeMethods={{add:this.addSize, delete: this.deleteSize}} 
+          paramMethods={{add:this.addParam, delete: this.deleteParam}}
+          sizeMethods={{add:this.addSize, delete: this.deleteSize}}
           params={this.state.params}
           sizes={this.state.sizes}
           views={this.createViews}
         />
-        {/* <ScreensContainer store={this.props.store} views={this.state.views} /> */}
+        <ScreensContainer store={this.props.store} views={this.state.views} />
       </div>
     )
   }

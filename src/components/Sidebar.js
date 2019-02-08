@@ -33,9 +33,6 @@ export default class Sidebar extends Component {
   }
 
   componentDidMount() {
-    // this.props.store.clear();
-    // this.getAllSizes();
-    console.log(this.props.paramMethods)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -49,11 +46,11 @@ export default class Sidebar extends Component {
   deleteParam(e){
     this.props.paramMethods.delete(e);
   }
-  
+
   addSize(size){
     this.props.sizeMethods.add(size);
   }
-  
+
   deleteSize(e){
     this.props.sizeMethods.delete(e);
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Logo from './Logo';
-
+import validate from 'validate.js'
 export default class Header extends Component {
 
   constructor(props){
@@ -8,15 +8,21 @@ export default class Header extends Component {
     this.state = {
       protocol: "Http://",
       isOpen: false,
-      url: ""
+      url: "",
+      validURL: false
     }
     this.toggleProtocol = this.toggleProtocol.bind(this);
     this.toggleChange = this.toggleChange.bind(this);
+    this.validateURL = this.validateURL.bind(this);
   }
-
+  componentWillMount() {
+    this.setState({url: this.props.url})
+  }
+  
   toggleProtocol(e){
     const temp = this.state.isOpen;
     const protocol = e.target.dataset.protocol || this.state.protocol;
+    this.props.getURL(protocol + this.state.url)
     this.setState({
       isOpen: !temp,
       protocol,
@@ -25,9 +31,25 @@ export default class Header extends Component {
 
   toggleChange(e){
     const temp = e.target.value;
-    this.props.getURL(this.state.protocol + temp)
+    this.validateURL(temp);
     this.setState({url: temp})
   }
+
+  validateURL(e){
+    const isValid = validate({website: this.state.protocol + e }, {
+      website: {
+        url: { allowLocal: true }
+      }
+    })
+
+    if( isValid === undefined){
+      this.setState({ validURL: true })
+      this.props.getURL(this.state.protocol + e)
+    }else {
+      this.setState({ validURL: false })
+    }
+  }
+
 
   render() {
     const { protocol, isOpen, url } = this.state;
@@ -53,7 +75,7 @@ export default class Header extends Component {
           <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>
         </div>
         <div className="action__container">
-          <button className="btn__make__screen">
+          <button className="btn__make__screen" disabled={!this.state.validURL} onClick={this.props.createWindows}>
           Make Screens
           <span className="material-icons">send</span>
           </button>
