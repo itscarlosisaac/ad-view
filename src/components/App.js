@@ -144,7 +144,6 @@ class App extends React.Component {
     const views =  sizes.map((t,index) => {
       const id = t.id
       const { width, height,  } = t.data;
-      console.log(t)
       if( useSizeAsParam ) {
         ProductionURL.searchParams.append('size', '')
         ProductionURL.searchParams.set('size',`${width}x${height}`);

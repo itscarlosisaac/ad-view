@@ -8,7 +8,6 @@ export default class ScreensContainer extends Component {
 
     this.initPickery = this.initPickery.bind(this);
     this.renderViews = this.renderViews.bind(this);
-    this.renderPlaceholders = this.renderPlaceholders.bind(this);
     this.removeScreen = this.removeScreen.bind(this);
   }
 
@@ -32,7 +31,7 @@ export default class ScreensContainer extends Component {
   }
 
   removeScreen(e){
-    Emitter.screenEmitter.emit('remove-screen', e)
+    Emitter.screenEmitter.emit('remove-screen', e.target.id)
   }
 
   renderViews(){
@@ -47,26 +46,11 @@ export default class ScreensContainer extends Component {
       </div>
     })
   }
-
-  renderPlaceholders(){
-    return this.state.sizes.map((size, index) => {
-      return <div className="layoutHolder dashed" key={index} style={
-          {
-            width:size.data.width,
-            height:size.data.height + 40
-          }
-        }>
-        {size.data.width}x{size.data.height}
-      </div>
-    })
-  }
-
   render() {
     return (
       <section className="app__screens">
         <div className="screens">
         { this.renderViews() }
-        {/* { this.renderPlaceholders() } */}
         </div>
       </section>
     )
