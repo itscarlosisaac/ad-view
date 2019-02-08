@@ -32,7 +32,7 @@ export default class ScreensContainer extends Component {
   }
 
   removeScreen(e){
-    Emitter.screenEmitter.emit('remove-screen', e.target.id)
+    Emitter.screenEmitter.emit('remove-screen', e)
   }
 
   renderViews(){

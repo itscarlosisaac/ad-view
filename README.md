@@ -10,7 +10,7 @@
 - Add support for Dev tools for banners ( This should change on focus of the banner view )
 - ~~Not allow create screen when the sizes array is empty~~
 - ~~Add support to remove params or sizes~~
-- When sizes are removed should remove the screen if has been created.
+- ~~When sizes are removed should remove the screen if has been created.~~
 - ~~Create Build Process for windows and mac~~
 - Avoid click on banner open new links.
 - Make click on banner to open new links shows up a message in the console or an alert box.

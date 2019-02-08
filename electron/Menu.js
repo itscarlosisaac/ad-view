@@ -6,20 +6,37 @@ const {
   dialog
 } = require('electron');
 
+// const Emitter = require('../src/emitter/emitter');
+const mainProcess = require('../main');
 const createAppMenu = () => {
-  const template = [{
-    label: 'File',
-    submenu: [{
-      label: 'Quit',
-      accelerator: 'CommandOrControl+Q',
-      click() {
-        app.quit();
-      }
-    }]
-  }];
+  const name = 'Ad Viewer';
+  const template = [
+    {
+      label: 'File',
+      submenu: [{
+        label: `Quit ${name}`,
+        accelerator: 'CommandOrControl+Q',
+        click() {
+          app.quit();
+        }
+      }]
+    },
+    {
+      label: 'Edit',
+      submenu:[
+        {
+          label: "Make Screens",
+          accelerator: 'CommandOrControl+Enter',
+          click(){
+            console.log(mainProcess.createViews())
+            // Emitter.screenEmitter.emit('create-views')
+          }
+        }
+      ]
+    }
+  ];
 
   if (process.platform === 'darwin') {
-    const name = 'Ad Viewer';
     template.unshift({
       label: name,
       submenu: [{

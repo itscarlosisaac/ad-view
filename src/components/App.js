@@ -1,5 +1,6 @@
 import '../assets/css/App.css'
 import React, { Component } from 'react'
+import { ipcRenderer } from 'electron';
 
 // Import components
 import ScreensContainer from './ScreensContainer';
@@ -59,8 +60,12 @@ class App extends React.Component {
         const views = this.state.views.filter(v => v.props.id !== e);
         this.setState({views});
       });
-
     })
+
+    ipcRenderer.on('create-views', () => {
+      this.createViews();
+    })
+    
   }
 
   getAllParams(){
