@@ -6,6 +6,9 @@ export default class addSizes extends Component {
   constructor(props){
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.widthRef = React.createRef();
+    this.heightRef = React.createRef();
   }
 
   handleSubmit(e){
@@ -15,15 +18,20 @@ export default class addSizes extends Component {
       this.props.addSize({
         width: e.target.elements[0].value,
         height: e.target.elements[1].value
-      })
+      });
+      this.widthRef.current.resetField()
+      this.heightRef.current.resetField()
     }
   }
+
   render() {
     return (
-      <form className="add__sizes" onSubmit={this.handleSubmit}>
-        <Input placeholder="Width" name="width" id="width" type="number"/>
-        <Input placeholder="Height" name="height" id="height" type="number"/>
-        <Button cName="btn__addsize" content="Add Size" type="submit"/>
+      <form className="input__row" onSubmit={this.handleSubmit}>
+        <div className="inputs">
+          <Input ref={this.widthRef} placeholder="Width" name="width" id="width" type="number"/>
+          <Input ref={this.heightRef} placeholder="Height" name="height" id="height" type="number"/>
+        </div>
+        <Button cName="btn primary" content="Add Size" type="submit"/>
       </form>
     )
   }

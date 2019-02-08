@@ -24,7 +24,7 @@ export default class AddParam extends Component {
 
   render() {
     return (
-      <form className="add__params" onSubmit={this.handleSubmit}>
+      <form className="input__row" onSubmit={this.handleSubmit}>
         <div className="inputs">
           <Input ref={this.nameRef} placeholder="Parameter Name" name="param-name" id="param-name"/>
           <Input ref={this.valueRef} placeholder="Parameter Value" name="param-value" id="param-value"/>
