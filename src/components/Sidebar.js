@@ -20,11 +20,9 @@ export default class Sidebar extends Component {
     }
 
     this.addSize = this.addSize.bind(this);
-    this.getAllSizes = this.getAllSizes.bind(this);
     this.deleteSize = this.deleteSize.bind(this);
 
-    this.submitParam = this.submitParam.bind(this);
-    this.getAllParams = this.getAllParams.bind(this);
+    this.addParam = this.addParam.bind(this);
     this.deleteParam = this.deleteParam.bind(this);
 
     this.toggleSizeParam = this.toggleSizeParam.bind(this);
@@ -36,84 +34,28 @@ export default class Sidebar extends Component {
 
   componentDidMount() {
     // this.props.store.clear();
-    this.getAllSizes();
-    this.getAllParams();
+    // this.getAllSizes();
+    console.log(this.props.paramMethods)
   }
 
   componentDidUpdate(prevProps, prevState) {
     Emitter.newSizeEmitter.emit('new-size-added')
   }
 
-  getAllSizes(){
-    this.props.store.getAll().then(sizes => {
-      this.setState({sizes})
-    })
-  }
-
-  getAllParams(){
-    this.props.store.getAllParams().then(params => {
-      this.setState({params})
-    })
-  }
-
-  submitParam(params){
-    const { name, value } = params
-    const { validURL, url } = this.state;
-    this.props.store.setParam({
-      id: uuid(),
-      param: { name, value }
-    }).then(() => {
-      this.getAllParams();
-    }).then(()=> {
-      // const { validURL, url } = this.state;
-      // const n = new URL( url );
-      // if( validURL ){
-        setTimeout(()=> {
-          console.log(this.state.params)
-          // this.buildURL(n.origin + n.pathname);
-        }, 100)
-      // }
-    })
+  addParam(params){
+    this.props.paramMethods.add(params);
   }
 
   deleteParam(e){
-    const id = e.currentTarget.id;
-    this.props.store.deleteParam(id).then(()=>{
-      console.log('Deleted:', id)
-    }).then(() => {
-      this.getAllParams();
-    }).then(()=> {
-      // const { validURL, url } = this.state;
-      // const n = new URL( url );
-      // if( validURL ){
-      //   setTimeout(()=> {
-      //     this.buildURL(n.origin + n.pathname);
-      //   }, 100)
-      // }
-    })
+    this.props.paramMethods.delete(e);
   }
-
+  
   addSize(size){
-    const { width, height } = size;
-    this.props.store.set({
-      id: uuid(),
-      data: {
-        width: Number(width),
-        height: Number(height),
-      }
-    }).then(() => {
-      this.getAllSizes();
-    });
+    this.props.sizeMethods.add(size);
   }
-
+  
   deleteSize(e){
-    const id = e.currentTarget.id;
-    this.props.store.delete(id).then(()=>{
-      console.log('Deleted:', id)
-      this.getAllSizes();
-    }).then(() => {
-      this.createWindow();
-    });
+    this.props.sizeMethods.delete(e);
   }
 
   toggleSizeParam(){
@@ -193,7 +135,7 @@ export default class Sidebar extends Component {
           </div>
           <ul className="app__list">
             {
-              this.state.params.map((i, index) => {
+              this.props.params.map((i, index) => {
                 return (
                   <li key={index} className="app__list--item">
                     <b className="param__name">{i.param.name}:</b>
@@ -204,7 +146,7 @@ export default class Sidebar extends Component {
               })
             }
           </ul>
-          <AddParam submitParam={this.submitParam}/>
+          <AddParam addParam={this.addParam}/>
         </section>
 
         <section className="app__size__param hidden">
@@ -229,7 +171,7 @@ export default class Sidebar extends Component {
           </div>
           <ul className="app__list" id="size__list">
             {
-              this.state.sizes.map((i, index) => {
+              this.props.sizes.map((i, index) => {
                 return <li key={i.id} className="app__list--item">
                   <b>Width:</b> {i.data.width} 
                   <span>|</span>
@@ -246,10 +188,6 @@ export default class Sidebar extends Component {
           </ul>
           <AddSizes addSize={this.addSize} />
         </section>
-
-        {/* <footer className="app__sidebar--footer">
-          <Button disabled={disabled} cName="btn__create__screen" content="Create Screens" onClick={this.createWindow}/>
-        </footer> */}
       </aside>
     )
   }

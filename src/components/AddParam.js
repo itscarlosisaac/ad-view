@@ -13,7 +13,7 @@ export default class AddParam extends Component {
   handleSubmit(e){
     e.preventDefault();
     if ( e.target.elements[0].value !== "") {
-      this.props.submitParam({
+      this.props.addParam({
         name: e.target.elements[0].value,
         value: e.target.elements[1].value === "" ? "true" : e.target.elements[1].value
       })

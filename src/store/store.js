@@ -17,7 +17,7 @@ export default {
     tx.objectStore('layout').put(val);
     return tx.complete
   },
-  async getAll(){
+  async getAllSizes(){
     const db = await StorePromise;
     const tx = db.transaction('layout', 'readonly');
     const store = tx.objectStore('layout')
