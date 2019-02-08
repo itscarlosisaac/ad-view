@@ -26,13 +26,7 @@ export default class Sidebar extends Component {
     this.deleteParam = this.deleteParam.bind(this);
 
     this.toggleSizeParam = this.toggleSizeParam.bind(this);
-    this.createWindow = this.createWindow.bind(this);
-    this.onUrlChange = this.onUrlChange.bind(this);
-    this.getPositions = this.getPositions.bind(this);
-    this.buildURL = this.buildURL.bind(this);
-  }
 
-  componentDidMount() {
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -60,71 +54,10 @@ export default class Sidebar extends Component {
     this.setState({sizeParam: newState });
   }
 
-  createWindow(){
-    const { url , sizes, sizeParam } = this.state;
-    const ProductionURL = new URL(url)
-
-    if( sizeParam ){ ProductionURL.searchParams.append('size', '') }
-
-    const Layouts =  sizes.map((t,index) => {
-      const { width, height } = t.data;
-
-      if( sizeParam ){ ProductionURL.searchParams.set('size',`${width}x${height}`); }
-
-      return <View key={index} className="layoutHolder" url={ProductionURL.href} width={width} height={height}/>
-    });
-    this.props.views(Layouts)
-  }
-
-  getPositions (size) {
-    const images = [...document.querySelectorAll('.screens .layoutHolder')];
-    const img = images.filter( (img) => {
-      const { offsetHeight, offsetWidth } = img
-      return offsetWidth === size.width &&  offsetHeight === size.height
-    })
-    return {
-        x: Number(img[0].style.left.replace('px', "")),
-        y: Number(img[0].style.top.replace('px', ""))
-      }
-  }
-
-  onUrlChange(e){
-    const isValid = validate({website: e }, {
-      website: {
-        url: { allowLocal: true }
-      }
-    })
-    if( isValid === undefined){
-      this.setState({ validURL: true })
-      this.buildURL(e);
-    }else {
-      this.setState({ validURL: false })
-    }
-  }
-
-  buildURL(e) {
-    const { params } = this.state;
-    let n = new URL( e );
-    if ( params.length > 0){
-      params.map(p => n.searchParams.append(p.param.name, p.param.value) );
-    }
-    console.log(n.href)
-    this.setState({ url: n.href });
-  }
-
   render() {
     const disabled = !this.state.validURL || this.state.sizes.length === 0;
     return (
       <aside className="app__sidebar">
-        {/* <header className="app__sidebar--header">
-          <Input onUrlChange={this.onUrlChange} placeholder="https://example.com" name="url" id="url" type="url"/>
-          <p>
-          <br />
-          <span>
-            { this.state.url }
-          </span>
-          </p>
-        </header> */}
 
         <section className="app__params">
           <div className="app__sidebar--title">

@@ -17,7 +17,7 @@ class App extends React.Component {
       views: [],
       sizes: [],
       params: [],
-      url: "",
+      url: "localhost:9090",
       useSizeAsParam: true,
     }
 
@@ -103,8 +103,13 @@ class App extends React.Component {
   createWindows(){
     const { url , sizes, params } = this.state;
     const ProductionURL = new URL(url)
+    if ( params.length > 0){
+      params.map(p => ProductionURL.searchParams.append(p.param.name, p.param.value) );
+    }
     const views =  sizes.map((t,index) => {
-    const { width, height } = t.data;
+      const { width, height } = t.data;
+      ProductionURL.searchParams.append('size', '') 
+      ProductionURL.searchParams.set('size',`${width}x${height}`);
       return <View key={index} className="layoutHolder" url={ProductionURL.href} width={width} height={height}/>
     });
     this.setState({views})
