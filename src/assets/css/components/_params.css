@@ -7,6 +7,10 @@
   letter-spacing: 0.31px;
 }
 
+#size__list .app__list--item span {
+  margin: 0 10px;
+}
+
 .app__list .app__list--item {
   border-bottom: 1px solid rgba(106, 129, 184, 0.219);
   padding-bottom: 15px;
@@ -17,8 +21,10 @@
   overflow: hidden;
 }
 
-.app__list span:first-of-type {
-  margin-right: 10px;
+.app__list b {
+  font-weight:600;
+  margin-right: 5px;
+  text-transform:capitalize;
 }
 
 .app__list .app__list--item i {

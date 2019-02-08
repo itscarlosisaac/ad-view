@@ -190,14 +190,13 @@ export default class Sidebar extends Component {
         <section className="app__params">
           <div className="app__sidebar--title">
             <span>Parameters</span>
-            <i className="material-icons add">add</i>
           </div>
           <ul className="app__list">
             {
               this.state.params.map((i, index) => {
                 return (
                   <li key={index} className="app__list--item">
-                    <span className="param__name">{i.param.name}:</span>
+                    <b className="param__name">{i.param.name}:</b>
                     <span className="param__value">{i.param.value}</span>
                     <i id={i.id} onClick={this.deleteParam} className="material-icons"> clear </i>
                   </li>
@@ -227,18 +226,19 @@ export default class Sidebar extends Component {
         <section className="app__sizes">
           <div className="app__sidebar--title">
             <span>Sizes</span>
-            <i className="material-icons add">add</i>
           </div>
-          <ul className="app__list">
+          <ul className="app__list" id="size__list">
             {
               this.state.sizes.map((i, index) => {
                 return <li key={i.id} className="app__list--item">
-                  {i.data.width}x{i.data.height}
+                  <b>Width:</b> {i.data.width} 
+                  <span>|</span>
+                  <b>Height:</b> {i.data.height}
                 <i
                   id={i.id}
                   className="material-icons"
                   onClick={this.deleteSize}>
-                  cancel
+                  clear
                   </i>
                 </li>
               })
