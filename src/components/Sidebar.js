@@ -1,31 +1,17 @@
 import React, { Component } from 'react'
-import Input from './Input';
-import Button from './Button';
 import AddParam from './AddParam';
 import AddSizes from './AddSizes';
-import View from './View';
-import uuid from 'uuid';
 import Emitter from '../emitter/emitter'
-import validate from 'validate.js'
 
 export default class Sidebar extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      params:[],
-      sizeParam: true,
-      sizes: [],
-      url: '',
-      validURL: false
-    }
 
     this.addSize = this.addSize.bind(this);
     this.deleteSize = this.deleteSize.bind(this);
 
     this.addParam = this.addParam.bind(this);
     this.deleteParam = this.deleteParam.bind(this);
-
-    this.toggleSizeParam = this.toggleSizeParam.bind(this);
 
   }
 
@@ -49,15 +35,21 @@ export default class Sidebar extends Component {
     this.props.sizeMethods.delete(e);
   }
 
-  toggleSizeParam(){
-    const newState = !this.state.sizeParam;
-    this.setState({sizeParam: newState });
-  }
-
   render() {
-    const disabled = !this.state.validURL || this.state.sizes.length === 0;
     return (
       <aside className="app__sidebar">
+        <div className="app__sidebar--title">
+            <span>Options</span>
+        </div>
+        <section className="app__size__param">
+          <p className="app__option" onClick={this.props.toggleSizeParam}>
+          {
+            this.props.useSizeAsParam ? 
+            <i className="material-icons on">check_box</i> :
+            <i className="material-icons off">check_box_outline_blank</i>
+          }
+         Use size as a parameter</p>
+        </section>
 
         <section className="app__params">
           <div className="app__sidebar--title">
@@ -77,22 +69,6 @@ export default class Sidebar extends Component {
             }
           </ul>
           <AddParam addParam={this.addParam}/>
-        </section>
-
-        <section className="app__size__param hidden">
-          {/* <input type="checkbox" name="size-param" id="size-param" checked={this.state.sizeParam} onChange={this.toggleSizeParam} /> */}
-          <p onClick={this.toggleSizeParam}>
-          <span className="size__param">
-          {
-            this.state.sizeParam ? 
-            <i className="material-icons on">check_box</i> :
-            <i className="material-icons off">check_box_outline_blank</i>
-          }
-          </span>
-         Use size as a parameter</p>
-         <small className="size__note">
-           This is to use the size of the document as param from the url in combination with the sizes specified below. If not checked the size parameter will have to be specified in the parameters section.
-         </small>
         </section>
 
         <section className="app__sizes">

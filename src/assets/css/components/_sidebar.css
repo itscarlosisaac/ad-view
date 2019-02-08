@@ -17,6 +17,21 @@
   margin: 20px 0;
 }
 
+.app__sidebar .app__option  {
+  color: var(--main-text-color);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.app__sidebar .app__option i {
+  margin-right: 10px;
+  font-size: 16px;
+}
+.app__sidebar .app__option i.on { color: var(--main-green)}
+.app__sidebar .app__option i.off { color: var(--main-text-color)}
+
 .app__sidebar--title {
   font-weight: 500;
   font-size: 16px;

@@ -17,7 +17,7 @@ class App extends React.Component {
       views: [],
       sizes: [],
       params: [],
-      url: "localhost:9090",
+      url: "",
       useSizeAsParam: true,
     }
 
@@ -30,7 +30,10 @@ class App extends React.Component {
     this.getAllParams = this.getAllParams.bind(this);
     this.addParam = this.addParam.bind(this);
     this.deleteParam = this.deleteParam.bind(this);
-    
+
+    // USe size as Param
+    this.toggleSizeParam = this.toggleSizeParam.bind(this)
+
     // Size Methods
     this.getAllSizes = this.getAllSizes.bind(this);
     this.addSize = this.addSize.bind(this);
@@ -92,6 +95,11 @@ class App extends React.Component {
     })
   }
 
+  toggleSizeParam(){
+    const temp = this.state.useSizeAsParam;
+    this.setState({useSizeAsParam: !temp})
+  }
+
   getURL(url){
     this.setState({url})
   }
@@ -101,15 +109,17 @@ class App extends React.Component {
   }
 
   createWindows(){
-    const { url , sizes, params } = this.state;
+    const { url , sizes, params, useSizeAsParam } = this.state;
     const ProductionURL = new URL(url)
     if ( params.length > 0){
       params.map(p => ProductionURL.searchParams.append(p.param.name, p.param.value) );
     }
     const views =  sizes.map((t,index) => {
       const { width, height } = t.data;
-      ProductionURL.searchParams.append('size', '') 
-      ProductionURL.searchParams.set('size',`${width}x${height}`);
+      if( useSizeAsParam ) {
+        ProductionURL.searchParams.append('size', '')
+        ProductionURL.searchParams.set('size',`${width}x${height}`);
+      }
       return <View key={index} className="layoutHolder" url={ProductionURL.href} width={width} height={height}/>
     });
     this.setState({views})
@@ -118,13 +128,15 @@ class App extends React.Component {
   render() {
     return (
       <div className="app__container">
-        <Header 
+        <Header
           getURL={this.getURL}
           getProtocol={this.getProtocol}
           url={this.state.url}
           createWindows={this.createWindows}
         />
         <Sidebar
+          useSizeAsParam={this.state.useSizeAsParam}
+          toggleSizeParam={this.toggleSizeParam}
           store={this.props.store}
           paramMethods={{add:this.addParam, delete: this.deleteParam}}
           sizeMethods={{add:this.addSize, delete: this.deleteSize}}
