@@ -15,10 +15,11 @@
 - Avoid click on banner open new links.
 - Make click on banner to open new links shows up a message in the console or an alert box.
 - Avoid duplicated params
+- Add a reload button
 - Avoid duplicated screen creation
 - When adding a size, if the screen are created, it should destroy the screens and create them again.
 
 ---------
 
-- Remove Electron Menus
-- Remove electron dev tools shortcut
+- ~~Remove Electron Menus~~
+- ~~Remove electron dev tools shortcut~~

@@ -19,13 +19,14 @@ class App extends React.Component {
       views: [],
       sizes: [],
       params: [],
-      url: "localhost:909",
+      url: "",
       useSizeAsParam: true,
+      viewsCreated: false
     }
 
     // Header Methods
     this.createViews = this.createViews.bind(this);
-    this.createViews = this.createViews.bind(this);
+    this.reloadViews = this.reloadViews.bind(this);
     this.getURL = this.getURL.bind(this);
 
     // Params Methods
@@ -47,7 +48,6 @@ class App extends React.Component {
 
   componentWillMount() {
     this.getAllParams();
-    this.getAllSizes();
     this.getAllSizes();
     this.instantiateEmitters();
   }
@@ -72,6 +72,11 @@ class App extends React.Component {
     this.props.store.getAllParams().then(params => {
       this.setState({params})
     })
+  }
+
+  reloadViews(){
+    const views = document.querySelectorAll('webview');
+    views.forEach(view => view.reload() );
   }
 
   addParam(params){
@@ -154,7 +159,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { sizes, views } = this.state;
+    const { sizes, views, viewsCreated } = this.state;
     return (
       <div className="app__container">
         <Header
@@ -162,6 +167,8 @@ class App extends React.Component {
           getProtocol={this.getProtocol}
           url={this.state.url}
           createViews={this.createViews}
+          reloadViews={this.reloadViews}
+          viewsCreated={true}
         />
         <Sidebar
           useSizeAsParam={this.state.useSizeAsParam}

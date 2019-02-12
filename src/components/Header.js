@@ -9,7 +9,7 @@ export default class Header extends Component {
       protocol: "Http://",
       isOpen: false,
       url: "",
-      validURL: false
+      validURL: false,
     }
     this.toggleProtocol = this.toggleProtocol.bind(this);
     this.toggleChange = this.toggleChange.bind(this);
@@ -79,6 +79,7 @@ export default class Header extends Component {
           Make Screens
           <span className="material-icons">send</span>
           </button>
+          <button className="btn__reload__screen" disabled={!this.props.viewsCreated} onClick={this.props.reloadViews}> <span className="material-icons">loop</span> </button>
         </div>
       </header>
     )

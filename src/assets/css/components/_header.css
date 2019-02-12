@@ -27,12 +27,13 @@
   color: #FFFFFF;
   margin-left: 20px;
 }
+
 .action__container {
-  width: 150px;
+  width: 200px;
 }
 
 .input__container {
-  width: calc(100% - 480px);
+  width: calc(100% - 530px);
   height: 100%;
   display: flex;
   align-items: center;

@@ -71,3 +71,22 @@ button[disabled]{
   top: 2px;
   margin-left: 10px;
 }
+
+
+.btn__reload__screen {
+  font-weight: bold;
+  background: var(--main-red);
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.23);
+  border-radius: 20px;
+  font-size: 14px;
+  color: #FFFFFF;
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.btn__reload__screen span {
+  font-size: 16px;
+  position: relative;
+  top: 2px;
+}
