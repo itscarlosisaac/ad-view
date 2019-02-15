@@ -37,13 +37,20 @@ export default class Sidebar extends Component {
             <span>Options</span>
         </div>
         <section className="app__size__param">
-          <p className="app__option" onClick={this.props.toggleSizeParam}>
+          <p className="app__option" onClick={() => this.props.toggleParam('useSizeAsParam') }>
           {
             this.props.useSizeAsParam ? 
             <i className="material-icons on">check_box</i> :
             <i className="material-icons off">check_box_outline_blank</i>
           }
          Use size as a parameter</p>
+         <p className="app__option" onClick={() => this.props.toggleParam('usePreviewParam') }>
+          {
+            this.props.usePreviewParam ? 
+            <i className="material-icons on">check_box</i> :
+            <i className="material-icons off">check_box_outline_blank</i>
+          }
+         Use provider preview parameter</p>
         </section>
 
         <section className="app__params">

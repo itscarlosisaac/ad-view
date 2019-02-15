@@ -21,6 +21,7 @@ class App extends React.Component {
       params: [],
       url: "",
       useSizeAsParam: true,
+      usePreviewParam: true,
       viewsCreated: false
     }
 
@@ -35,7 +36,7 @@ class App extends React.Component {
     this.deleteParam = this.deleteParam.bind(this);
 
     // USe size as Param
-    this.toggleSizeParam = this.toggleSizeParam.bind(this)
+    this.toggleParam = this.toggleParam.bind(this)
 
     // Size Methods
     this.getAllSizes = this.getAllSizes.bind(this);
@@ -127,9 +128,11 @@ class App extends React.Component {
     });
   }
 
-  toggleSizeParam(){
-    const temp = this.state.useSizeAsParam;
-    this.setState({useSizeAsParam: !temp})
+  toggleParam(param){
+    const temp = !this.state[param];
+    this.setState((prev) => {
+      return {[param]: temp };
+    }, () => console.log(this.state))
   }
 
   getURL(url){
@@ -141,10 +144,14 @@ class App extends React.Component {
   }
 
   createViews(){
-    const { url , sizes, params, useSizeAsParam } = this.state;
+    const { url , sizes, params, useSizeAsParam, usePreviewParam } = this.state;
     const ProductionURL = new URL(url)
     if ( params.length > 0){
       params.map(p => ProductionURL.searchParams.append(p.param.name, p.param.value) );
+    }
+
+    if( usePreviewParam ) {
+      ProductionURL.searchParams.append('provider', 'preview')
     }
     const views =  sizes.map((t,index) => {
       const id = t.id
@@ -172,7 +179,8 @@ class App extends React.Component {
         />
         <Sidebar
           useSizeAsParam={this.state.useSizeAsParam}
-          toggleSizeParam={this.toggleSizeParam}
+          usePreviewParam={this.state.usePreviewParam}
+          toggleParam={this.toggleParam}
           store={this.props.store}
           paramMethods={{add:this.addParam, delete: this.deleteParam}}
           sizeMethods={{add:this.addSize, delete: this.deleteSize}}
