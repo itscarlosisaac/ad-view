@@ -66,7 +66,6 @@ class App extends React.Component {
     ipcRenderer.on('create-views', () => {
       this.createViews();
     })
-    
   }
 
   getAllParams(){
@@ -82,6 +81,8 @@ class App extends React.Component {
 
   addParam(params){
     const { name, value } = params
+    let exists = this.state.params.filter(p => p.param.name === name && p.param.value === value );
+    if( exists.length > 0 ) { return this.getAllParams() }
     this.props.store.setParam({
       id: uuid(),
       param: { name, value }
@@ -131,8 +132,7 @@ class App extends React.Component {
   toggleParam(param){
     const temp = !this.state[param];
     this.setState((prev) => {
-      return {[param]: temp };
-    }, () => console.log(this.state))
+      return {[param]: temp }; })
   }
 
   getURL(url){

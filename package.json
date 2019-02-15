@@ -1,7 +1,7 @@
 {
   "name": "electron-react-ad-viewer-app",
   "productName": "Ad Viewer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Ad Viewer Application",
   "license": "MIT",
   "private": true,
