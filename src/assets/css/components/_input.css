@@ -10,6 +10,7 @@
   padding: 5px 10px;
   box-sizing: border-box;
   border-radius: 6px;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .form-control input[type="url"]::placeholder,
@@ -40,6 +41,11 @@
   flex-wrap: wrap;
   width: 100%;
   margin-top: 20px;
+}
+
+.input__error {
+  color: var(--main-red) !important;
+  border-color: var(--main-red) !important;
 }
 
 .input__row .form-control:first-child{
@@ -76,4 +82,5 @@
   box-sizing: border-box;
   border-radius: 0;
   border: 1px solid #33405F;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }

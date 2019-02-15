@@ -31,7 +31,7 @@ export default class Input extends Component {
   }
 
   render() {
-    const { id, name, placeholder, type, resetField } = this.props;
+    const { id, name, placeholder, type, resetField, required } = this.props;
     const { value, dirty } = this.state;
     return (
       <div className="form-control">
@@ -41,6 +41,7 @@ export default class Input extends Component {
           onChange={this.onChange}
           type={type}
           id={id}
+          required={required}
           name={name}
           value={value}
           type={type}/>
