@@ -106,6 +106,8 @@ class App extends React.Component {
 
   addSize(size){
     const { width, height } = size;
+    let exists = this.state.sizes.filter(s => s.data.width === Number(width) && s.data.height === Number(height) );
+    if( exists.length > 0 ) { return this.getAllSizes() }
     this.props.store.set({
       id: uuid(),
       data: {
