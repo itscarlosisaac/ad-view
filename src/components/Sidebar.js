@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import AddParam from './AddParam';
 import Param from './Param';
 import AddSizes from './AddSizes';
+import Size from './Size';
 
 export default class Sidebar extends Component {
   constructor(props){
@@ -81,18 +82,8 @@ export default class Sidebar extends Component {
           </div>
           <ul className="app__list" id="size__list">
             {
-              this.props.sizes.map((i, index) => {
-                return <li key={i.id} className="app__list--item">
-                  <b>Width:</b> {i.data.width} 
-                  <span>|</span>
-                  <b>Height:</b> {i.data.height}
-                <i
-                  id={i.id}
-                  className="material-icons"
-                  onClick={this.deleteSize}>
-                  clear
-                  </i>
-                </li>
+              this.props.sizes.map((size, index) => {
+                return <Size key={size.id} id={size.id} width={size.data.width} height={size.data.height} deleteSize={this.deleteSize}/>
               })
             }
           </ul>
