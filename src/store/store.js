@@ -14,8 +14,14 @@ export default {
   async set(val){
     const db = await StorePromise;
     const tx = db.transaction('layout', 'readwrite');
-    tx.objectStore('layout').put(val);
+    tx.objectStore('layout').add(val);
     return tx.complete
+  },
+  async updateSize(val){
+    const db = await StorePromise;
+    const tx = db.transaction('layout', 'readwrite');
+    tx.objectStore('layout').put(val);
+    return tx.complete;
   },
   async getAllSizes(){
     const db = await StorePromise;
@@ -52,7 +58,6 @@ export default {
   async updateParam(val){
     const db = await StorePromise;
     const tx = db.transaction('params', 'readwrite');
-    console.log(val)
     tx.objectStore('params').put(val);
     return tx.complete;
   },

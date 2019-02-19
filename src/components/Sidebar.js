@@ -10,6 +10,7 @@ export default class Sidebar extends Component {
 
     this.addSize = this.addSize.bind(this);
     this.deleteSize = this.deleteSize.bind(this);
+    this.updateSize = this.updateSize.bind(this);
 
     this.addParam = this.addParam.bind(this);
     this.updateParam = this.updateParam.bind(this);
@@ -31,6 +32,10 @@ export default class Sidebar extends Component {
 
   addSize(size){
     this.props.sizeMethods.add(size);
+  }
+
+  updateSize(size){
+    this.props.sizeMethods.update(size)
   }
 
   deleteSize(e){
@@ -83,7 +88,7 @@ export default class Sidebar extends Component {
           <ul className="app__list" id="size__list">
             {
               this.props.sizes.map((size, index) => {
-                return <Size key={size.id} id={size.id} width={size.data.width} height={size.data.height} deleteSize={this.deleteSize}/>
+                return <Size key={size.id} id={size.id} width={size.data.width} height={size.data.height} deleteSize={this.deleteSize} updateSize={this.updateSize}/>
               })
             }
           </ul>

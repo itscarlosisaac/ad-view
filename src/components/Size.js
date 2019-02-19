@@ -1,10 +1,54 @@
 import React, { Component } from 'react'
+import Button from './Button';
 
 export default class Size extends Component {
-  render() {
-    const { width, height, id, deleteSize } = this.props
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditing: false,
+    }
+    this.renderView = this.renderView.bind(this)
+    this.renderEditView = this.renderEditView.bind(this)
+    this.changeEditMode = this.changeEditMode.bind(this)
+    this.submitChanges = this.submitChanges.bind(this)
+    this.form = React.createRef();
+  }
+
+  submitChanges(e){
+    const width = Number(this.form.current.childNodes[0].value);
+    const height = Number(this.form.current.childNodes[1].value);
+    const id = this.props.id;
+    this.props.updateSize({id, data:{width, height} })
+    this.setState({
+      isEditing: false
+    })
+  }
+
+  changeEditMode(e){
+    e.preventDefault();
+    const temp = this.state.isEditing;
+    this.setState({isEditing: !temp})
+  }
+
+  renderEditView(){
+    const { width, height, id, deleteSize } = this.props;
     return (
-      <li className="app__list--item">
+      <form className="edit__row" ref={this.form}>
+        <input type="number" defaultValue={width} name={width} />
+        <input type="number" defaultValue={height} name={height} />
+        <div className="actions">
+          <Button type="button" content={<i className="material-icons" onClick={this.submitChanges}>done</i>} cName="btn green"/>
+          <Button type="button" content={<i className="material-icons" onClick={this.changeEditMode}>clear</i>} cName="btn red"/>
+        </div>
+      </form>
+    );
+  }
+
+  renderView(){
+    const { width, height, id, deleteSize } = this.props;
+    return (
+      <li className="app__list--item"  onDoubleClick={this.changeEditMode}>
         <b>Width:</b> {width}
         <span>|</span>
         <b>Height:</b> {height}
@@ -16,5 +60,10 @@ export default class Size extends Component {
         </i>
       </li>
     )
+  }
+
+
+  render() {
+    return !this.state.isEditing ? this.renderView() : this.renderEditView()
   }
 }

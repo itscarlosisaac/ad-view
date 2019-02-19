@@ -3,7 +3,7 @@
 - ~~Add size support~~
 - ~~Add IndexDB Store support~~
 - ~~Add Title size to banners views~~
-- Double Click to edit added param or size
+- ~~Double Click to edit added param or size~~
 - ~~Fix Windows Arrangement~~
 - ~~Make `Use size as param work`~~
 - ~~Add visual for wrong forms ( url , params. size )~~
@@ -18,6 +18,7 @@
 - ~~Avoid duplicated screen creation~~
 - When adding a size, if the screen are created, it should destroy the screens and create them again. ?
 - Add a Recent URL dropdowns.
+- Resolve bug with update size and params and allowing duplicated
 
 ---------
 

@@ -42,6 +42,7 @@ class App extends React.Component {
     // Size Methods
     this.getAllSizes = this.getAllSizes.bind(this);
     this.addSize = this.addSize.bind(this);
+    this.updateSize = this.updateSize.bind(this);
     this.deleteSize = this.deleteSize.bind(this);
 
     // Helper Methods
@@ -98,13 +99,6 @@ class App extends React.Component {
     })
   }
 
-  convertToInputs(e){
-    const temp = e.target.parentNode;
-    const name = temp.childNodes[0].innerHTML.trim()
-    const value = temp.childNodes[2].innerHTML.trim()
-    const id = temp.childNodes[3].id
-  }
-
   deleteParam(e){
     const id = e.currentTarget.id;
     this.props.store.deleteParam(id).then(()=>{
@@ -131,6 +125,12 @@ class App extends React.Component {
     }).then(() => {
       this.getAllSizes();
     });
+  }
+
+  updateSize(size){
+    this.props.store.updateSize(size).then(sizes => {
+      this.getAllSizes();
+    })
   }
 
   deleteSize(e){
@@ -195,7 +195,7 @@ class App extends React.Component {
           toggleParam={this.toggleParam}
           store={this.props.store}
           paramMethods={{add:this.addParam, delete: this.deleteParam, update: this.updateParam }}
-          sizeMethods={{add:this.addSize, delete: this.deleteSize}}
+          sizeMethods={{add:this.addSize, delete: this.deleteSize, update: this.updateSize}}
           params={this.state.params}
           sizes={this.state.sizes}
           views={this.createViews}
