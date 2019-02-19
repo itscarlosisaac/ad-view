@@ -25,6 +25,31 @@ const createAppMenu = () => {
       label: 'Edit',
       submenu:[
         {
+          label: 'Cut',
+          accelerator: 'CommandOrControl+X',
+          role: 'cut'
+        },
+        {
+          label: 'Copy',
+          accelerator: 'CommandOrControl+C',
+          role: 'copy'
+        },
+        {
+          label: 'Paste',
+          accelerator: 'CommandOrControl+V',
+          role: 'paste'
+        },
+        {
+          label: 'Select All',
+          accelerator: 'CommandOrControl+A',
+          role: 'selectall'
+        }
+      ]
+    },
+    {
+      label: 'Actions',
+      submenu: [
+        {
           label: "Make Screens",
           accelerator: 'CommandOrControl+Enter',
           click(){
