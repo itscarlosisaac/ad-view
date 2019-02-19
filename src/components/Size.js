@@ -10,7 +10,10 @@ export default class Size extends Component {
     }
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
+
     this.changeEditMode = this.changeEditMode.bind(this)
+    this.stopEditing = this.stopEditing.bind(this)
+
     this.submitChanges = this.submitChanges.bind(this)
     this.form = React.createRef();
   }
@@ -20,6 +23,7 @@ export default class Size extends Component {
     const height = Number(this.form.current.childNodes[1].value);
     const id = this.props.id;
     this.props.updateSize({id, data:{width, height} })
+    window.removeEventListener('click', this.stopEditing);
     this.setState({
       isEditing: false
     })
@@ -28,7 +32,18 @@ export default class Size extends Component {
   changeEditMode(e){
     e.preventDefault();
     const temp = this.state.isEditing;
+    window.addEventListener('click', this.stopEditing )
     this.setState({isEditing: !temp})
+  }
+
+  stopEditing(e){
+    e.preventDefault()
+    let target = e.target;
+    do {
+      if (target == this.form.current) { return; }
+      target = target.parentNode;
+    } while (target);
+    this.setState({isEditing: false})
   }
 
   renderEditView(){

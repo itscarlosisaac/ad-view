@@ -11,12 +11,14 @@ export default class Param extends Component {
     this.renderEditView = this.renderEditView.bind(this)
     this.changeEditMode = this.changeEditMode.bind(this)
     this.submitChanges = this.submitChanges.bind(this)
+    this.stopEditing = this.stopEditing.bind(this)
     this.form = React.createRef();
   }
 
   changeEditMode(e){
     e.preventDefault();
     const temp = this.state.isEditing;
+    window.addEventListener('click', this.stopEditing )
     this.setState({isEditing: !temp})
   }
 
@@ -25,10 +27,21 @@ export default class Param extends Component {
     const name = this.form.current.childNodes[0].value
     const value = this.form.current.childNodes[1].value
     const id = this.props.id
+    window.removeEventListener('click', this.stopEditing);
     this.props.updateParam({param:{name, value}, id})
     this.setState({
       isEditing: false
     })
+  }
+
+  stopEditing(e){
+    e.preventDefault()
+    let target = e.target;
+    do {
+      if (target == this.form.current) { return; }
+      target = target.parentNode;
+    } while (target);
+    this.setState({isEditing: false})
   }
 
   renderEditView() {
