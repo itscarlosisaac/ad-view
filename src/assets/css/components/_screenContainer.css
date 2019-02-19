@@ -1,4 +1,4 @@
-.app__screens{
+.app__screens {
   width: calc(100% - 350px );
   background: #eef4f6;
   overflow: scroll;

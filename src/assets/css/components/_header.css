@@ -89,4 +89,6 @@
   width: 100%;
   font-size: 16px;
   color: #7F93A7;
+  border-right: 1px solid #4e5767;
+  box-sizing: border-box;
 }

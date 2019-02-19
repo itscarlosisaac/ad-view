@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AddParam from './AddParam';
+import Param from './Param';
 import AddSizes from './AddSizes';
 
 export default class Sidebar extends Component {
@@ -10,12 +11,17 @@ export default class Sidebar extends Component {
     this.deleteSize = this.deleteSize.bind(this);
 
     this.addParam = this.addParam.bind(this);
+    this.updateParam = this.updateParam.bind(this);
     this.deleteParam = this.deleteParam.bind(this);
 
   }
 
   addParam(params){
     this.props.paramMethods.add(params);
+  }
+
+  updateParam(params){
+    this.props.paramMethods.update(params);
   }
 
   deleteParam(e){
@@ -39,14 +45,14 @@ export default class Sidebar extends Component {
         <section className="app__size__param">
           <p className="app__option" onClick={() => this.props.toggleParam('useSizeAsParam') }>
           {
-            this.props.useSizeAsParam ? 
+            this.props.useSizeAsParam ?
             <i className="material-icons on">check_box</i> :
             <i className="material-icons off">check_box_outline_blank</i>
           }
          Use size as a parameter</p>
          <p className="app__option" onClick={() => this.props.toggleParam('usePreviewParam') }>
           {
-            this.props.usePreviewParam ? 
+            this.props.usePreviewParam ?
             <i className="material-icons on">check_box</i> :
             <i className="material-icons off">check_box_outline_blank</i>
           }
@@ -59,13 +65,9 @@ export default class Sidebar extends Component {
           </div>
           <ul className="app__list">
             {
-              this.props.params.map((i, index) => {
+              this.props.params.map((p, index) => {
                 return (
-                  <li key={index} className="app__list--item">
-                    <b className="param__name">{i.param.name}:</b>
-                    <span className="param__value">{i.param.value}</span>
-                    <i id={i.id} onClick={this.deleteParam} className="material-icons"> clear </i>
-                  </li>
+                  <Param key={index} name={p.param.name} value={p.param.value} id={p.id} deleteParam={this.deleteParam} updateParam={this.updateParam} />
                 )
               })
             }

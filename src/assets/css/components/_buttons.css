@@ -1,88 +1,123 @@
 
 .btn__addsize {
-  width: 130px;
-  padding: 8px 0;
-  font-size: 14px;
-  border-radius: 1000px;
   background: linear-gradient(to bottom, #f1f6f8 0%,#eff5f7 100%);
-  color: #142243;
-  font-weight: 600;
   border: 1px solid #dfe3ed;
+  border-radius: 1000px;
+  color: #142243;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 0;
+  width: 130px;
 }
 
 .btn.primary {
-  font-weight: 500;
-  font-size: 12px;
-  color: #055065;
-  letter-spacing: 0.26px;
-  text-align: center;
   background: #45D6FF;
+  color: #055065;
+  font-size: 12px;
+  font-weight: 500;
   height: 30px;
-  width: 120px;
+  letter-spacing: 0.26px;
   margin-top: 10px;
+  text-align: center;
+  width: 120px;
+}
+
+.btn.green {
+  align-items: center;
+  background: #4dfb7c;
+  color: #285634;
+  display: flex;
+  font-size: 12px;
+  height: 20px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 20px;
+  cursor: pointer;
+}
+
+.btn.red {
+  align-items: center;
+  background: #ef5154;
+  color: #651c1e;
+  display: flex;
+  font-size: 12px;
+  height: 20px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 20px;
+  cursor: pointer;
+}
+
+.btn.green i,
+.btn.red i {
+  font-size: 14px;
 }
 
 .btn__addparam {
-  width: 130px;
-  padding: 8px 0;
-  font-size: 14px;
-  border-radius: 1000px;
   background: linear-gradient(to bottom, #f1f6f8 0%,#eff5f7 100%);
-  color: #142243;
-  font-weight: 600;
   border: 1px solid #dfe3ed;
+  border-radius: 1000px;
+  color: #142243;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 0;
+  width: 130px;
 }
 
 .btn__create__screen {
-  width: 150px;
-  padding: 12px 0;
-  font-size: 14px;
-  border-radius: 1000px;
   background: linear-gradient(to bottom, #4f72f5 0%,#3358e0 100%);
-  color: #ffffff;
-  font-weight: 600;
   border:none;
+  border-radius: 1000px;
+  color: #ffffff;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 0;
+  width: 150px;
 }
 
 button:disabled,
 button[disabled]{
-  cursor: not-allowed;
   background: #f4f4f4;
   color: #cccccc;
+  cursor: not-allowed;
 }
 
 .btn__make__screen {
-  font-weight: bold;
   background: var(--main-purple);
-  box-shadow: 0 0 5px 0 rgba(0,0,0,0.23);
   border-radius: 20px;
-  font-size: 14px;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.23);
   color: #FFFFFF;
-  width: 144px;
+  font-size: 14px;
+  font-weight: bold;
   height: 40px;
+  width: 144px;
 }
 
 .btn__make__screen span {
   font-size: 12px;
+  margin-left: 10px;
   position: relative;
   top: 2px;
-  margin-left: 10px;
 }
 
 
 .btn__reload__screen {
-  font-weight: bold;
   background: var(--main-red);
-  box-shadow: 0 0 5px 0 rgba(0,0,0,0.23);
   border-radius: 20px;
-  font-size: 14px;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.23);
   color: #FFFFFF;
-  width: 40px;
+  font-size: 14px;
+  font-weight: bold;
   height: 40px;
   margin-left: 10px;
+  width: 40px;
 }
 
 .btn__reload__screen span {

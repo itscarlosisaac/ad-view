@@ -33,6 +33,7 @@ class App extends React.Component {
     // Params Methods
     this.getAllParams = this.getAllParams.bind(this);
     this.addParam = this.addParam.bind(this);
+    this.updateParam = this.updateParam.bind(this);
     this.deleteParam = this.deleteParam.bind(this);
 
     // USe size as Param
@@ -91,6 +92,19 @@ class App extends React.Component {
     })
   }
 
+  updateParam(params){
+    this.props.store.updateParam(params).then(()=>{
+      this.getAllParams();
+    })
+  }
+
+  convertToInputs(e){
+    const temp = e.target.parentNode;
+    const name = temp.childNodes[0].innerHTML.trim()
+    const value = temp.childNodes[2].innerHTML.trim()
+    const id = temp.childNodes[3].id
+  }
+
   deleteParam(e){
     const id = e.currentTarget.id;
     this.props.store.deleteParam(id).then(()=>{
@@ -141,10 +155,6 @@ class App extends React.Component {
     this.setState({url})
   }
 
-  createViews(layout){
-    this.setState({views:layout})
-  }
-
   createViews(){
     const { url , sizes, params, useSizeAsParam, usePreviewParam } = this.state;
     const ProductionURL = new URL(url)
@@ -184,7 +194,7 @@ class App extends React.Component {
           usePreviewParam={this.state.usePreviewParam}
           toggleParam={this.toggleParam}
           store={this.props.store}
-          paramMethods={{add:this.addParam, delete: this.deleteParam}}
+          paramMethods={{add:this.addParam, delete: this.deleteParam, update: this.updateParam }}
           sizeMethods={{add:this.addSize, delete: this.deleteSize}}
           params={this.state.params}
           sizes={this.state.sizes}

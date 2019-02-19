@@ -46,8 +46,15 @@ export default {
   async setParam(val){
     const db = await StorePromise;
     const tx = db.transaction('params', 'readwrite');
-    tx.objectStore('params').put(val);
+    tx.objectStore('params').add(val);
     return tx.complete
+  },
+  async updateParam(val){
+    const db = await StorePromise;
+    const tx = db.transaction('params', 'readwrite');
+    console.log(val)
+    tx.objectStore('params').put(val);
+    return tx.complete;
   },
   async deleteParam(id){
     const db = await StorePromise;

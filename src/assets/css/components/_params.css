@@ -45,12 +45,22 @@
   margin-right: 0;
 }
 
+.app__params .app__list--item {
+  font-weight: bold;
+}
+
+.app__params .app__list--item b {
+  margin-right: 0 !important;
+}
+.app__params .app__list--item .param__value { 
+  margin-left: 5px !important;
+  font-weight: normal;
+}
+
 /* Size param section */
 .hidden {
   display: none;
 }
-
-
 
 .app__size__param {
   margin: 20px 0;
@@ -71,11 +81,4 @@
 
 .app__size__param .size__param i.on {
   color: #33994d;
-}
-
-.size__note {
-  font-size: 10px;
-  line-height: 12px;
-  color: #949daf;
-  display: none;
 }
