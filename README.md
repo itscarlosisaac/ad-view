@@ -16,6 +16,7 @@
 - ~~Avoid duplicated params~~
 - ~~Add a reload button~~
 - ~~Avoid duplicated screen creation~~
+- ~~On click outside of the update form will close it to avoid multiple update forms open at the same time.~~
 - When adding a size, if the screen are created, it should destroy the screens and create them again. ?
 - Add a Recent URL dropdowns.
 - Resolve bug with update size and params and allowing duplicated
