@@ -19,12 +19,17 @@ class App extends React.Component {
       views: [],
       sizes: [],
       params: [],
+      history: [],
       url: "",
       useSizeAsParam: true,
       usePreviewParam: true,
-      viewsCreated: false
+      viewsCreated: false,
+      isSidebarVisible: true,
     }
 
+    // Sidebar Method
+    this.toggleSidebar = this.toggleSidebar.bind(this);
+    
     // Header Methods
     this.createViews = this.createViews.bind(this);
     this.reloadViews = this.reloadViews.bind(this);
@@ -36,7 +41,7 @@ class App extends React.Component {
     this.updateParam = this.updateParam.bind(this);
     this.deleteParam = this.deleteParam.bind(this);
 
-    // USe size as Param
+    // Use size as Param
     this.toggleParam = this.toggleParam.bind(this)
 
     // Size Methods
@@ -53,6 +58,13 @@ class App extends React.Component {
     this.getAllParams();
     this.getAllSizes();
     this.instantiateEmitters();
+    this.getAllHistory();
+  }
+
+  componentDidMount() {
+    // this.addHistory();
+    console.log(this.state.history)
+    // this.props.store.clear()
   }
 
   instantiateEmitters(){
@@ -70,15 +82,22 @@ class App extends React.Component {
     })
   }
 
+  reloadViews(){
+    const views = document.querySelectorAll('webview');
+    views.forEach(view => view.reload() );
+  }
+
+  // Sidebar Method
+  toggleSidebar(){
+    const isSidebarVisible = !this.state.isSidebarVisible;
+    this.setState({ isSidebarVisible })
+  }
+
+  // Params Methods
   getAllParams(){
     this.props.store.getAllParams().then(params => {
       this.setState({params})
     })
-  }
-
-  reloadViews(){
-    const views = document.querySelectorAll('webview');
-    views.forEach(view => view.reload() );
   }
 
   addParam(params){
@@ -106,6 +125,13 @@ class App extends React.Component {
     })
   }
 
+  toggleParam(param){
+    const temp = !this.state[param];
+    this.setState((prev) => {
+      return {[param]: temp }; })
+  }
+
+  // Size Methods
   getAllSizes(){
     this.props.store.getAllSizes().then(sizes => {
       this.setState({sizes})
@@ -145,14 +171,25 @@ class App extends React.Component {
     });
   }
 
-  toggleParam(param){
-    const temp = !this.state[param];
-    this.setState((prev) => {
-      return {[param]: temp }; })
-  }
+  // URL Methods
 
   getURL(url){
     this.setState({url})
+  }
+
+  getAllHistory(){
+    this.props.store.getAllHistory().then(history => {
+      this.setState({history})
+    })
+  }
+
+  addHistory(url){
+    this.props.store.addHistory({
+      id: uuid(),
+      url,
+    }).then(() => {
+      // this.getAllHistory();
+    })
   }
 
   createViews(){
@@ -179,6 +216,7 @@ class App extends React.Component {
 
   render() {
     const { sizes, views, viewsCreated } = this.state;
+    console.log(this.state.history)
     return (
       <div className="app__container">
         <Header
@@ -189,18 +227,26 @@ class App extends React.Component {
           reloadViews={this.reloadViews}
           viewsCreated={true}
         />
-        <Sidebar
-          useSizeAsParam={this.state.useSizeAsParam}
-          usePreviewParam={this.state.usePreviewParam}
-          toggleParam={this.toggleParam}
-          store={this.props.store}
-          paramMethods={{add:this.addParam, delete: this.deleteParam, update: this.updateParam }}
-          sizeMethods={{add:this.addSize, delete: this.deleteSize, update: this.updateSize}}
-          params={this.state.params}
-          sizes={this.state.sizes}
-          views={this.createViews}
-        />
-        <ScreensContainer sizes={sizes} views={views} />
+        {
+          this.state.isSidebarVisible ?
+          <Sidebar
+            useSizeAsParam={this.state.useSizeAsParam}
+            usePreviewParam={this.state.usePreviewParam}
+            toggleParam={this.toggleParam}
+            store={this.props.store}
+            paramMethods={{add:this.addParam, delete: this.deleteParam, update: this.updateParam }}
+            sizeMethods={{add:this.addSize, delete: this.deleteSize, update: this.updateSize}}
+            params={this.state.params}
+            sizes={this.state.sizes}
+            views={this.createViews}
+          /> : <div></div>
+        }
+        <ScreensContainer
+          sizes={sizes}
+          views={views}
+          toggleSidebar={this.toggleSidebar}
+          isSidebarVisible={this.state.isSidebarVisible}
+          />
       </div>
     )
   }

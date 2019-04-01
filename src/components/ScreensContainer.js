@@ -46,9 +46,13 @@ export default class ScreensContainer extends Component {
       </div>
     })
   }
+
   render() {
+    const screenCSS = this.props.isSidebarVisible ? `app__screens` : `app__screens no-sidebar`;
+
     return (
-      <section className="app__screens">
+      <section className={screenCSS}>
+        <button style={{marginBottom: '20px'}} onClick={this.props.toggleSidebar}>Toggle Sidebar</button>
         <div className="screens">
         { this.renderViews() }
         </div>

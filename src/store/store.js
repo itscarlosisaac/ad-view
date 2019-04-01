@@ -1,16 +1,13 @@
 import { openDb } from 'idb';
 
-const StorePromise = openDb('layout-store', 1, upgradeDB => {
+const StorePromise = openDb('app-store', 1, upgradeDB => {
   upgradeDB.createObjectStore('layout', { keyPath: 'id' });
   upgradeDB.createObjectStore('params', { keyPath: 'id' });
+  upgradeDB.createObjectStore('history',{ keyPath: 'id' });
 });
 
 export default {
   store: StorePromise,
-  async get(key){
-    const db = await StorePromise;
-    return db.transaction('layout').objectStore('layout').get(key)
-  },
   async set(val){
     const db = await StorePromise;
     const tx = db.transaction('layout', 'readwrite');
@@ -40,8 +37,10 @@ export default {
     const db = await StorePromise;
     const tx = db.transaction('layout', 'readwrite');
     tx.objectStore('layout').clear();
+    db.transaction('params', 'readwrite').objectStore('params').clear();
     return tx.complete;
   },
+
   // Params
   async getAllParams(){
     const db = await StorePromise;
@@ -67,5 +66,20 @@ export default {
     const store = tx.objectStore('params')
     store.delete(id)
     return tx.complete;
+  },
+
+  // History
+  async getAllHistory(){
+    const db = await StorePromise;
+    const tx = db.transaction('history', 'readonly');
+    const store = tx.objectStore('history');
+    return store.getAll();
+  },
+  async addHistory(val){
+    const db = await StorePromise;
+    console.log(val, db)
+    const tx = db.transaction('history', 'readwrite');
+    tx.objectStore('history').add(val);
+    return tx.complete
   },
 }

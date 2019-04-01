@@ -18,7 +18,7 @@ export default class Header extends Component {
   componentWillMount() {
     this.setState({url: this.props.url})
   }
-  
+
   toggleProtocol(e){
     const temp = this.state.isOpen;
     const protocol = e.target.dataset.protocol || this.state.protocol;
@@ -50,7 +50,6 @@ export default class Header extends Component {
     }
   }
 
-
   render() {
     const { protocol, isOpen, url } = this.state;
     return (
@@ -59,7 +58,7 @@ export default class Header extends Component {
         <div className="input__container">
           <span className="input__protocol" onClick={this.toggleProtocol}>
             {protocol}
-            <svg width="11px" height="6px" viewBox="0 0 11 6" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg width="11px" height="6px" viewBox="0 0 11 6">
               <g id="Rectangle-4" transform="translate(0.000000, -5.000000)" fill="#FFFFFF" >
                   <polygon transform="translate(5.500000, 5.500000) rotate(45.000000) translate(-5.500000, -5.500000) " points="9 2 9 9 2 9"></polygon>
               </g>
