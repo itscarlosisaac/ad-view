@@ -20,7 +20,7 @@ class App extends React.Component {
       sizes: [],
       params: [],
       history: [],
-      url: "",
+      url: "localhost:9090",
       useSizeAsParam: true,
       usePreviewParam: true,
       viewsCreated: false,

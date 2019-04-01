@@ -20,7 +20,7 @@
 - When adding a size, if the screen are created, it should destroy the screens and create them again. ?
 - Add a Recent URL dropdowns.
 - Resolve bug with update size and params and allowing duplicated
-- Add button to expand or collapse sidebar
+- ~~Add button to expand or collapse sidebar~~
 - Add button to open in external browsers
 - After editing a param field, hit enter to save changes.
 
