@@ -1,29 +1,62 @@
 import React, { Component } from 'react'
-const { shell } = require('electron');
-const { spawn, exec } = require('child_process');
-
+import { FaFirefox, FaChrome, FaEdge } from 'react-icons/fa';
+const { exec } = require('child_process');
 
 export default class View extends Component {
 
   constructor(props){
     super(props);
-    this.openExternal = this.openExternal.bind(this);
+    this.openChrome = this.openChrome.bind(this);
+    this.openFirefox = this.openFirefox.bind(this);
+    this.openEdge = this.openEdge.bind(this);
   }
 
-  openExternal() {
+  openChrome() {
     /*
     Chrome Mac:
     open -na "Google Chrome" --args --new-window "URL"
     */
-    // shell.openExternal('https://github.com')
     if ( process.platform === 'darwin' ) {
-      console.log(spawn)
       exec(`open -na "Google Chrome" --args --new-window "${this.props.url}"`, (error) => {
         if( error ) {
           console.log( error , 'The application could not be loaded');
         }
       })
+    // Chrome Windows
+    }else if( process.platform === "win32") {
+      exec(`start chrome "${this.props.url}"`, (error) => {
+        if( error ) {
+          console.log( error , 'The application could not be loaded');
+        }
+      });
     }
+  }
+
+  openFirefox() {
+    /*
+    Firefox Mac:
+    */
+    if ( process.platform === 'darwin' ) {
+      exec(`osascript firefox.scpt "${this.props.url}"`, (error) => {
+        if( error ) {
+          console.log( error , 'The application could not be loaded');
+        }
+      })
+    }else if( process.platform === "win32") {
+      exec(`start firefox "${this.props.url}"`, (error) => {
+        if( error ) {
+          console.log( error , 'The application could not be loaded');
+        }
+      });
+    }
+  }
+
+  openEdge() {
+    exec(`start microsoft-edge:"${this.props.url}"`, (error) => {
+      if( error ) {
+        console.log( error , 'The application could not be loaded');
+      }
+    });
   }
 
   render() {
@@ -35,7 +68,13 @@ export default class View extends Component {
     return (
       <div className="view">
         <webview className="img" src={this.props.url} style={styles}></webview>
-        <button onClick={this.openExternal}>Open External</button>
+        <div className="open-in-browsers">
+          <button onClick={this.openChrome}> <FaChrome size="2em" /> </button>
+          <button onClick={this.openFirefox}> <FaFirefox size="2em" /> </button>
+          {
+            process.platform === 'win32' ? <button onClick={this.openEdge}> <FaEdge size="2em" /> </button> : ''
+          }
+        </div>
       </div>
     )
   }

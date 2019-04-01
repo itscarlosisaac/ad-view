@@ -29,7 +29,7 @@ class App extends React.Component {
 
     // Sidebar Method
     this.toggleSidebar = this.toggleSidebar.bind(this);
-    
+
     // Header Methods
     this.createViews = this.createViews.bind(this);
     this.reloadViews = this.reloadViews.bind(this);
