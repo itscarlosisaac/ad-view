@@ -46,7 +46,7 @@ export default class Param extends Component {
   }
 
   keyCheck(e){
-    const key = e.which;
+    const key = e.which || e.keyCode;
     if ( key === 13 ) {
       this.submitChanges(e)
     } else if( key === 27 ) {
