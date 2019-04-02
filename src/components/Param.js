@@ -12,6 +12,7 @@ export default class Param extends Component {
     this.changeEditMode = this.changeEditMode.bind(this)
     this.submitChanges = this.submitChanges.bind(this)
     this.stopEditing = this.stopEditing.bind(this)
+    this.keyCheck = this.keyCheck.bind(this)
     this.form = React.createRef();
   }
 
@@ -44,15 +45,24 @@ export default class Param extends Component {
     this.setState({isEditing: false})
   }
 
+  keyCheck(e){
+    const key = e.which;
+    if ( key === 13 ) {
+      this.submitChanges(e)
+    } else if( key === 27 ) {
+      this.setState({isEditing: false})
+    }
+  }
+
   renderEditView() {
     const { index, name, value, id, deleteParam } = this.props;
     return (
-      <form className="edit__row" ref={this.form}>
+      <form className="edit__row" ref={this.form} onKeyDown={this.keyCheck}>
         <input type="text" defaultValue={name} name={name} />
         <input type="text" defaultValue={value} name={value} />
         <div className="actions">
-          <Button type="button" content={<i className="material-icons" onClick={this.submitChanges}>done</i>} cName="btn green"/>
-          <Button type="button" content={<i className="material-icons" onClick={this.changeEditMode}>clear</i>} cName="btn red"/>
+          <Button type="submit" content={<i className="material-icons" onClick={this.submitChanges}>done</i>} cName="btn green"/>
+          <Button type="cancel" content={<i className="material-icons" onClick={this.changeEditMode}>clear</i>} cName="btn red"/>
         </div>
       </form>
     );

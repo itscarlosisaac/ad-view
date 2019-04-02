@@ -37,7 +37,7 @@ export default class View extends Component {
     Firefox Mac:
     */
     if ( process.platform === 'darwin' ) {
-      exec(`osascript firefox.scpt "${this.props.url}"`, (error) => {
+      exec(`osascript ../../shell/firefox.scpt "${this.props.url}"`, (error) => {
         if( error ) {
           console.log( error , 'The application could not be loaded');
         }
