@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FaFirefox, FaChrome, FaEdge } from 'react-icons/fa';
 const { exec } = require('child_process');
+const path = require('path');
 
 export default class View extends Component {
 
@@ -36,8 +37,9 @@ export default class View extends Component {
     /*
     Firefox Mac:
     */
+   const location = path.resolve(process.cwd(), 'shell/firefox.scpt');
     if ( process.platform === 'darwin' ) {
-      exec(`osascript ../../shell/firefox.scpt "${this.props.url}"`, (error) => {
+      exec(`osascript ${location} "${this.props.url}"`, (error) => {
         if( error ) {
           console.log( error , 'The application could not be loaded');
         }

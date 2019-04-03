@@ -69,8 +69,8 @@ export default class Param extends Component {
   }
 
   renderView(){
-    const { index, name, value, id, deleteParam } = this.props;
-    return <li key={index} className="app__list--item" onDoubleClick={this.changeEditMode}>
+  const { index, name, value, id, deleteParam } = this.props;
+  return <li key={index} className="app__list--item" onDoubleClick={this.changeEditMode}>
             <b className="param__name">{name}</b>
             : <span className="param__value"> {value}</span>
             <i id={id} onClick={deleteParam} className="material-icons"> clear </i>
