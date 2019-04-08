@@ -23,6 +23,7 @@
 - ~~Add button to expand or collapse sidebar~~
 - Add button to open in external browsers
 - After editing a param field, hit enter to save changes.
+- Be able to turn off or on params or sizes to avoid deletion
 
 ---------
 
