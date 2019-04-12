@@ -1,5 +1,5 @@
 /* Main CSS file */
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400,900');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 /* Importing Settings */
@@ -8,6 +8,7 @@
 
 /* Importin components */
 @import 'components/_main.css';
+@import 'components/_logo.css';
 @import 'components/_header.css';
 @import 'components/_sidebar.css';
 @import 'components/_input.css';
@@ -19,5 +20,5 @@
 #root {
   width: 100vw;
   height: 100vh;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }

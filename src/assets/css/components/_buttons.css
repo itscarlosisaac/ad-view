@@ -82,46 +82,29 @@
   width: 150px;
 }
 
-button:disabled,
+/* button:disabled,
 button[disabled]{
   background: #f4f4f4;
   color: #cccccc;
   cursor: not-allowed;
+} */
+
+/* Header Buttons  */
+
+.btn__h {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: 700;
+  color: var(--color-main-text);
+  background: transparent;
+  margin: 0 10px;
 }
 
-.btn__make__screen {
-  background: var(--main-purple);
-  border-radius: 20px;
-  box-shadow: 0 0 5px 0 rgba(0,0,0,0.23);
-  color: #FFFFFF;
-  font-size: 14px;
-  font-weight: bold;
-  height: 40px;
-  width: 144px;
-}
-
-.btn__make__screen span {
-  font-size: 12px;
-  margin-left: 10px;
-  position: relative;
-  top: 2px;
-}
-
-
-.btn__reload__screen {
-  background: var(--main-red);
-  border-radius: 20px;
-  box-shadow: 0 0 5px 0 rgba(0,0,0,0.23);
-  color: #FFFFFF;
-  font-size: 14px;
-  font-weight: bold;
-  height: 40px;
-  margin-left: 10px;
-  width: 40px;
-}
-
-.btn__reload__screen span {
-  font-size: 16px;
-  position: relative;
-  top: 2px;
+.btn__h span{
+  margin-top: 5px;
+  display: block;
+  white-space: nowrap;
 }

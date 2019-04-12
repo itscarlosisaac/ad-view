@@ -1,14 +1,13 @@
 .app__header {
   align-items: center;
-  background: var(--main-dark-blue);
+  background: var(--color-main-bg);
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  height: 80px;
-  justify-content: space-between;
-  padding: 0 20px;
+  height: 60px;
+  padding: 0 10px;
   width: 100vw;
-  box-shadow: 0 3px 16px 0 rgba(0,0,0,0.24);
+  box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.24);
   position: relative;
   z-index: 20;
 }
@@ -17,78 +16,48 @@
   height: 100%;
   display: flex;
   justify-content: flex-start;
-  width: 330px;
+  max-width: 60px;
   align-items: center;
+  margin-right: 40px;
 }
 
-.app__logo span {
-  font-weight: bold;
-  font-size: 16px;
-  color: #FFFFFF;
-  margin-left: 20px;
-}
 
-.action__container {
-  width: 200px;
-}
+/* INPUT CSS */
 
 .input__container {
-  width: calc(100% - 530px);
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .input__container .input__protocol {
-  width: 95px;
-  background: #21242A;
-  height: 100%;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  color: #ffffff;
+  color: var(--color-main-text);
   padding-left: 10px;
-  cursor: pointer;
-  position: relative;
-  min-width: 95px;
+  margin-right: 10px;
   text-transform: lowercase;
-}
-
-.input__container .input__protocol .input__protocol__list{
-  position: absolute;
-  left:0;
-  top:100%;
-  background-color: #474c57;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.input__container .input__protocol .input__protocol__list li {
-  padding: 10px;
-}
-
-.input__container .input__protocol .input__protocol__list li:hover {
-  background-color: #21242A;
-}
-
-.input__container .input__protocol svg {
-  margin-left: 8px;
-}
-
-.input__container .input__url::placeholder {
-  color: #7F93A7;
+  font-size: 12px;
 }
 
 .input__container .input__url {
-  height: 100%;
-  border:none;
-  background: transparent;
-  padding: 20px;
-  max-width: 300px;
-  width: 100%;
-  font-size: 16px;
-  color: #7F93A7;
-  border-right: 1px solid #4e5767;
+  width: 90%;
+  height: 34px;
+  font-size: 12px;
+  background: var( --color-main-border);
+  border: 1px solid var(--color-secondary-border);
   box-sizing: border-box;
+  color: var(--color-blueish-gray);
+  padding-left: 5px;
 }
+
+.app__header .action__container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Rectangle 2:
+background: #212121;
+border: 1px solid #101010; */

@@ -6,4 +6,28 @@
   --dull: #95a4b3;
   --main-purple: #8B58BE;
   --main-text-color: #6A81B8;
+
+  /* Gray Scales */
+  --color-main-bg: #1A1A1A;
+  --color-secondary-bg: #151515;
+
+  --color-main-border: #101010;
+  --color-secondary-border: #212121;
+
+  --color-blueish-white: #EFFFFF;
+  --color-blueish-gray: #96A0A0;
+
+  --color-main-text: #848484;
+
+  /* Colors */
+  --color-main-orange: #E37833;
+  --color-dark-orange: #662800;
+
+  --color-main-purple: #C792EA;
+
+  --color-main-red: #E60000;
+  --color-dark-red: #960606;
+
+  --color-main-green: #C3E88D;
+  --color-dark-green: #3C5E0B;
 }

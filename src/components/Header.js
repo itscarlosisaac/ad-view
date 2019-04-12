@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Logo from './Logo';
+import SendSVG from './icons/Send';
+import ReloadSVG from './icons/Reload';
 import validate from 'validate.js'
 export default class Header extends Component {
 
@@ -58,27 +60,18 @@ export default class Header extends Component {
         <div className="input__container">
           <span className="input__protocol" onClick={this.toggleProtocol}>
             {protocol}
-            <svg width="11px" height="6px" viewBox="0 0 11 6">
-              <g id="Rectangle-4" transform="translate(0.000000, -5.000000)" fill="#FFFFFF" >
-                  <polygon transform="translate(5.500000, 5.500000) rotate(45.000000) translate(-5.500000, -5.500000) " points="9 2 9 9 2 9"></polygon>
-              </g>
-            </svg>
-            {
-              isOpen ?
-              ( <ul className="input__protocol__list">
-                <li data-protocol="Http://">Http</li>
-                <li data-protocol="Https://">Https</li>
-              </ul> ) : ""
-            }
           </span>
           <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>
         </div>
         <div className="action__container">
-          <button className="btn__make__screen" disabled={!this.state.validURL} onClick={this.props.createViews}>
-          Make Screens
-          <span className="material-icons">send</span>
+          <button className="btn__h" disabled={!this.state.validURL} onClick={this.props.createViews}>
+            <SendSVG/>
+            <span>Create Views</span>
           </button>
-          <button className="btn__reload__screen" disabled={!this.props.viewsCreated} onClick={this.props.reloadViews}> <span className="material-icons">loop</span> </button>
+          <button className="btn__h" disabled={!this.props.viewsCreated} onClick={this.props.reloadViews}>
+            <ReloadSVG/>
+            <span>Reload Views</span>
+          </button>
         </div>
       </header>
     )
