@@ -5,12 +5,21 @@ import { ipcRenderer } from 'electron';
 // Import components
 import ScreensContainer from './ScreensContainer';
 import Sidebar from './Sidebar';
+import TabsPanel from './TabsPanel';
 import Header from './Header';
 import View from './View';
 
 // Import helpers
 import uuid from 'uuid';
 import Emitter from '../emitter/emitter'
+import Toolbar from './Toolbar';
+
+// Icons
+import SizesSVG from './icons/Sizes'
+import ParamsSVG from './icons/Params'
+import SettingsSVG from './icons/Settings'
+import ConsoleSVG from './icons/Console'
+import HideSidebarSVG from './icons/HideSidebar'
 
 class App extends React.Component {
   constructor(props){
@@ -219,34 +228,44 @@ class App extends React.Component {
     console.log(this.state.history)
     return (
       <div className="app__container">
-        <Header
-          getURL={this.getURL}
-          getProtocol={this.getProtocol}
-          url={this.state.url}
-          createViews={this.createViews}
-          reloadViews={this.reloadViews}
-          viewsCreated={true}
-        />
-        {
-          this.state.isSidebarVisible ?
-          <Sidebar
-            useSizeAsParam={this.state.useSizeAsParam}
-            usePreviewParam={this.state.usePreviewParam}
-            toggleParam={this.toggleParam}
-            store={this.props.store}
-            paramMethods={{add:this.addParam, delete: this.deleteParam, update: this.updateParam }}
-            sizeMethods={{add:this.addSize, delete: this.deleteSize, update: this.updateSize}}
-            params={this.state.params}
-            sizes={this.state.sizes}
-            views={this.createViews}
-          /> : <div></div>
-        }
-        <ScreensContainer
-          sizes={sizes}
-          views={views}
-          toggleSidebar={this.toggleSidebar}
-          isSidebarVisible={this.state.isSidebarVisible}
+        <div className="app__left">
+          <Header
+            getURL={this.getURL}
+            getProtocol={this.getProtocol}
+            url={this.state.url}
+            createViews={this.createViews}
+            reloadViews={this.reloadViews}
+            viewsCreated={true}
           />
+          <Toolbar />
+          <ScreensContainer
+            sizes={sizes}
+            views={views}
+            toggleSidebar={this.toggleSidebar}
+            isSidebarVisible={this.state.isSidebarVisible}
+          />
+        </div>
+
+        <div className="app__right">
+          <TabsPanel>
+            <div label="size" icon={<SizesSVG/>}>1</div>
+            <div label="params" icon={<ParamsSVG/>}>2</div>
+            <div label="settings" icon={<SettingsSVG/>}>3</div>
+            <div label="console" icon={<ConsoleSVG/>}>4</div>
+            <div label="togglesidebar" icon={<HideSidebarSVG/>}>5</div>
+          </TabsPanel>
+        </div>
+        {/* <Sidebar
+          useSizeAsParam={this.state.useSizeAsParam}
+          usePreviewParam={this.state.usePreviewParam}
+          toggleParam={this.toggleParam}
+          store={this.props.store}
+          paramMethods={{add:this.addParam, delete: this.deleteParam, update: this.updateParam }}
+          sizeMethods={{add:this.addSize, delete: this.deleteSize, update: this.updateSize}}
+          params={this.state.params}
+          sizes={this.state.sizes}
+          views={this.createViews}
+        /> */}
       </div>
     )
   }

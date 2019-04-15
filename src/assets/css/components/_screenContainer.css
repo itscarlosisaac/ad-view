@@ -1,9 +1,7 @@
 .app__screens {
   background: #eef4f6;
   box-sizing: border-box;
-  overflow: scroll;
   padding: 15px;
-  width: calc(100% - 350px );
 }
 
 .app__screens.no-sidebar {
@@ -12,10 +10,6 @@
 
 .app__screens .screens{
   height: 100%;
-  max-height: calc(100vh - 120px);
-  min-height: 720px;
-  min-width: 350px;
-  overflow: scroll;
   width: 100%;
 }
 

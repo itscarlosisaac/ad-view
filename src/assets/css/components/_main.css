@@ -1,8 +1,16 @@
 
 .app__container {
-  height: calc(100vh - 80px);
-  width: 100vw;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.app__left{
+  width: 70%;
+}
+
+.app__right {
+  width: 30%;
 }
