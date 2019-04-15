@@ -8,11 +8,12 @@ import Sidebar from './Sidebar';
 import TabsPanel from './TabsPanel';
 import Header from './Header';
 import View from './View';
+import Toolbar from './Toolbar';
+import Footer from './Footer';
 
 // Import helpers
 import uuid from 'uuid';
 import Emitter from '../emitter/emitter'
-import Toolbar from './Toolbar';
 
 // Icons
 import SizesSVG from './icons/Sizes'
@@ -244,6 +245,7 @@ class App extends React.Component {
             toggleSidebar={this.toggleSidebar}
             isSidebarVisible={this.state.isSidebarVisible}
           />
+          <Footer />
         </div>
 
         <div className="app__right">

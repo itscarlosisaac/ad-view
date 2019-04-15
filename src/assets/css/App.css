@@ -17,6 +17,8 @@
 @import 'components/_size.css';
 @import 'components/_params.css';
 @import 'components/_screenContainer.css';
+@import 'components/_toolbar.css';
+@import 'components/_footer.css';
 
 #root {
   width: 100vw;

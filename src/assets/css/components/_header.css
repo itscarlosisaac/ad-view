@@ -10,6 +10,10 @@
   box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.24);
   position: relative;
   z-index: 20;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 1;
 }
 
 .app__logo {
@@ -57,7 +61,3 @@
   display: flex;
   justify-content: flex-end;
 }
-
-/* Rectangle 2:
-background: #212121;
-border: 1px solid #101010; */

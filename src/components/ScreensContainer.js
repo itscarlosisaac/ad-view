@@ -52,7 +52,6 @@ export default class ScreensContainer extends Component {
 
     return (
       <section className={screenCSS}>
-        <button style={{marginBottom: '20px'}} onClick={this.props.toggleSidebar}>Toggle Sidebar</button>
         <div className="screens">
         { this.renderViews() }
         </div>

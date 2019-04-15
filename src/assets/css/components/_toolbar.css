@@ -1,0 +1,50 @@
+.app__toolbar {
+  background: var(--color-main-bg);
+  border-top: 1px solid black;
+  grid-column-start: 1;
+  grid-row-start: 2;
+  grid-row-end: 4;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 20px 10px;
+}
+
+.app__toolbar .app__browsers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.app__toolbar .app__browsers svg{
+  width: 25px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.app__toolbar .app__browsers .icon{
+  transition: fill ease-in 0.2s;
+}
+
+.app__toolbar .app__browsers svg:hover .icon{
+  fill: #ffffff;
+}
+
+.app__toolbar .app__help .help {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.app__toolbar .app__help .help  small{
+  margin-top: 4px;
+  font-family: Roboto-Bold;
+  font-size: 10px;
+  color: #FFA128;
+  letter-spacing: 0.26px;
+  text-align: center;
+  text-shadow: 0 0 1px rgba(255,161,40,0.50);
+}

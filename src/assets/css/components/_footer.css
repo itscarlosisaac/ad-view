@@ -1,0 +1,41 @@
+.app__footer {
+  background: var(--color-main-bg);
+  grid-column-start: 2;
+  grid-row-start: 3;
+  grid-row-end: 3;
+  border-left: 1px solid black;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app__url__holder p {
+  margin: 0;
+  font-family: Roboto-Regular;
+  font-size: 14px;
+  color: #848484;
+  letter-spacing: 0.36px;
+}
+
+.app__copy__url {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.app__copy__url svg {
+  width: 20px;
+  margin-bottom: -5px;
+}
+
+.app__copy__url small {
+  font-family: Roboto-Bold;
+  font-size: 10px;
+  color: #848484;
+  letter-spacing: 0.26px;
+  text-align: center;
+}

@@ -9,6 +9,12 @@
 
 .app__left{
   width: 70%;
+  display: grid;
+  grid-template-columns: [toolbar] 60px auto;
+  grid-template-rows: [header] 60px auto [footer] 60px;
+  /* display: flex;
+  justify-content: stretch;
+  flex-wrap: wrap; */
 }
 
 .app__right {

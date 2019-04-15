@@ -2,10 +2,10 @@
   background: #eef4f6;
   box-sizing: border-box;
   padding: 15px;
-}
-
-.app__screens.no-sidebar {
-  width: 100% !important;
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 4;
 }
 
 .app__screens .screens{
