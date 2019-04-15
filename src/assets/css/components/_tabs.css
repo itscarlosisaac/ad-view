@@ -27,9 +27,28 @@
 
 .app__tab.active {
   background-color: var(--color-secondary-bg);
+  position: relative;
+}
+
+.app__tab.active .icon {
+  fill: #ffffff;
+}
+
+.app__tab.active::after {
+  content: '';
+  height: 1px;
+  width: 100%;
+  z-index: 10;
+  background: var(--color-secondary-bg);
+  display: block;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
 }
 
 .app__tab__content{
+  box-sizing: border-box;
+  border-top: 1px solid black;
   height: calc(100vh - 60px);
   background-color: var(--color-secondary-bg);
 }
