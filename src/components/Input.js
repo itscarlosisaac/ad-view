@@ -55,6 +55,7 @@ export default class Input extends Component {
 
 Input.defaultProps = {
   type: "text",
+  label: '',
   resetField: () => {},
   onUrlChange: () => {}
 }

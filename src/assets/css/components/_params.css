@@ -1,84 +1,34 @@
-
-.app__list {
-  margin: 20px 0 0 0;
-  padding: 0;
-  font-size: 14px;
-  color: #6A81B8;
-  letter-spacing: 0.31px;
+.app__params {
+  padding: 20px;
+  margin: 0 -20px;
 }
 
-#size__list .app__list--item span {
-  margin: 0 10px;
-}
-
-.app__list .app__list--item {
-  border-bottom: 1px solid rgba(106, 129, 184, 0.219);
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
-}
-
-.app__list b {
-  font-weight:600;
-  margin-right: 5px;
-  text-transform:capitalize;
-}
-
-.app__list .app__list--item i {
-  justify-self: flex-end;
-  cursor: pointer;
-  margin-left: auto;
-  color:var(--main-red);
-  margin-right: -50px;
-  font-size: 18px;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
-}
-.app__list .app__list--item:hover > i {
-  margin-right: 0;
-}
-
-.app__params .app__list--item {
-  font-weight: bold;
-}
-
-.app__params .app__list--item b {
-  margin-right: 0 !important;
-}
-.app__params .app__list--item .param__value { 
-  margin-left: 5px !important;
-  font-weight: normal;
-}
-
-/* Size param section */
-.hidden {
-  display: none;
-}
-
-.app__size__param {
-  margin: 20px 0;
-}
-.app__size__param p {
-  cursor: pointer;
-}
-
-.app__size__param .size__param i {
-  font-size: 21px;
-  vertical-align: text-top;
+.add__param .btn.btn__main--gray {
   margin-right: 10px;
 }
 
-.app__size__param .size__param i.off {
-  color: #98a7b6;
+
+.app__list--param {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 20px;
+  margin: 0 -10px;
+  border-bottom: 1px solid black;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 0.36px;
+  line-height: 1.5em;
 }
 
-.app__size__param .size__param i.on {
-  color: #33994d;
+.app__list--param .app__list--param--content {
+  display: flex;
+  flex-direction: column;
+}
+
+.app__list--param .checkbox {
+  margin-right: 10px;
+  top: 2px;
+  position: relative;
 }

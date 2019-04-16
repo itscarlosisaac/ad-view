@@ -6,10 +6,19 @@ import { ipcRenderer } from 'electron';
 import ScreensContainer from './ScreensContainer';
 import Sidebar from './Sidebar';
 import TabsPanel from './TabsPanel';
+import TabSection from './TabSection';
 import Header from './Header';
 import View from './View';
 import Toolbar from './Toolbar';
 import Footer from './Footer';
+
+// Size components
+import AddSizes from './AddSizes';
+import SizeList from './SizeList';
+
+// Param components
+import AddParam from './AddParam'
+import ParamList from './ParamList';
 
 // Import helpers
 import uuid from 'uuid';
@@ -21,10 +30,6 @@ import ParamsSVG from './icons/Params'
 import SettingsSVG from './icons/Settings'
 import ConsoleSVG from './icons/Console'
 import HideSidebarSVG from './icons/HideSidebar'
-import TabSection from './TabSection';
-import AddSizes from './AddSizes';
-import Size from './Size';
-import SizeList from './SizeList';
 
 class App extends React.Component {
   constructor(props){
@@ -77,7 +82,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // this.addHistory();
-    console.log(this.state.history)
+    // console.log(this.state.history)
     // this.props.store.clear()
   }
 
@@ -230,7 +235,6 @@ class App extends React.Component {
 
   render() {
     const { sizes, views, viewsCreated } = this.state;
-    // console.log(sizes)
     return (
       <div className="app__container">
         <div className="app__left">
@@ -253,16 +257,33 @@ class App extends React.Component {
         </div>
 
         <div className="app__right">
-          <TabsPanel>
+          <TabsPanel activeTab="params">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
                 components={[ <AddSizes add={this.addSize}/> ]}
-                title="Size" />
+                title="Size"/>
               <TabSection
-                components={[<SizeList sizes={this.state.sizes} />]}
-                title="Size List" />
+                components={[
+                    <SizeList
+                      update={this.updateSize}
+                      sizes={this.state.sizes} />
+                  ]}
+                title="Size List"
+                editable={false} />
             </div>
-            <div label="params" icon={<ParamsSVG/>}>2</div>
+            <div label="params" icon={<ParamsSVG/>}>
+              <TabSection
+                components={[ <AddParam add={this.addParam} /> ]}
+                title="Param"/>
+              <TabSection
+                components={[
+                  <ParamList
+                      update={this.updateParam}
+                      params={this.state.params} />
+                  ]}
+                title="Param List"
+                editable={false} />
+            </div>
             <div label="settings" icon={<SettingsSVG/>}>3</div>
             <div label="console" icon={<ConsoleSVG/>}>4</div>
             <div label="togglesidebar" icon={<HideSidebarSVG/>}>5</div>

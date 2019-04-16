@@ -24,6 +24,8 @@
 - Add button to open in external browsers
 - After editing a param field, hit enter to save changes.
 - Be able to turn off or on params or sizes to avoid deletion
+- Be able to add multi URL to specific size. Ex: 4 urls for 4 sizes.
+- Add Drag and Drop to the banner sizes
 
 ---------
 

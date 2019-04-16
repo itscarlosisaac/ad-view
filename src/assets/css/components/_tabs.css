@@ -59,7 +59,7 @@
 .app__tab__section .title {
   display: flex;
   box-sizing: border-box;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding: 0 15px;
   height: 40px;
@@ -67,6 +67,21 @@
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   margin: 20px 0;
+}
+
+.app__tab__section .title .editable {
+  cursor: pointer;
+}
+
+.app__tab__section .title .editable svg {
+  margin-right: 5px;
+}
+
+.app__tab__section .title .editable span {
+  margin-right: 10px;
+  font-size: 11px;
+  position: relative;
+  top: -1px;
 }
 
 .app__tab__section .title span {

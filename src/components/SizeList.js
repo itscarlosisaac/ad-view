@@ -6,14 +6,15 @@ export default class SizeList extends Component {
     super(props);
   }
   render() {
-    const { sizes } = this.props;
-    console.log("HOLA",sizes);
+    const { sizes, update } = this.props;
     return (
       <div>
         {
           sizes.map((size, i) => {
             const { width, height, id } = size.data;
-            return <Size width={width} key={i} height={height} id={id} isChecked={true} />
+            return (
+              <Size update={update} width={width} key={i} height={height} id={id} isChecked={true} />
+            )
           })
         }
       </div>

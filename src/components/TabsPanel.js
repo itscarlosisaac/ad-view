@@ -10,7 +10,8 @@ export default class TabsPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: this.props.children[0].props.label
+      activeTab: this.props.activeTab
+      // activeTab: this.props.activeTab | this.props.children[0].props.label
     }
     this.onClickTabItem = this.onClickTabItem.bind(this);
   }
@@ -20,7 +21,6 @@ export default class TabsPanel extends Component {
   }
 
   render() {
-    console.log(this.state)
     const { activeTab } = this.state;
     return (
       <div>

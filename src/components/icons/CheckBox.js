@@ -5,7 +5,7 @@ export default class CheckBox extends Component {
   constructor(props){
     super(props)
     this.state = {
-      withArrow: <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      on: <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                       <g id="Main-App---Editable" transform="translate(-1155.000000, -369.000000)">
                           <g id="Group-3" transform="translate(1155.000000, 369.000000)">
@@ -15,10 +15,10 @@ export default class CheckBox extends Component {
                       </g>
                   </g>
               </svg>,
-      noArrow: <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      off: <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                  <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                       <g id="Main-App---Editable" transform="translate(-1155.000000, -369.000000)">
-                          <g id="Group-3" transform="translate(1155.000000, 369.000000)" fill="#101010" fill-rule="nonzero" stroke="#313131">
+                          <g id="Group-3" transform="translate(1155.000000, 369.000000)" fill="#101010" fillRule="nonzero" stroke="#313131">
                               <rect id="Rectangle-10-Copy" x="0.5" y="0.5" width="13" height="13" rx="3"></rect>
                           </g>
                       </g>
@@ -29,10 +29,10 @@ export default class CheckBox extends Component {
 
   render() {
     const isChecked = this.props.isChecked;
-    const { withArrow, noArrow } = this.state;
+    const { on, off } = this.state;
     return (
       <span className="checkbox">
-        { isChecked ? withArrow : noArrow }
+        { isChecked ? on : off }
       </span>
     )
   }

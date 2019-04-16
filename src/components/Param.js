@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Button from './Button';
-
+import CheckBox from './icons/CheckBox';
 export default class Param extends Component {
   constructor(props) {
     super(props);
@@ -70,12 +70,17 @@ export default class Param extends Component {
 
   renderView(){
   const { index, name, value, id, deleteParam } = this.props;
-  return <li key={index} className="app__list--item" onDoubleClick={this.changeEditMode}>
-            <b className="param__name">{name}</b>
-            : <span className="param__value"> {value}</span>
-            <i id={id} onClick={deleteParam} className="material-icons"> clear </i>
-          </li>
+  return (
+      <li key={index} className="app__list--param">
+        <CheckBox isChecked={true} />
+        <div className="app__list--param--content">
+          <b className="param__name">{name} :</b>
+          <span className="param__value"> {value}</span>
+        </div>
+      </li>
+    );
   }
+
   render() {
     return !this.state.isEditing ? this.renderView() : this.renderEditView()
   }

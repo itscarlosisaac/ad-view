@@ -18,7 +18,7 @@ export default class addSizes extends Component {
     let empty = false;
     const values = validate.collectFormValues(document.getElementById('add-size'))
     for( const v in values) {
-      if( values[v] === null) { 
+      if( values[v] === null) {
         empty = true
         this.addErrorClass(v);
       }

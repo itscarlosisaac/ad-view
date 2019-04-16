@@ -20,7 +20,7 @@ export default class AddParam extends Component {
       this.addErrorClass("param-name");
     }
     if ( name !== null ) {
-      this.props.addParam({
+      this.props.add({
         name: e.target.elements[0].value,
         value: e.target.elements[1].value === "" ? "true" : e.target.elements[1].value
       })
@@ -37,12 +37,13 @@ export default class AddParam extends Component {
 
   render() {
     return (
-      <form id="add-param" className="input__row" onSubmit={this.handleSubmit}>
+      <form id="add-param" className="input__row add__param" onSubmit={this.handleSubmit}>
         <div className="inputs">
-          <Input ref={this.nameRef} placeholder="Parameter Name" name="param-name" id="param-name"/>
-          <Input ref={this.valueRef} placeholder="Parameter Value" name="param-value" id="param-value"/>
+          <Input type="text" ref={this.nameRef} placeholder="Name" name="param-name" id="param-name"/>
+          <Input type="text" ref={this.valueRef} placeholder="Value" name="param-value" id="param-value"/>
         </div>
-        <Button type="submit" content="Add Param" cName="btn primary"/>
+        <Button cName="btn btn__main--gray" content="Clear" type="clear"/>
+        <Button cName="btn btn__main--orange" content="Add Param" type="submit"/>
       </form>
     )
   }
