@@ -9,6 +9,7 @@ export default class ScreensContainer extends Component {
     this.initPickery = this.initPickery.bind(this);
     this.renderViews = this.renderViews.bind(this);
     this.removeScreen = this.removeScreen.bind(this);
+    this.activeScreen = this.activeScreen.bind(this);
   }
 
   componentDidUpdate() {
@@ -17,12 +18,12 @@ export default class ScreensContainer extends Component {
 
   initPickery() {
     function onLayout() {
-      const e = document.querySelectorAll('.layoutHolder');
-      Emitter.layoutEmitter.emit('new-layout', e);
+      const layoutHolder = document.querySelectorAll('.layoutHolder');
+      Emitter.layoutEmitter.emit('new-layout', layoutHolder);
     }
-    const c = document.querySelector('.screens');
+    const screens = document.querySelector('.screens');
     setTimeout(()=> {
-      var pckry = new Packery( c, {
+      var pckry = new Packery( screens, {
         itemSelector: '.layoutHolder',
         gutter: 15
       });
@@ -34,16 +35,34 @@ export default class ScreensContainer extends Component {
     Emitter.screenEmitter.emit('remove-screen', e.target.id)
   }
 
+  activeScreen(e){
+    let parentClass;
+    let temp = e.target;
+    while( parentClass !== 'layoutHolder'){
+      parentClass = temp.parentNode.className;
+      temp = temp.parentNode;
+    }
+    document.querySelectorAll('.layoutHolder').forEach(e => e.classList.remove('active'));
+    temp.classList.add('active');
+  }
+
   renderViews(){
     return this.props.views.map(v => {
       const { width, height, id } = v.props;
-      return <div className="layoutHolder" id={id}  key={v.key} style={ { width, height: height + 30 } }>
-        <div className="title__bar">
-          <span>{width}x{height}</span>
-          <i className="material-icons close" id={id} onClick={this.removeScreen}>clear</i>
+      return (
+        <div className="layoutHolder"
+             onClick={this.activeScreen}
+             id={id}
+             key={v.key}
+             style={ { width, height: height + 30 } }>
+
+          <div className="title__bar">
+            <span>{width}x{height}</span>
+            <i className="material-icons close" id={id} onClick={this.removeScreen}>clear</i>
+          </div>
+          {v}
         </div>
-        {v}
-      </div>
+      )
     })
   }
 
@@ -51,7 +70,7 @@ export default class ScreensContainer extends Component {
     const screenCSS = this.props.isSidebarVisible ? `app__screens` : `app__screens no-sidebar`;
 
     return (
-      <section className={screenCSS}>
+      <section className='app__screens'>
         <div className="screens">
         { this.renderViews() }
         </div>

@@ -25,6 +25,10 @@
   text-align: center;
 }
 
+.app__screens .screens .layoutHolder.active .title__bar{
+  background: red !important;
+}
+
 .dashed {
   border: 2px dashed #4194af;
 }
