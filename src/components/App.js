@@ -21,6 +21,9 @@ import ParamsSVG from './icons/Params'
 import SettingsSVG from './icons/Settings'
 import ConsoleSVG from './icons/Console'
 import HideSidebarSVG from './icons/HideSidebar'
+import TabSection from './TabSection';
+import AddSizes from './AddSizes';
+import Size from './Size';
 
 class App extends React.Component {
   constructor(props){
@@ -250,7 +253,14 @@ class App extends React.Component {
 
         <div className="app__right">
           <TabsPanel>
-            <div label="size" icon={<SizesSVG/>}>1</div>
+            <div label="size" icon={<SizesSVG/>}>
+              <TabSection
+                components={[ <AddSizes/> ]}
+                title="Size" />
+              <TabSection
+                components={[]}
+                title="Size List" />
+            </div>
             <div label="params" icon={<ParamsSVG/>}>2</div>
             <div label="settings" icon={<SettingsSVG/>}>3</div>
             <div label="console" icon={<ConsoleSVG/>}>4</div>
