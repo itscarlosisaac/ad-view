@@ -70,12 +70,18 @@ export default class Param extends Component {
 
   renderView(){
   const { index, name, value, id, deleteParam } = this.props;
+  const trimmedName = name.length > 20 ? name.substr(0,20) + '...' : name;
+  console.log(trimmedName)
   return (
       <li key={index} className="app__list--param">
         <CheckBox isChecked={true} />
         <div className="app__list--param--content">
-          <b className="param__name">{name} :</b>
-          <span className="param__value"> {value}</span>
+          <p className="param__name">
+          <b>Name: </b> <span> {name} </span>
+          </p>
+          <p className="param__value">
+            <b>Value: </b> <span> {value}</span>
+          </p>
         </div>
       </li>
     );

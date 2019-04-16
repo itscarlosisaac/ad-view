@@ -7,7 +7,6 @@
   margin-right: 10px;
 }
 
-
 .app__list--param {
   list-style: none;
   display: flex;
@@ -25,6 +24,19 @@
 .app__list--param .app__list--param--content {
   display: flex;
   flex-direction: column;
+  width: calc(100% - 30px);
+}
+
+.app__list--param .app__list--param--content b {
+  font-weight: bold;
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+.app__list--param .app__list--param--content p {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .app__list--param .checkbox {
