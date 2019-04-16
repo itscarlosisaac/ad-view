@@ -1,8 +1,7 @@
 /* Example stylesheet */
 
 .app__sidebar {
-  width: 350px;
-  max-width: 350px;
+  width: 300px;
   height: 100%;
   background: var(--color-main-bg);
   display: flex;
@@ -15,45 +14,3 @@
   padding: 20px 0;
   margin: 20px 0;
 }
-/* 
-.app__sidebar .app__option  {
-  color: var(--main-text-color);
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-}
-
-.app__sidebar .app__option i {
-  margin-right: 10px;
-  font-size: 16px;
-}
-.app__sidebar .app__option i.on { color: var(--main-green)}
-.app__sidebar .app__option i.off { color: var(--main-text-color)}
-
-.app__sidebar--title {
-  font-weight: 500;
-  font-size: 16px;
-  color: #FFFFFF;
-  letter-spacing: 0.36px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #FFFFFF;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.app__sidebar--title .add{
-  position: relative;
-  top:5px;
-  cursor: pointer;
-}
-
-.app__sidebar--footer {
-  flex-grow: 1;
-  margin: auto;
-  align-items: flex-end;
-  display: flex;
-  justify-content: flex-end;
-} */

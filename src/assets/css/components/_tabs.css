@@ -52,3 +52,29 @@
   height: calc(100vh - 60px);
   background-color: var(--color-secondary-bg);
 }
+
+/* Tabs Section */
+.app__tab__section {}
+
+.app__tab__section .title {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 15px;
+  height: 40px;
+  background: var(--color-main-bg);
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 20px 0;
+}
+
+.app__tab__section .title span {
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 0.36px;
+}
+
+.app__tab__section--content {
+  padding: 0 15px;
+}

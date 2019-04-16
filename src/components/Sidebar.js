@@ -4,6 +4,7 @@ import Param from './Param';
 import AddSizes from './AddSizes';
 import Size from './Size';
 
+// https://medium.com/the-z/making-a-resizable-div-in-js-is-not-easy-as-you-think-bda19a1bc53d
 export default class Sidebar extends Component {
   constructor(props){
     super(props);

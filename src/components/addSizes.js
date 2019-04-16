@@ -42,12 +42,13 @@ export default class addSizes extends Component {
 
   render() {
     return (
-      <form id="add-size" className="input__row" onSubmit={this.handleSubmit}>
+      <form id="add-size" className="input__row add__size" onSubmit={this.handleSubmit}>
         <div className="inputs">
-          <Input ref={this.widthRef} placeholder="Width" name="width" id="width" type="number"/>
-          <Input ref={this.heightRef} placeholder="Height" name="height" id="height" type="number"/>
+          <Input label="W" ref={this.widthRef} name="width" id="width" type="number"/>
+          <Input label="H" ref={this.heightRef} name="height" id="height" type="number"/>
         </div>
-        <Button cName="btn primary" content="Add Size" type="submit"/>
+        <Button cName="btn btn__main--gray" content="Clear" type="clear"/>
+        <Button cName="btn btn__main--orange" content="Add Size" type="submit"/>
       </form>
     )
   }

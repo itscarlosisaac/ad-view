@@ -31,10 +31,13 @@ export default class Input extends Component {
   }
 
   render() {
-    const { id, name, placeholder, type, resetField, required } = this.props;
+    const { id, name, placeholder, type, resetField, required,  label } = this.props;
     const { value, dirty } = this.state;
+    const klass = label !== '' ? "form-control has-label" : "form-control";
     return (
-      <div className="form-control">
+      <div className={klass}>
+        { label ? <label htmlFor='{name}'>{label}:</label> : ''}
+        { type == "number" ? <span>px</span> : ''}
         <input
           className={dirty}
           placeholder={placeholder}

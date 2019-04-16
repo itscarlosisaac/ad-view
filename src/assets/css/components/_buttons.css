@@ -1,14 +1,24 @@
 
-.btn__addsize {
-  background: linear-gradient(to bottom, #f1f6f8 0%,#eff5f7 100%);
-  border: 1px solid #dfe3ed;
-  border-radius: 1000px;
-  color: #142243;
+.btn {
+  padding: 8px 15px;
+}
+
+.btn.btn__main--orange {
+  background: var(--color-main-orange);
+  color: var(--color-dark-orange);
+  border-radius: 3px;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 8px 0;
-  width: 130px;
+  margin: 10px 0;
+}
+
+.btn.btn__main--gray {
+  background: var(--color-main-text);
+  color: var(--color-main-border);
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px 0;
 }
 
 .btn.primary {

@@ -2,3 +2,7 @@
   padding: 20px;
   margin: 0 -20px;
 }
+
+.add__size .btn.btn__main--gray {
+  margin-right: 10px;
+}

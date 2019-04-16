@@ -7,8 +7,8 @@
   flex-wrap: wrap;
 }
 
-.app__left{
-  width: 70%;
+.app__left {
+  width: calc(100% - 300px);
   display: grid;
   grid-template-columns: [toolbar] 60px auto;
   grid-template-rows: [header] 60px auto [footer] 60px;
@@ -18,5 +18,6 @@
 }
 
 .app__right {
-  width: 30%;
+  /* width: 30%; */
+  width: 300px;
 }
