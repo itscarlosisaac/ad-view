@@ -59,8 +59,10 @@ export default class Toolbar extends Component {
   }
 
   getActive(){
-    console.log( document.querySelector('.layoutHolder.active .view').attributes.url.value )
-    return URL = document.querySelector('.layoutHolder.active .view').attributes.url.value;
+    if ( document.querySelector('.layoutHolder.active .view') !== null ){
+      return URL = document.querySelector('.layoutHolder.active .view').attributes.url.value;
+    }
+    return '';
   }
 
   render() {

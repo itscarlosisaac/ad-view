@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import $ from 'jquery';
 import Packery from 'packery'
 import Emitter from '../emitter/emitter'
+import CloseSVG from './icons/Close';
+
 export default class ScreensContainer extends Component {
   constructor(props){
     super(props);
@@ -32,13 +34,22 @@ export default class ScreensContainer extends Component {
   }
 
   removeScreen(e){
-    Emitter.screenEmitter.emit('remove-screen', e.target.id)
+    let id;
+    let temp = e.target;
+    while( id !== 'close') {
+      id = temp.parentNode.className;
+      temp = temp.parentNode;
+    }
+    id = temp.id
+    console.log(id);
+    Emitter.screenEmitter.emit('remove-screen', id)
   }
 
   activeScreen(e){
     let parentClass;
     let temp = e.target;
     while( parentClass !== 'layoutHolder'){
+      if( parentClass == 'close') { return false}
       parentClass = temp.parentNode.className;
       temp = temp.parentNode;
     }
@@ -58,7 +69,9 @@ export default class ScreensContainer extends Component {
 
           <div className="title__bar">
             <span>{width}x{height}</span>
-            <i className="material-icons close" id={id} onClick={this.removeScreen}>clear</i>
+            <span className="close" id={id} onClick={this.removeScreen}>
+              <CloseSVG />
+            </span>
           </div>
           {v}
         </div>

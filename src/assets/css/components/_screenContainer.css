@@ -54,8 +54,9 @@
 }
 
 .app__screens .screens .layoutHolder .title__bar .close {
-  color: var(--main-red);
   cursor: pointer;
+  transform: scale(0.5);
+  transform-origin: center;
 }
 
 .app__screens .screens .view {
@@ -65,38 +66,4 @@
 .app__screens .screens .view webview {
   position: relative;
   z-index: 15;
-}
-
-.app__screens .screens .view .open-in-browsers {
-  align-items: flex-end;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  position: absolute;
-  right: 0;
-  top: -28px;
-  width: 100%;
-  z-index: 10;
-  transition: .7s all cubic-bezier(0.075, 0.82, 0.165, 1);
-  opacity: 0;
-}
-
-.app__screens .screens .view .open-in-browsers button:first-child {
-  margin-top: 0;
-}
-
-.app__screens .screens .view .open-in-browsers button {
-  height: 40px;
-  margin: 5px 0;
-  width: 40px;
-}
-
-.app__screens .screens .view .open-in-browsers button:hover {
-  color: red;
-}
-
-.app__screens .screens .view:hover > .open-in-browsers {
-  z-index: 20;
-  right: -40px;
-  opacity: 1;
 }
