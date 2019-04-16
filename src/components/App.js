@@ -40,7 +40,7 @@ class App extends React.Component {
       sizes: [],
       params: [],
       history: [],
-      url: "localhost:9090",
+      url: "www.google.com",
       useSizeAsParam: true,
       usePreviewParam: true,
       viewsCreated: false,

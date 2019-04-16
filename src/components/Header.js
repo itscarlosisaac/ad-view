@@ -64,11 +64,11 @@ export default class Header extends Component {
           <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>
         </div>
         <div className="action__container">
-          <button className="btn__h" disabled={!this.state.validURL} onClick={this.props.createViews}>
+          <button className="btn__h" onClick={this.props.createViews}>
             <SendSVG/>
             <span>Create Views</span>
           </button>
-          <button className="btn__h" disabled={!this.props.viewsCreated} onClick={this.props.reloadViews}>
+          <button className="btn__h" onClick={this.props.reloadViews}>
             <ReloadSVG/>
             <span>Reload Views</span>
           </button>
