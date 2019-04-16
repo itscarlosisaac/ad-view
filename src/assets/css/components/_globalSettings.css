@@ -1,0 +1,17 @@
+.app__global__settings {
+}
+
+.app__global__settings-item {
+  list-style: none;
+  padding: 20px;
+  margin: 0 -10px;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.app__global__settings-item .label {
+  color: #ffffff;
+  width: calc(100% - 20px);
+}

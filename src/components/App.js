@@ -11,6 +11,7 @@ import Header from './Header';
 import View from './View';
 import Toolbar from './Toolbar';
 import Footer from './Footer';
+import GlobalSettings from './GlobalSettings';
 
 // Size components
 import AddSizes from './AddSizes';
@@ -257,7 +258,7 @@ class App extends React.Component {
         </div>
 
         <div className="app__right">
-          <TabsPanel activeTab="params">
+          <TabsPanel activeTab="settings">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
                 components={[ <AddSizes add={this.addSize}/> ]}
@@ -284,7 +285,14 @@ class App extends React.Component {
                 title="Param List"
                 editable={false} />
             </div>
-            <div label="settings" icon={<SettingsSVG/>}>3</div>
+            <div label="settings" icon={<SettingsSVG/>}>
+              <TabSection
+                components={[
+                    <GlobalSettings />
+                  ]}
+                title="Global Settings"
+                editable={false} />
+            </div>
             <div label="console" icon={<ConsoleSVG/>}>4</div>
             <div label="togglesidebar" icon={<HideSidebarSVG/>}>5</div>
           </TabsPanel>
