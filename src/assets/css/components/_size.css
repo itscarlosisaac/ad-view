@@ -6,3 +6,32 @@
 .add__size .btn.btn__main--gray {
   margin-right: 10px;
 }
+
+.app__list--size:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.app__list--size {
+  list-style: none;
+  padding: 20px;
+  margin: 0 -10px;
+  border-bottom: 1px solid black;
+}
+
+.app__list--size input{
+  margin-right: 10px;
+}
+
+.app__list--size span{
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 0.36px;
+}
+
+.app__list--size .checkbox {
+  margin-right: 10px;
+  top: 2px;
+  position: relative;
+  cursor: pointer;
+}

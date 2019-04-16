@@ -25,7 +25,7 @@ export default class addSizes extends Component {
     }
     if ( values.width !== null &&
          values.height !== null ) {
-      this.props.addSize({
+      this.props.add({
         width: e.target.elements[0].value,
         height: e.target.elements[1].value
       });

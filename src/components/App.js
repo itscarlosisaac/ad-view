@@ -24,6 +24,7 @@ import HideSidebarSVG from './icons/HideSidebar'
 import TabSection from './TabSection';
 import AddSizes from './AddSizes';
 import Size from './Size';
+import SizeList from './SizeList';
 
 class App extends React.Component {
   constructor(props){
@@ -229,7 +230,7 @@ class App extends React.Component {
 
   render() {
     const { sizes, views, viewsCreated } = this.state;
-    console.log(this.state.history)
+    // console.log(sizes)
     return (
       <div className="app__container">
         <div className="app__left">
@@ -255,10 +256,10 @@ class App extends React.Component {
           <TabsPanel>
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
-                components={[ <AddSizes/> ]}
+                components={[ <AddSizes add={this.addSize}/> ]}
                 title="Size" />
               <TabSection
-                components={[]}
+                components={[<SizeList sizes={this.state.sizes} />]}
                 title="Size List" />
             </div>
             <div label="params" icon={<ParamsSVG/>}>2</div>

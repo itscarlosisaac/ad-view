@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Button from './Button';
+import CheckBox from './icons/CheckBox';
 
 export default class Size extends Component {
 
@@ -61,18 +62,14 @@ export default class Size extends Component {
   }
 
   renderView(){
-    const { width, height, id, deleteSize } = this.props;
+    const { width, height, id, deleteSize, isChecked } = this.props;
+    console.log(width, height)
     return (
-      <li className="app__list--item"  onDoubleClick={this.changeEditMode}>
-        <b>Width:</b> {width}
-        <span>|</span>
-        <b>Height:</b> {height}
-        <i
-          id={id}
-          className="material-icons"
-          onClick={deleteSize}>
-          clear
-        </i>
+      <li className="app__list--size">
+        <CheckBox isChecked={true} />
+        <span>
+          {width}x{height}
+        </span>
       </li>
     )
   }
