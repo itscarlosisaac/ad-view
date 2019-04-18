@@ -1,77 +1,77 @@
 import React, { Component } from 'react'
-import Button from './Button';
 import CheckBox from './icons/CheckBox';
+import Close from './icons/Close';
+import Emitter from '../emitter/emitter'
+
+
 export default class Param extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isEditing: false,
+      name: this.props.name,
+      value: this.props.value
     }
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
+
+    this.deleteParam = this.deleteParam.bind(this)
+    this.onChange = this.onChange.bind(this)
+    
     this.changeEditMode = this.changeEditMode.bind(this)
-    this.submitChanges = this.submitChanges.bind(this)
-    this.stopEditing = this.stopEditing.bind(this)
-    this.keyCheck = this.keyCheck.bind(this)
-    this.form = React.createRef();
   }
 
-  changeEditMode(e){
-    e.preventDefault();
-    const temp = this.state.isEditing;
-    window.addEventListener('click', this.stopEditing )
-    this.setState({isEditing: !temp})
-  }
 
-  submitChanges(e){
-    e.preventDefault();
-    const name = this.form.current.childNodes[0].value
-    const value = this.form.current.childNodes[1].value
-    const id = this.props.id
-    window.removeEventListener('click', this.stopEditing);
-    this.props.updateParam({param:{name, value}, id})
-    this.setState({
-      isEditing: false
+  componentDidMount() {
+    Emitter.sizeEditableEmitter.on('toggle-edit', () => {
+      this.changeEditMode()
     })
   }
 
-  stopEditing(e){
-    e.preventDefault()
-    let target = e.target;
-    do {
-      if (target == this.form.current) { return; }
-      target = target.parentNode;
-    } while (target);
-    this.setState({isEditing: false})
+  componentWillUnmount() {
+    Emitter.sizeEditableEmitter.removeAllListeners('toggle-edit');
   }
 
-  keyCheck(e){
-    const key = e.which || e.keyCode;
-    if ( key === 13 ) {
-      this.submitChanges(e)
-    } else if( key === 27 ) {
-      this.setState({isEditing: false})
+  changeEditMode(){
+    const temp = this.state.isEditing;
+    if( temp ) {
+      const { update, id  } = this.props;
+      const { name, value  } = this.state;
+      update({id, param:{name, value} });
     }
+    process.nextTick(() => {
+      this.setState({isEditing: !temp})
+    });
+  }
+
+  onChange(e){
+    const newState = e.target.value;
+    const name = e.target.name;
+    this.setState({
+      [name]: newState,
+    });
+  }
+
+  deleteParam(){
+    const { id, deleteParam } = this.props;
+    deleteParam(id);
   }
 
   renderEditView() {
-    const { index, name, value, id, deleteParam } = this.props;
+    const { name, value, } = this.props;
     return (
-      <form className="edit__row" ref={this.form} onKeyDown={this.keyCheck}>
-        <input type="text" defaultValue={name} name={name} />
-        <input type="text" defaultValue={value} name={value} />
-        <div className="actions">
-          <Button type="submit" content={<i className="material-icons" onClick={this.submitChanges}>done</i>} cName="btn green"/>
-          <Button type="cancel" content={<i className="material-icons" onClick={this.changeEditMode}>clear</i>} cName="btn red"/>
-        </div>
+      <form className="edit__row" onChange={this.onChange}>
+        <input type="text" defaultValue={name} name="name" />
+        <input type="text" defaultValue={value} name="value" />
+        <span onClick={this.deleteParam} className="edit__row--delete">
+          <Close />
+        </span>
       </form>
     );
   }
 
   renderView(){
-  const { index, name, value, id, deleteParam } = this.props;
-  const trimmedName = name.length > 20 ? name.substr(0,20) + '...' : name;
-  console.log(trimmedName)
+  const { index, name, value } = this.props;
   return (
       <li key={index} className="app__list--param">
         <CheckBox isChecked={true} />

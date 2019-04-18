@@ -139,7 +139,7 @@ class App extends React.Component {
   }
 
   deleteParam(e){
-    const id = e.currentTarget.id;
+    const id = e
     this.props.store.deleteParam(id).then(()=>{
       this.getAllParams();
     })
@@ -265,10 +265,10 @@ class App extends React.Component {
                 title="Size"/>
               <TabSection
                 components={[
-                    <SizeList
-                      update={this.updateSize}
-                      deleteSize={this.deleteSize}
-                      sizes={this.state.sizes} />
+                  <SizeList
+                    update={this.updateSize}
+                    deleteSize={this.deleteSize}
+                    sizes={this.state.sizes} />
                   ]}
                 title="Size List"
                 editable={true} />
@@ -281,10 +281,11 @@ class App extends React.Component {
                 components={[
                   <ParamList
                       update={this.updateParam}
+                      deleteParam={this.deleteParam}
                       params={this.state.params} />
                   ]}
                 title="Param List"
-                editable={false} />
+                editable={true} />
             </div>
             <div label="settings" icon={<SettingsSVG/>}>
               <TabSection

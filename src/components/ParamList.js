@@ -6,15 +6,21 @@ export default class ParamList extends Component {
     super(props);
   }
   render() {
-    const { params, update } = this.props;
+    const { params, update, deleteParam } = this.props;
     return (
       <div>
         {
           params.map((p, index) => {
-            const { param:{name, value}, id } = p
-            console.log(name, value, id)
+            const { param:{name, value} } = p
             return (
-              <Param key={index} name={p.param.name} value={p.param.value} id={p.id}/>
+              <Param
+                key={index}
+                update={update}
+                deleteParam={deleteParam}
+                name={p.param.name}
+                value={p.param.value}
+                id={p.id}
+                />
             )
           })
         }

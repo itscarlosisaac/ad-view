@@ -24,7 +24,6 @@ export default {
     const db = await StorePromise;
     const tx = db.transaction('layout', 'readonly');
     const store = tx.objectStore('layout')
-    console.log(store.getAll())
     return store.getAll();
   },
   async delete(id){

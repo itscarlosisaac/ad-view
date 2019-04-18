@@ -18,8 +18,6 @@ export default class Size extends Component {
     this.changeEditMode = this.changeEditMode.bind(this)
     this.onChange = this.onChange.bind(this)
     this.deleteSize = this.deleteSize.bind(this)
-
-    this.form = React.createRef();
   }
 
   componentDidMount() {
@@ -60,7 +58,7 @@ export default class Size extends Component {
   renderEditView(){
     const { size, id } = this.props;
     return (
-      <form className="edit__row" ref={this.form} id={id} onChange={this.onChange}>
+      <form className="edit__row" id={id} onChange={this.onChange}>
         <input type="number" defaultValue={size.width} name="width" />
         <input type="number" defaultValue={size.height} name="height" />
         <span onClick={this.deleteSize} className="edit__row--delete">

@@ -31,7 +31,7 @@ export default class Input extends Component {
   }
 
   render() {
-    const { id, name, placeholder, type, resetField, required,  label } = this.props;
+    const { id, name, placeholder, type, resetField, required,  label, disabled } = this.props;
     const { value, dirty } = this.state;
     const klass = label !== '' ? "form-control has-label" : "form-control";
     return (
@@ -39,6 +39,7 @@ export default class Input extends Component {
         { label ? <label htmlFor='{name}'>{label}:</label> : ''}
         { type == "number" ? <span>px</span> : ''}
         <input
+          disabled={disabled}
           className={dirty}
           placeholder={placeholder}
           onChange={this.onChange}
@@ -56,6 +57,7 @@ export default class Input extends Component {
 Input.defaultProps = {
   type: "text",
   label: '',
+  disabled: false,
   resetField: () => {},
   onUrlChange: () => {}
 }

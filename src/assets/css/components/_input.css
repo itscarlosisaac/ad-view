@@ -27,6 +27,16 @@
   border: 1px solid var(--color-dark-green)
 }
 
+.edit__row input:disabled,
+.form-control input[type="url"]:disabled,
+.form-control input[type="number"]:disabled,
+.form-control input[type="text"]:disabled {
+  background: #2f2f2f;
+  border: 0.0625rem solid #929292;
+  cursor: not-allowed;
+}
+
+
 
 /* Add Params Styles */
 .input__row {
