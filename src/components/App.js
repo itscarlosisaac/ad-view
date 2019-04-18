@@ -75,6 +75,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
+    // this.props.store.clear()
     this.getAllParams();
     this.getAllSizes();
     this.instantiateEmitters();
@@ -84,7 +85,6 @@ class App extends React.Component {
   componentDidMount() {
     // this.addHistory();
     // console.log(this.state.history)
-    // this.props.store.clear()
   }
 
   instantiateEmitters(){
@@ -160,11 +160,11 @@ class App extends React.Component {
 
   addSize(size){
     const { width, height } = size;
-    let exists = this.state.sizes.filter(s => s.data.width === Number(width) && s.data.height === Number(height) );
+    let exists = this.state.sizes.filter(s => s.size.width === Number(width) && s.size.height === Number(height) );
     if( exists.length > 0 ) { return this.getAllSizes() }
     this.props.store.set({
       id: uuid(),
-      data: {
+      size: {
         width: Number(width),
         height: Number(height),
       }
@@ -258,7 +258,7 @@ class App extends React.Component {
         </div>
 
         <div className="app__right">
-          <TabsPanel activeTab="settings">
+          <TabsPanel activeTab="size">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
                 components={[ <AddSizes add={this.addSize}/> ]}
@@ -270,7 +270,7 @@ class App extends React.Component {
                       sizes={this.state.sizes} />
                   ]}
                 title="Size List"
-                editable={false} />
+                editable={true} />
             </div>
             <div label="params" icon={<ParamsSVG/>}>
               <TabSection
@@ -297,17 +297,6 @@ class App extends React.Component {
             <div label="togglesidebar" icon={<HideSidebarSVG/>}>5</div>
           </TabsPanel>
         </div>
-        {/* <Sidebar
-          useSizeAsParam={this.state.useSizeAsParam}
-          usePreviewParam={this.state.usePreviewParam}
-          toggleParam={this.toggleParam}
-          store={this.props.store}
-          paramMethods={{add:this.addParam, delete: this.deleteParam, update: this.updateParam }}
-          sizeMethods={{add:this.addSize, delete: this.deleteSize, update: this.updateSize}}
-          params={this.state.params}
-          sizes={this.state.sizes}
-          views={this.createViews}
-        /> */}
       </div>
     )
   }

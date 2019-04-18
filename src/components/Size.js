@@ -9,45 +9,67 @@ export default class Size extends Component {
     super(props);
     this.state = {
       isEditing: false,
+      width: this.props.size.width,
+      height: this.props.size.height,
     }
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
 
     this.changeEditMode = this.changeEditMode.bind(this)
+    this.onChange = this.onChange.bind(this)
 
     this.form = React.createRef();
   }
 
-  changeEditMode(e){
-    e.preventDefault();
-    const temp = this.state.isEditing;
-    // window.addEventListener('click', this.stopEditing )
-    this.setState({isEditing: !temp})
+  componentDidMount() {
+    Emitter.sizeEditableEmitter.on('toggle-edit', () => {
+      this.changeEditMode()
+    })
   }
 
+  componentWillUnmount() {
+    Emitter.sizeEditableEmitter.removeAllListeners('toggle-edit');
+  }
+
+  changeEditMode(){
+    const temp = this.state.isEditing;
+    const { width, height } = this.state;
+    if( temp ) {
+      const { update, id  } = this.props;
+      update({id, size:{width, height} });
+    }
+    process.nextTick(() => {
+      this.setState({isEditing: !temp})
+    })
+  }
+
+  onChange(e){
+    const newState = e.target.value;
+    const name = e.target.name;
+    this.setState({
+      [name]: newState,
+    });
+  }
 
   renderEditView(){
-    const { width, height, id, deleteSize } = this.props;
+    const { size, id, deleteSize } = this.props;
     return (
-      <form className="edit__row" ref={this.form}>
-        <input type="number" defaultValue={width} name={width} />
-        <input type="number" defaultValue={height} name={height} />
+      <form className="edit__row" ref={this.form} id={id} onChange={this.onChange}>
+        <input type="number" defaultValue={size.width} name="width" />
+        <input type="number" defaultValue={size.height} name="height" />
       </form>
     );
   }
 
-  toggleRenderSize(){
-    console.log("Toggle");
-  }
-
   renderView(){
-    const { width, height, id, deleteSize, isChecked } = this.props;
-    const { renderSize } = this.state;
+
+    const { size, id, isChecked } = this.props;
+    // console.log(this.props)
     return (
       <li className="app__list--size" id={id} onClick={this.toggleRenderSize} >
-        <CheckBox isChecked={true} />
-        <span>
-          {width}x{height}
+        <CheckBox isChecked={isChecked} />
+        <span id={id}>
+          {size.width}x{size.height}
         </span>
       </li>
     )

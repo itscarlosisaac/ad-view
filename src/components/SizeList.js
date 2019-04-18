@@ -11,9 +11,10 @@ export default class SizeList extends Component {
       <div>
         {
           sizes.map((size, i) => {
-            const { width, height, id } = size.data;
+            const { id } = size;
+            const { width, height } = size.size;
             return (
-              <Size update={update} width={width} key={i} height={height} id={id} isChecked={true} />
+              <Size update={update} size={{width, height}} key={i} id={id} isChecked={true} />
             )
           })
         }
