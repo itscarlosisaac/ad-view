@@ -180,7 +180,7 @@ class App extends React.Component {
   }
 
   deleteSize(e){
-    const id = e.currentTarget.id;
+    const id = e;
     this.props.store.delete(id).then(()=>{
       this.getAllSizes();
     });
@@ -267,6 +267,7 @@ class App extends React.Component {
                 components={[
                     <SizeList
                       update={this.updateSize}
+                      deleteSize={this.deleteSize}
                       sizes={this.state.sizes} />
                   ]}
                 title="Size List"

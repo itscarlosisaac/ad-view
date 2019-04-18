@@ -15,5 +15,3 @@ export default class CloseSVG extends Component {
     )
   }
 }
-
-

@@ -6,7 +6,7 @@ export default class SizeList extends Component {
     super(props);
   }
   render() {
-    const { sizes, update } = this.props;
+    const { sizes, update, deleteSize } = this.props;
     return (
       <div>
         {
@@ -14,7 +14,14 @@ export default class SizeList extends Component {
             const { id } = size;
             const { width, height } = size.size;
             return (
-              <Size update={update} size={{width, height}} key={i} id={id} isChecked={true} />
+              <Size
+                key={i}
+                id={id}
+                size={{width, height}}
+                update={update}
+                deleteSize={deleteSize}
+                isChecked={true}
+                />
             )
           })
         }
