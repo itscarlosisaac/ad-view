@@ -40,8 +40,8 @@ export default class Size extends Component {
     if( temp ) {
       const { width, height } = this.state;
       model.updatedAt = new Date();
-      model.width = width;
-      model.height = height;
+      model.width = Number(width);
+      model.height = Number(height);
       this.props.update( model );
     }
     process.nextTick(() => {
@@ -64,7 +64,8 @@ export default class Size extends Component {
   }
 
   deleteSize(){
-    const { id, deleteSize } = this.props;
+    const { deleteSize } = this.props;
+    const id = this.props.model.id;
     deleteSize(id);
   }
 
