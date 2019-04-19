@@ -199,9 +199,9 @@ class App extends React.Component {
     if( usePreviewParam ) {
       ProductionURL.searchParams.append('provider', 'preview')
     }
-    const views =  sizes.map((t,index) => {
-      const id = t.id
-      const { width, height,  } = t.data;
+    const views =  sizes.map((size,index) => {
+      const id = size.id
+      const { width, height,  } = size;
       if( useSizeAsParam ) {
         ProductionURL.searchParams.append('size', '')
         ProductionURL.searchParams.set('size',`${width}x${height}`);

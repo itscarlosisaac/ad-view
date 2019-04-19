@@ -6,6 +6,7 @@ export default class SizeList extends Component {
   constructor(props){
     super(props);
   }
+
   render() {
     const { sizes, update, deleteSize } = this.props;
     return (
