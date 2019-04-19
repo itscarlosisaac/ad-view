@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Toggle from './icons/Toggle';
 import Emitter from '../emitter/emitter'
 
@@ -36,9 +36,9 @@ export default class TabSection extends Component {
           {
             components.map((component, i) => {
               return (
-                <div key={i}>
+                <Fragment key={i}>
                   {component}
-                </div>
+                </Fragment>
               )
             })
           }

@@ -9,13 +9,14 @@ export default class Size extends Component {
     super(props);
     this.state = {
       isEditing: false,
-      width: this.props.size.width,
-      height: this.props.size.height,
+      model: null
     }
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
 
     this.changeEditMode = this.changeEditMode.bind(this)
+    this.onChangeModelState = this.onChangeModelState.bind(this)
+
     this.onChange = this.onChange.bind(this)
     this.deleteSize = this.deleteSize.bind(this)
   }
@@ -35,7 +36,7 @@ export default class Size extends Component {
     const { width, height } = this.state;
     if( temp ) {
       const { update, id  } = this.props;
-      update({id, size:{width, height} });
+      update({id, width, height, updatedAt: new Date() } );
     }
     process.nextTick(() => {
       this.setState({isEditing: !temp})
@@ -50,17 +51,23 @@ export default class Size extends Component {
     });
   }
 
+  onChangeModelState(){
+    const model = this.props.model;
+    model.checked = model.checked ? false : true;
+    this.props.update( model );
+  }
+
   deleteSize(){
     const { id, deleteSize } = this.props;
     deleteSize(id);
   }
 
   renderEditView(){
-    const { size, id } = this.props;
+    const { width, height, id } = this.props;
     return (
       <form className="edit__row" id={id} onChange={this.onChange}>
-        <input type="number" defaultValue={size.width} name="width" />
-        <input type="number" defaultValue={size.height} name="height" />
+        <input type="number" defaultValue={width} name="width" />
+        <input type="number" defaultValue={height} name="height" />
         <span onClick={this.deleteSize} className="edit__row--delete">
           <Close />
         </span>
@@ -69,15 +76,13 @@ export default class Size extends Component {
   }
 
   renderView(){
-
-    const { size, id, isChecked } = this.props;
-    // console.log(this.props)
+    const { width, height, id, checked } = this.props.model;
     return (
       <li className="app__list--size" id={id} onClick={this.toggleRenderSize} >
-        <CheckBox isChecked={isChecked} />
-        <span id={id}>
-          {size.width}x{size.height}
+        <span onClick={this.onChangeModelState}>
+          <CheckBox isChecked={checked} />
         </span>
+        <span> {width}x{height} </span>
       </li>
     )
   }

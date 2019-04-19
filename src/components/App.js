@@ -1,10 +1,9 @@
 import '../assets/css/App.css'
-import React, { Component } from 'react'
+import React, { Fragment } from 'react'
 import { ipcRenderer } from 'electron';
 
 // Import components
 import ScreensContainer from './ScreensContainer';
-import Sidebar from './Sidebar';
 import TabsPanel from './TabsPanel';
 import TabSection from './TabSection';
 import Header from './Header';
@@ -12,6 +11,9 @@ import View from './View';
 import Toolbar from './Toolbar';
 import Footer from './Footer';
 import GlobalSettings from './GlobalSettings';
+
+// MODELS
+import SizeModel from '../models/SizeModel';
 
 // Size components
 import AddSizes from './AddSizes';
@@ -79,12 +81,10 @@ class App extends React.Component {
     this.getAllParams();
     this.getAllSizes();
     this.instantiateEmitters();
-    this.getAllHistory();
+    // console.log(this.props.store.getAllSizes())
   }
 
   componentDidMount() {
-    // this.addHistory();
-    // console.log(this.state.history)
   }
 
   instantiateEmitters(){
@@ -158,17 +158,11 @@ class App extends React.Component {
     })
   }
 
-  addSize(size){
-    const { width, height } = size;
-    let exists = this.state.sizes.filter(s => s.size.width === Number(width) && s.size.height === Number(height) );
+  addSize( width, height ) {
+    const newSize = new SizeModel( uuid(), width, height, true );
+    let exists = this.state.sizes.filter(s => s.width === width && s.height === height );
     if( exists.length > 0 ) { return this.getAllSizes() }
-    this.props.store.set({
-      id: uuid(),
-      size: {
-        width: Number(width),
-        height: Number(height),
-      }
-    }).then(() => {
+    this.props.store.set(newSize).then(() => {
       this.getAllSizes();
     });
   }
@@ -176,11 +170,10 @@ class App extends React.Component {
   updateSize(size){
     this.props.store.updateSize(size).then(sizes => {
       this.getAllSizes();
-    })
+    });
   }
 
-  deleteSize(e){
-    const id = e;
+  deleteSize(id){
     this.props.store.delete(id).then(()=>{
       this.getAllSizes();
     });
@@ -195,21 +188,6 @@ class App extends React.Component {
 
   getURL(url){
     this.setState({url})
-  }
-
-  getAllHistory(){
-    this.props.store.getAllHistory().then(history => {
-      this.setState({history})
-    })
-  }
-
-  addHistory(url){
-    this.props.store.addHistory({
-      id: uuid(),
-      url,
-    }).then(() => {
-      // this.getAllHistory();
-    })
   }
 
   createViews(){
@@ -235,7 +213,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { sizes, views, viewsCreated } = this.state;
+    const { sizes, views } = this.state;
     return (
       <div className="app__container">
         <div className="app__left">
@@ -277,7 +255,7 @@ class App extends React.Component {
               <TabSection
                 components={[ <AddParam add={this.addParam} /> ]}
                 title="Param"/>
-              <TabSection
+              {/* <TabSection
                 components={[
                   <ParamList
                       update={this.updateParam}
@@ -285,7 +263,7 @@ class App extends React.Component {
                       params={this.state.params} />
                   ]}
                 title="Param List"
-                editable={true} />
+                editable={true} /> */}
             </div>
             <div label="settings" icon={<SettingsSVG/>}>
               <TabSection

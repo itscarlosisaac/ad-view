@@ -1,7 +1,9 @@
-import { openDb } from 'idb';
+import { openDb, deleteDb } from 'idb';
+
+// deleteDb('app-store');
 
 const StorePromise = openDb('app-store', 1, upgradeDB => {
-  upgradeDB.createObjectStore('layout', { keyPath: 'id' });
+  upgradeDB.createObjectStore('size', { keyPath: 'id' });
   upgradeDB.createObjectStore('params', { keyPath: 'id' });
   upgradeDB.createObjectStore('history',{ keyPath: 'id' });
 });
@@ -10,33 +12,32 @@ export default {
   store: StorePromise,
   async set(val){
     const db = await StorePromise;
-    const tx = db.transaction('layout', 'readwrite');
-    tx.objectStore('layout').add(val);
+    const tx = db.transaction('size', 'readwrite');
+    tx.objectStore('size').add(val);
     return tx.complete
   },
   async updateSize(val){
     const db = await StorePromise;
-    const tx = db.transaction('layout', 'readwrite');
-    tx.objectStore('layout').put(val);
+    const tx = db.transaction('size', 'readwrite');
+    tx.objectStore('size').put(val);
     return tx.complete;
   },
   async getAllSizes(){
     const db = await StorePromise;
-    const tx = db.transaction('layout', 'readonly');
-    const store = tx.objectStore('layout')
+    const tx = db.transaction('size', 'readonly');
+    const store = tx.objectStore('size')
     return store.getAll();
   },
   async delete(id){
     const db = await StorePromise;
-    const tx = db.transaction('layout', 'readwrite');
-    const store = tx.objectStore('layout')
+    const tx = db.transaction('size', 'readwrite');
+    const store = tx.objectStore('size')
     store.delete(id)
     return tx.complete;
   },
   async clear() {
     const db = await StorePromise;
-    const tx = db.transaction('layout', 'readwrite');
-    tx.objectStore('layout').clear();
+    const tx = db.transaction('size', 'readwrite').objectStore('size').clear();
     db.transaction('params', 'readwrite').objectStore('params').clear();
     return tx.complete;
   },

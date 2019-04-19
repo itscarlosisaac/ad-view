@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Size from './Size';
+import SizeModel from '../models/SizeModel';
 
 export default class SizeList extends Component {
   constructor(props){
@@ -8,24 +9,22 @@ export default class SizeList extends Component {
   render() {
     const { sizes, update, deleteSize } = this.props;
     return (
-      <div>
+      <Fragment>
         {
           sizes.map((size, i) => {
-            const { id } = size;
-            const { width, height } = size.size;
+            const { id, width, height, checked } = size
+            const sizeModel = new SizeModel( id, width, height, checked );
             return (
               <Size
                 key={i}
-                id={id}
-                size={{width, height}}
+                model={sizeModel}
                 update={update}
                 deleteSize={deleteSize}
-                isChecked={true}
                 />
             )
           })
         }
-      </div>
+      </Fragment>
     )
   }
 }

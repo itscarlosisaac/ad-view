@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Tab from './Tab';
 import AddParam from './AddParam';
 import Param from './Param';
@@ -23,7 +23,7 @@ export default class TabsPanel extends Component {
   render() {
     const { activeTab } = this.state;
     return (
-      <div>
+      <Fragment>
           <div className="app__tabs">
           {
             this.props.children.map((child) => {
@@ -46,7 +46,7 @@ export default class TabsPanel extends Component {
               return child.props.children
             })}
           </div>
-      </div>
+      </Fragment>
       )
   }
 }

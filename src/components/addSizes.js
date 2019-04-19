@@ -45,10 +45,10 @@ export default class addSizes extends Component {
     }
     if ( values.width !== null &&
          values.height !== null ) {
-      this.props.add({
-        width: e.target.elements[0].value,
-        height: e.target.elements[1].value
-      });
+      this.props.add(
+        Number(e.target.elements[0].value),
+        Number(e.target.elements[1].value)
+      );
       this.widthRef.current.resetField()
       this.heightRef.current.resetField()
     }
