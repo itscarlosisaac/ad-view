@@ -81,7 +81,6 @@ class App extends React.Component {
     this.getAllParams();
     this.getAllSizes();
     this.instantiateEmitters();
-    // console.log(this.props.store.getAllSizes())
   }
 
   componentDidMount() {

@@ -9,19 +9,21 @@ export default class Size extends Component {
     super(props);
     this.state = {
       isEditing: false,
-      model: null
+      width: this.props.model.width,
+      height: this.props.model.height
     }
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
 
     this.changeEditMode = this.changeEditMode.bind(this)
-    this.onChangeModelState = this.onChangeModelState.bind(this)
+    this.onChangeVisibility = this.onChangeVisibility.bind(this)
 
     this.onChange = this.onChange.bind(this)
     this.deleteSize = this.deleteSize.bind(this)
   }
 
   componentDidMount() {
+    console.log(this.props.model)
     Emitter.sizeEditableEmitter.on('toggle-edit', () => {
       this.changeEditMode()
     })
@@ -32,11 +34,15 @@ export default class Size extends Component {
   }
 
   changeEditMode(){
+    const model = this.props.model;
     const temp = this.state.isEditing;
-    const { width, height } = this.state;
+    
     if( temp ) {
-      const { update, id  } = this.props;
-      update({id, width, height, updatedAt: new Date() } );
+      const { width, height } = this.state;
+      model.updatedAt = new Date();
+      model.width = width;
+      model.height = height;
+      this.props.update( model );
     }
     process.nextTick(() => {
       this.setState({isEditing: !temp})
@@ -51,7 +57,7 @@ export default class Size extends Component {
     });
   }
 
-  onChangeModelState(){
+  onChangeVisibility(){
     const model = this.props.model;
     model.checked = model.checked ? false : true;
     this.props.update( model );
@@ -63,7 +69,7 @@ export default class Size extends Component {
   }
 
   renderEditView(){
-    const { width, height, id } = this.props;
+    const { width, height, id } = this.props.model;
     return (
       <form className="edit__row" id={id} onChange={this.onChange}>
         <input type="number" defaultValue={width} name="width" />
@@ -78,10 +84,8 @@ export default class Size extends Component {
   renderView(){
     const { width, height, id, checked } = this.props.model;
     return (
-      <li className="app__list--size" id={id} onClick={this.toggleRenderSize} >
-        <span onClick={this.onChangeModelState}>
-          <CheckBox isChecked={checked} />
-        </span>
+      <li className="app__list--size" id={id}  onClick={this.onChangeVisibility}>
+        <CheckBox isChecked={checked} />
         <span> {width}x{height} </span>
       </li>
     )
