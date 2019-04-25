@@ -10,6 +10,12 @@ const StorePromise = openDb('app-store', 1, upgradeDB => {
 
 export default {
   store: StorePromise,
+  async getAllSizes(){
+    const db = await StorePromise;
+    const tx = db.transaction('size', 'readonly');
+    const store = tx.objectStore('size')
+    return store.getAll();
+  },
   async set(val){
     const db = await StorePromise;
     const tx = db.transaction('size', 'readwrite');
@@ -21,12 +27,6 @@ export default {
     const tx = db.transaction('size', 'readwrite');
     tx.objectStore('size').put(val);
     return tx.complete;
-  },
-  async getAllSizes(){
-    const db = await StorePromise;
-    const tx = db.transaction('size', 'readonly');
-    const store = tx.objectStore('size')
-    return store.getAll();
   },
   async delete(id){
     const db = await StorePromise;

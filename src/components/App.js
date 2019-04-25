@@ -16,7 +16,8 @@ import GlobalSettings from './GlobalSettings';
 import SizeModel from '../models/SizeModel';
 
 // Size components
-import AddSizes from './AddSizes';
+// import AddSizes from './AddSizes';
+import AddSize from '../containers/AddSize';
 import SizeList from './SizeList';
 
 // Param components
@@ -34,10 +35,17 @@ import SettingsSVG from './icons/Settings'
 import ConsoleSVG from './icons/Console'
 import HideSidebarSVG from './icons/HideSidebar'
 
+// REDUX
+import { connect } from 'react-redux';
+
 class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
+      editables: {
+        size: false,
+        params: false
+      },
       views: [],
       sizes: [],
       params: [],
@@ -51,6 +59,7 @@ class App extends React.Component {
 
     // Sidebar Method
     this.toggleSidebar = this.toggleSidebar.bind(this);
+    this.toggle = this.toggle.bind(this);
 
     // Header Methods
     this.createViews = this.createViews.bind(this);
@@ -78,9 +87,9 @@ class App extends React.Component {
 
   componentWillMount() {
     // this.props.store.clear()
-    this.getAllParams();
-    this.getAllSizes();
-    this.instantiateEmitters();
+    // this.getAllParams();
+    // this.getAllSizes();
+    // this.instantiateEmitters();
   }
 
   componentDidMount() {
@@ -177,10 +186,19 @@ class App extends React.Component {
       this.getAllSizes();
     });
 
-    process.nextTick(() => {
-      const views = this.state.views.filter(v => v.props.id !== id);
-      this.setState({views});
-    });
+    // process.nextTick(() => {
+    //   const views = this.state.views.filter(v => v.props.id !== id);
+    //   this.setState({views});
+    // });
+  }
+
+  // Toggle
+  toggle(name){
+    const temp = !this.state.editables[name];
+    Emitter.sizeEditableEmitter.emit('toggle-edit', temp);
+    this.setState({
+      editables: { [name]: temp }
+    })
   }
 
   // URL Methods
@@ -212,7 +230,8 @@ class App extends React.Component {
   }
 
   render() {
-    const { sizes, views } = this.state;
+    // const { sizes, views } = this.state;
+    console.log(this.props)
     return (
       <div className="app__container">
         <div className="app__left">
@@ -226,8 +245,8 @@ class App extends React.Component {
           />
           <Toolbar />
           <ScreensContainer
-            sizes={sizes}
-            views={views}
+            sizes={[]}
+            views={[]}
             toggleSidebar={this.toggleSidebar}
             isSidebarVisible={this.state.isSidebarVisible}
           />
@@ -235,20 +254,24 @@ class App extends React.Component {
         </div>
 
         <div className="app__right">
+          
           <TabsPanel activeTab="size">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
-                components={[ <AddSizes add={this.addSize}/> ]}
+                components={[ <AddSize /> ]}
                 title="Size"/>
               <TabSection
                 components={[
                   <SizeList
                     update={this.updateSize}
                     deleteSize={this.deleteSize}
-                    sizes={this.state.sizes} />
+                    sizes={[]} />
                   ]}
                 title="Size List"
-                editable={true} />
+                is_editable={true}
+                is_editing={this.state.editables.size}
+                toggle={this.toggle}
+                 />
             </div>
             <div label="params" icon={<ParamsSVG/>}>
               <TabSection
@@ -281,4 +304,12 @@ class App extends React.Component {
   }
 }
 
-export default App
+const mapStateToProps = state => {
+  console.log(state)
+  return state;
+}
+
+const mapActionsToProps = {}
+
+export default connect( mapStateToProps, mapActionsToProps )(App);
+

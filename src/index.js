@@ -1,12 +1,24 @@
-import React from 'react'
-import { render } from 'react-dom'
-import App from './components/App'
-import Store from './store/store'
-// Since we are using HtmlWebpackPlugin WITHOUT a template, we should create our own root node in the body element before rendering into it
-let root = document.createElement('div')
+import React from 'react';
+import { render } from 'react-dom';
 
+// Redux
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import combinedReducer from './reducers'
+
+// App
+import App from './components/App';
+
+const store = createStore(combinedReducer)
+
+// DOM
+let root = document.createElement('div')
 root.id = 'root'
 document.body.appendChild(root)
 
 // Now we can render our application into it
-render(<App store={Store} />, document.getElementById('root'))
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+document.getElementById('root'))

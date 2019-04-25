@@ -5,29 +5,23 @@ import Emitter from '../emitter/emitter'
 export default class TabSection extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editable: false,
-      isEditing: false,
-    }
     this.toggleEditable = this.toggleEditable.bind(this);
   }
 
   toggleEditable(){
-    const prevState = this.state.editable;
-    Emitter.sizeEditableEmitter.emit('toggle-edit', !prevState)
-    this.setState({editable: !prevState});
+    this.props.toggle('size')
   }
 
   render() {
-    const { title, components, editable } = this.props;
+    const { title, components, is_editable, is_editing   } = this.props;
 
     return (
       <section className="app__tab__section">
         <div className="title">
           <span>{title}</span>
-          { editable ?
+          { is_editable ?
             <span className="editable" onClick={this.toggleEditable}>
-              {<Toggle state={this.state.editable}/>}
+              {<Toggle state={is_editing}/>}
               <span>editable</span>
             </span>
           : '' }

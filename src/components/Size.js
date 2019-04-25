@@ -12,6 +12,7 @@ export default class Size extends Component {
       width: this.props.model.width,
       height: this.props.model.height
     }
+
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
 
@@ -23,30 +24,22 @@ export default class Size extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.model)
-    Emitter.sizeEditableEmitter.on('toggle-edit', () => {
-      this.changeEditMode()
+    Emitter.sizeEditableEmitter.on('toggle-edit', (param) => {
+      this.changeEditMode(param)
     })
   }
 
-  componentWillUnmount() {
-    Emitter.sizeEditableEmitter.removeAllListeners('toggle-edit');
-  }
-
-  changeEditMode(){
+  changeEditMode(param){
     const model = this.props.model;
-    const temp = this.state.isEditing;
-    
-    if( temp ) {
+    if( !param ) {
       const { width, height } = this.state;
       model.updatedAt = new Date();
       model.width = Number(width);
       model.height = Number(height);
       this.props.update( model );
     }
-    process.nextTick(() => {
-      this.setState({isEditing: !temp})
-    })
+
+    this.setState({isEditing: param})
   }
 
   onChange(e){
