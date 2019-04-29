@@ -5,6 +5,7 @@ import validate from 'validate.js';
 import { AddSizeAction } from '../actions/sizeActions';
 import { bindActionCreators } from 'redux'
 import { connect, } from 'react-redux';
+
 // Components
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -13,19 +14,21 @@ class AddSize extends Component {
   constructor(props){
     super(props)
     this.onAddSize = this.onAddSize.bind(this);
+    this.addErrorClass = this.addErrorClass.bind(this);
   }
 
   onAddSize(e) {
     e.preventDefault();
     const values = validate.collectFormValues(document.getElementById('add-size'));
     for( const v in values) {
-      if( values[v] === null) {
-        // this.addErrorClass(v);
+      if( values[v] === null || values[v] === 0 ) {
+        this.addErrorClass(v);
       }
     }
 
-    if ( values.width !== null &&
-         values.height !== null ) {
+    if (
+      values.width !== null && values.height !== null &&
+      values.width !== 0 && values.height !== 0 ) {
           this.props.dispatch(
             {
               type: 'ADD_SIZE',
@@ -36,6 +39,12 @@ class AddSize extends Component {
             }
           )
     }
+  }
+
+  addErrorClass(e){
+    const element = document.getElementsByName(e)[0];
+    element.classList.add('input__error')
+    setTimeout(() => {element.classList.remove('input__error')}, 3000)
   }
 
   render(){
