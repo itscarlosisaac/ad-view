@@ -1,9 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import Tab from './Tab';
-import AddParam from './AddParam';
-import Param from './Param';
-import AddSizes from './AddSizes';
-import Size from './Size';
 
 export default class TabsPanel extends Component {
 
@@ -11,7 +7,6 @@ export default class TabsPanel extends Component {
     super(props);
     this.state = {
       activeTab: this.props.activeTab
-      // activeTab: this.props.activeTab | this.props.children[0].props.label
     }
     this.onClickTabItem = this.onClickTabItem.bind(this);
   }

@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import Close from './icons/Close';
 import CheckBox from './icons/CheckBox';
 
-export default class Size extends Component {
+// REDUX
+import { UpdateSizeAction } from '../actions/sizeActions';
+import { bindActionCreators } from 'redux'
+import { connect, } from 'react-redux';
+import { updateSize } from '../actions/sizeMethods'
+
+class Size extends Component {
 
   constructor(props) {
     super(props);
@@ -20,12 +26,11 @@ export default class Size extends Component {
 
     this.onChange = this.onChange.bind(this)
     this.deleteSize = this.deleteSize.bind(this)
+
+    this.onUpdateVisibility = this.onUpdateVisibility.bind(this)
   }
 
   componentDidMount() {
-    // Emitter.sizeEditableEmitter.on('toggle-edit', (param) => {
-    //   this.changeEditMode(param)
-    // })
   }
 
   changeEditMode(param){
@@ -61,6 +66,12 @@ export default class Size extends Component {
     deleteSize(id);
   }
 
+  onUpdateVisibility(){
+    const up = this.props.model;
+          up.checked = !up.checked ;
+    this.props.dispatch(updateSize(up))
+  }
+
   renderEditView(){
     const { width, height, id } = this.props.model;
     return (
@@ -76,8 +87,9 @@ export default class Size extends Component {
 
   renderView(){
     const { width, height, id, checked } = this.props.model;
+    console.log(checked)
     return (
-      <li className="app__list--size" id={id}  onClick={this.onChangeVisibility}>
+      <li className="app__list--size" id={id}  onClick={this.onUpdateVisibility}>
         <CheckBox isChecked={checked} />
         <span> {width}x{height} </span>
       </li>
@@ -88,3 +100,11 @@ export default class Size extends Component {
     return !this.state.isEditing ? this.renderView() : this.renderEditView()
   }
 }
+
+const mapActionsToProps = (dispatch) => {
+  return bindActionCreators({
+    onUpdateAction: UpdateSizeAction
+  }, dispatch)
+}
+
+export default connect(mapActionsToProps)(Size)

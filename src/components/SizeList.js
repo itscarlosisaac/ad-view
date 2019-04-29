@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import Size from './Size';
-import SizeModel from '../models/SizeModel';
-import { fetchSizes } from '../actions/sizeActions'
+import { fetchSizes } from '../actions/sizeMethods'
 
 // REDUX
 import { connect } from 'react-redux';
@@ -10,6 +9,7 @@ class SizeList extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchSizes())
+    console.log(this.props.sizes)
   }
 
   render() {
@@ -18,16 +18,7 @@ class SizeList extends Component {
       <Fragment>
         {
           sizes.map((size, i) => {
-            const { id, width, height, checked } = size
-            const sizeModel = new SizeModel( id, width, height, checked );
-            return (
-              <Size
-                key={i}
-                model={sizeModel}
-                update={() => { console.log(this)}}
-                deleteSize={() => {}}
-                />
-            )
+            return <Size key={i} model={size} />
           })
         }
       </Fragment>
