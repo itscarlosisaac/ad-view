@@ -14,7 +14,7 @@ const SizeReducer = ( state = [], {type, payload} ) => {
           transformedPayload
         ]
       }
-      
+
     case FETCH_SIZE:
       return {
         ...state,
