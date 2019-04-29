@@ -14,7 +14,6 @@ class SizeList extends Component {
 
   render() {
     const { sizes, update, deleteSize } = this.props;
-    console.log(sizes)
     return (
       <Fragment>
         {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Close from './icons/Close';
 import CheckBox from './icons/CheckBox';
-import Emitter from '../emitter/emitter'
 
 export default class Size extends Component {
 
