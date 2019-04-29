@@ -1,14 +1,20 @@
 import React, { Component, Fragment } from 'react'
 import Size from './Size';
 import SizeModel from '../models/SizeModel';
+import { fetchSizes } from '../actions/sizeActions'
 
-export default class SizeList extends Component {
-  constructor(props){
-    super(props);
+// REDUX
+import { connect } from 'react-redux';
+
+class SizeList extends Component {
+
+  componentDidMount() {
+    this.props.dispatch(fetchSizes())
   }
 
   render() {
     const { sizes, update, deleteSize } = this.props;
+    console.log(sizes)
     return (
       <Fragment>
         {
@@ -19,8 +25,8 @@ export default class SizeList extends Component {
               <Size
                 key={i}
                 model={sizeModel}
-                update={update}
-                deleteSize={deleteSize}
+                update={() => { console.log(this)}}
+                deleteSize={() => {}}
                 />
             )
           })
@@ -29,3 +35,11 @@ export default class SizeList extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    sizes: state.SizeReducer.sizes || []
+  };
+}
+
+export default connect(mapStateToProps)(SizeList);

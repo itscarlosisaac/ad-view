@@ -1,4 +1,4 @@
-const Params = ( state = [], action ) => {
+const ParamReducer = ( state = [], action ) => {
   return state;
   
   switch(action.type) {
@@ -15,4 +15,4 @@ const Params = ( state = [], action ) => {
   }
 }
 
-export default Params;
+export default ParamReducer;

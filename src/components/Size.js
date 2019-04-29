@@ -24,9 +24,9 @@ export default class Size extends Component {
   }
 
   componentDidMount() {
-    Emitter.sizeEditableEmitter.on('toggle-edit', (param) => {
-      this.changeEditMode(param)
-    })
+    // Emitter.sizeEditableEmitter.on('toggle-edit', (param) => {
+    //   this.changeEditMode(param)
+    // })
   }
 
   changeEditMode(param){

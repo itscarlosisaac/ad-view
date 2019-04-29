@@ -85,14 +85,20 @@ class App extends React.Component {
     this.instantiateEmitters = this.instantiateEmitters.bind(this)
   }
 
-  componentWillMount() {
+  componentWillReceiveProps() {
     // this.props.store.clear()
     // this.getAllParams();
     // this.getAllSizes();
     // this.instantiateEmitters();
+    this.setState({
+      sizes: this.props.sizes
+    });
   }
 
   componentDidMount() {
+    this.setState({
+      sizes: this.props.sizes
+    });
   }
 
   instantiateEmitters(){
@@ -195,10 +201,10 @@ class App extends React.Component {
   // Toggle
   toggle(name){
     const temp = !this.state.editables[name];
-    Emitter.sizeEditableEmitter.emit('toggle-edit', temp);
-    this.setState({
-      editables: { [name]: temp }
-    })
+    // Emitter.sizeEditableEmitter.emit('toggle-edit', temp);
+    // this.setState({
+    //   editables: { [name]: temp }
+    // })
   }
 
   // URL Methods
@@ -230,10 +236,10 @@ class App extends React.Component {
   }
 
   render() {
-    // const { sizes, views } = this.state;
-    console.log(this.props)
+    const { sizes, views } = this.state;
     return (
       <div className="app__container">
+
         <div className="app__left">
           <Header
             getURL={this.getURL}
@@ -254,7 +260,6 @@ class App extends React.Component {
         </div>
 
         <div className="app__right">
-          
           <TabsPanel activeTab="size">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
@@ -265,7 +270,7 @@ class App extends React.Component {
                   <SizeList
                     update={this.updateSize}
                     deleteSize={this.deleteSize}
-                    sizes={[]} />
+                  />
                   ]}
                 title="Size List"
                 is_editable={true}
@@ -305,8 +310,10 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
-  return state;
+  return {
+    sizes: state.Sizes,
+    params: state.Params
+  };
 }
 
 const mapActionsToProps = {}

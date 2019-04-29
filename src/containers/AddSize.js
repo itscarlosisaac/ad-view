@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import validate from 'validate.js';
 
 // REDUX
-import { AddSizeAction } from '../actions';
+import { AddSizeAction } from '../actions/sizeActions';
 import { bindActionCreators } from 'redux'
 import { connect, } from 'react-redux';
 // Components

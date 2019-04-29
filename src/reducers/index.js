@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import Sizes from './Sizes';
-import Params from './Params';
+import SizeReducer from './sizeReducer';
+import ParamReducer from './paramReducer';
 
 export default combineReducers({
-  Sizes,
-  Params
+  SizeReducer,
+  ParamReducer
 })

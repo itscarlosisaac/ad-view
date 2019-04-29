@@ -2,14 +2,25 @@ import React from 'react';
 import { render } from 'react-dom';
 
 // Redux
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import combinedReducer from './reducers'
+import thunk from "redux-thunk";
 
 // App
 import App from './components/App';
+import Store from './store/store';
 
-const store = createStore(combinedReducer)
+
+let SizeInitialState = [];
+Store.getAllSizes().then( r => SizeInitialState.push(...r));
+
+const store = createStore(
+  combinedReducer,
+  applyMiddleware(thunk)
+)
+
+// console.log(store.getState());
 
 // DOM
 let root = document.createElement('div')

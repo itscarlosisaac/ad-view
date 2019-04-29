@@ -24,13 +24,13 @@ export default class addSizes extends Component {
   }
 
   componentDidMount() {
-    Emitter.sizeEditableEmitter.on('toggle-edit', () => {
-      this.changeEditMode()
-    })
+    // Emitter.sizeEditableEmitter.on('toggle-edit', () => {
+    //   this.changeEditMode()
+    // })
   }
 
   componentWillUnmount() {
-    Emitter.sizeEditableEmitter.removeAllListeners('toggle-edit');
+    // Emitter.sizeEditableEmitter.removeAllListeners('toggle-edit');
   }
 
   handleSubmit(e){
