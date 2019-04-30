@@ -1,6 +1,6 @@
 import store from '../store/store';
 import uuid from 'uuid';
-import { FetchSizeAction, UpdateSizeAction, AddSizeAction } from './sizeActions';
+import { FetchSizeAction, UpdateSizeAction, AddSizeAction, DeleteSizeAction } from './sizeActions';
 
 export function fetchSizes(){
   return dispatch => {
@@ -29,6 +29,16 @@ export function addSize(size){
     return store.setSize(payload)
       .then(() => { dispatch(AddSizeAction(payload)) }
     );
+  }
+}
+
+export function deleteSize(size){
+  return dispatch => {
+    store.delete(size.id)
+      .then(() => {
+        dispatch(DeleteSizeAction(size))
+        dispatch(fetchSizes())
+      });
   }
 }
 

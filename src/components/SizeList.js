@@ -13,7 +13,6 @@ class SizeList extends Component {
 
   render() {
     const { sizes } = this.props;
-    console.log(sizes)
     return (
       <Fragment>
         {

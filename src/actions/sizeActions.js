@@ -1,6 +1,7 @@
 export const ADD_SIZE = 'ADD_SIZE';
 export const FETCH_SIZE = 'FETCH_SIZE';
 export const UPDATE_SIZE = 'UPDATE_SIZE';
+export const DELETE_SIZE = 'DELETE_SIZE';
 
 export const AddSizeAction = size => {
   return {
@@ -22,4 +23,12 @@ export const UpdateSizeAction = size => {
     payload: size
   }
 }
+
+export const DeleteSizeAction = size => {
+  return {
+    type: DELETE_SIZE,
+    payload: size
+  }
+}
+
 

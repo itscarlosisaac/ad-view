@@ -6,7 +6,7 @@ import CheckBox from './icons/CheckBox';
 import { UpdateSizeAction } from '../actions/sizeActions';
 import { bindActionCreators } from 'redux'
 import { connect, } from 'react-redux';
-import { updateSize } from '../actions/sizeMethods'
+import { updateSize, deleteSize } from '../actions/sizeMethods'
 
 class Size extends Component {
 
@@ -49,15 +49,14 @@ class Size extends Component {
   }
 
   deleteSize(){
-    const { deleteSize } = this.props;
-    const id = this.props.model.id;
-    deleteSize(id);
+    const { model, dispatch} = this.props;
+    dispatch(deleteSize(model))
   }
 
   onUpdateVisibility(){
-    const up = this.props.model;
-          up.checked = !up.checked ;
-    this.props.dispatch(updateSize(up))
+    const {model, dispatch} = this.props;
+          model.checked = !model.checked ;
+    dispatch(updateSize(model))
   }
 
   renderEditView(){
@@ -74,10 +73,9 @@ class Size extends Component {
   }
 
   renderView(){
-    console.log(this.props)
     const { width, height, id, checked } = this.props.model;
     return (
-      <li className="app__list--size" id={id}  onClick={this.onUpdateVisibility}>
+      <li className="app__list--size" id={id} onDoubleClick={this.deleteSize}  onClick={this.onUpdateVisibility}>
         <CheckBox isChecked={checked} />
         <span> {width}x{height} </span>
       </li>
