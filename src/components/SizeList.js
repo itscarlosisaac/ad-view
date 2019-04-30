@@ -9,11 +9,11 @@ class SizeList extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchSizes())
-    console.log(this.props.sizes)
   }
 
   render() {
-    const { sizes, update, deleteSize } = this.props;
+    const { sizes } = this.props;
+    console.log(sizes)
     return (
       <Fragment>
         {

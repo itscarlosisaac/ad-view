@@ -12,17 +12,11 @@ class Size extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      isEditing: false,
-      width: this.props.model.width,
-      height: this.props.model.height
-    }
 
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
 
     this.changeEditMode = this.changeEditMode.bind(this)
-    this.onChangeVisibility = this.onChangeVisibility.bind(this)
 
     this.onChange = this.onChange.bind(this)
     this.deleteSize = this.deleteSize.bind(this)
@@ -54,12 +48,6 @@ class Size extends Component {
     });
   }
 
-  onChangeVisibility(){
-    const model = this.props.model;
-    model.checked = model.checked ? false : true;
-    this.props.update( model );
-  }
-
   deleteSize(){
     const { deleteSize } = this.props;
     const id = this.props.model.id;
@@ -86,8 +74,8 @@ class Size extends Component {
   }
 
   renderView(){
+    console.log(this.props)
     const { width, height, id, checked } = this.props.model;
-    console.log(checked)
     return (
       <li className="app__list--size" id={id}  onClick={this.onUpdateVisibility}>
         <CheckBox isChecked={checked} />
@@ -97,7 +85,8 @@ class Size extends Component {
   }
 
   render() {
-    return !this.state.isEditing ? this.renderView() : this.renderEditView()
+    // return !this.state.isEditing ? this.renderView() : this.renderEditView()
+    return this.renderView();
   }
 }
 

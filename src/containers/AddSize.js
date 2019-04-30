@@ -3,6 +3,7 @@ import validate from 'validate.js';
 
 // REDUX
 import { AddSizeAction } from '../actions/sizeActions';
+import { addSize } from '../actions/sizeMethods'
 import { bindActionCreators } from 'redux'
 import { connect, } from 'react-redux';
 
@@ -28,16 +29,13 @@ class AddSize extends Component {
 
     if (
       values.width !== null && values.height !== null &&
-      values.width !== 0 && values.height !== 0 ) {
-          this.props.dispatch(
-            {
-              type: 'ADD_SIZE',
-              payload: {
-                width: Number(e.target.elements[0].value),
-                height: Number(e.target.elements[1].value)
-              }
-            }
-          )
+      values.width !== 0 && values.height !== 0 )
+      {
+        const payload = {
+          width: Number(e.target.elements[0].value),
+          height: Number(e.target.elements[1].value)
+        }
+        this.props.dispatch(addSize(payload));
     }
   }
 

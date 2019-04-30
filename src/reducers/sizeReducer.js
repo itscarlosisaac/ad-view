@@ -1,17 +1,15 @@
 import Store from '../store/store';
-import uuid from 'uuid';
-import { ADD_SIZE, FETCH_SIZE } from '../actions/sizeActions';
+import { ADD_SIZE, FETCH_SIZE, UPDATE_SIZE } from '../actions/sizeActions';
 
 const SizeReducer = ( state = [], {type, payload} ) => {
   switch(type) {
     case ADD_SIZE:
-      const transformedPayload = transformSize(payload);
-      Store.set(transformedPayload)
+      console.log(payload)
       return {
         ...state,
         sizes: [
           ...state.sizes,
-          transformedPayload
+          payload
         ]
       }
 
@@ -24,17 +22,6 @@ const SizeReducer = ( state = [], {type, payload} ) => {
     default:
       return state
   }
-}
-
-const transformSize = (payload) => {
-  return {
-      id: uuid(),
-      width: payload.width,
-      height: payload.height,
-      checked: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
 }
 
 export default SizeReducer;

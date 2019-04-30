@@ -7,7 +7,7 @@ export const sizeAPI = {
     const store = tx.objectStore('size')
     return store.getAll();
   },
-  async set(val){
+  async setSize(val){
     const db = await StorePromise;
     const tx = db.transaction('size', 'readwrite');
     tx.objectStore('size').add(val);

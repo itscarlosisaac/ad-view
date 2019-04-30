@@ -1,5 +1,6 @@
 import store from '../store/store';
-import { FetchSizeAction, UpdateSizeAction } from './sizeActions';
+import uuid from 'uuid';
+import { FetchSizeAction, UpdateSizeAction, AddSizeAction } from './sizeActions';
 
 export function fetchSizes(){
   return dispatch => {
@@ -20,4 +21,25 @@ export function updateSize(size){
       }
     );
   }
+}
+
+export function addSize(size){
+  return dispatch => {
+    const payload = transformSize(size);
+    return store.setSize(payload)
+      .then(() => { dispatch(AddSizeAction(payload)) }
+    );
+  }
+}
+
+const transformSize = (payload) => {
+  
+  return {
+      id: uuid(),
+      width: payload.width,
+      height: payload.height,
+      checked: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
 }

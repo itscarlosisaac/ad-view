@@ -2,11 +2,10 @@ export const ADD_SIZE = 'ADD_SIZE';
 export const FETCH_SIZE = 'FETCH_SIZE';
 export const UPDATE_SIZE = 'UPDATE_SIZE';
 
-export const AddSizeAction = payload =>{
+export const AddSizeAction = size => {
   return {
     type: ADD_SIZE,
-    width: payload.width,
-    height: payload.height
+    payload: size
   }
 }
 
