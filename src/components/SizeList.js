@@ -15,11 +15,7 @@ class SizeList extends Component {
     const { sizes } = this.props;
     return (
       <Fragment>
-        {
-          sizes.map((size, i) => {
-            return <Size key={i} model={size} />
-          })
-        }
+        { sizes.map((size, i) => <Size key={i} model={size} /> ) }
       </Fragment>
     )
   }

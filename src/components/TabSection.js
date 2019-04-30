@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import Toggle from './icons/Toggle';
-import Emitter from '../emitter/emitter'
 
 export default class TabSection extends Component {
   constructor(props) {

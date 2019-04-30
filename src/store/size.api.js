@@ -28,7 +28,6 @@ export const sizeAPI = {
   async clear() {
     const db = await StorePromise;
     const tx = db.transaction('size', 'readwrite').objectStore('size').clear();
-    db.transaction('params', 'readwrite').objectStore('params').clear();
     return tx.complete;
   }
 }

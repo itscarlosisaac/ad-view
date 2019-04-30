@@ -24,9 +24,6 @@ class Size extends Component {
     this.onUpdateVisibility = this.onUpdateVisibility.bind(this)
   }
 
-  componentDidMount() {
-  }
-
   changeEditMode(param){
     const model = this.props.model;
     if( !param ) {
@@ -75,7 +72,7 @@ class Size extends Component {
   renderView(){
     const { width, height, id, checked } = this.props.model;
     return (
-      <li className="app__list--size" id={id} onDoubleClick={this.deleteSize}  onClick={this.onUpdateVisibility}>
+      <li className="app__list--size" id={id} onClick={this.onUpdateVisibility}>
         <CheckBox isChecked={checked} />
         <span> {width}x{height} </span>
       </li>

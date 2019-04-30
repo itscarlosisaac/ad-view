@@ -1,19 +1,29 @@
 import React, { Component } from 'react'
-import Checkbox from './icons/CheckBox';
+import Setting from './Setting';
 
-export default class GlobalSettings extends Component {
+// Redux
+import { connect } from 'react-redux';
+import { fetchOptions } from '../actions/optionsMethods'
+
+class GlobalSettings extends Component {
+  componentDidMount() {
+    this.props.dispatch(fetchOptions())
+  }
+
   render() {
+    const options = this.props.options;
     return (
       <section className="app__global__settings">
-        <div className="app__global__settings-item">
-          <Checkbox isChecked={true} />
-          <span className="label"> Use size as parameter </span>
-        </div>
-        <div className="app__global__settings-item">
-          <Checkbox isChecked={true} />
-          <span className="label">Use provider preview as parameter</span>
-        </div>
+        { options.map((option, i) => <Setting key={i} option={option} /> ) }
       </section>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    options: state.OptionReducer.options || []
+  }
+}
+
+export default connect(mapStateToProps)(GlobalSettings);

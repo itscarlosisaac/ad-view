@@ -14,9 +14,9 @@ import GlobalSettings from './GlobalSettings';
 
 // MODELS
 import SizeModel from '../models/SizeModel';
+import OptionInitialState from '../models/OptionsInitialState';
 
 // Size components
-// import AddSizes from './AddSizes';
 import AddSize from '../containers/AddSize';
 import SizeList from './SizeList';
 
@@ -36,7 +36,8 @@ import ConsoleSVG from './icons/Console'
 import HideSidebarSVG from './icons/HideSidebar'
 
 // REDUX
-import { connect } from 'react-redux';
+import { addOptions, fetchOptions } from '../actions/optionsMethods'
+import { connect, } from 'react-redux';
 
 class App extends React.Component {
   constructor(props){
@@ -47,12 +48,9 @@ class App extends React.Component {
         params: false
       },
       views: [],
-      sizes: [],
       params: [],
       history: [],
       url: "www.google.com",
-      useSizeAsParam: true,
-      usePreviewParam: true,
       viewsCreated: false,
       isSidebarVisible: true,
     }
@@ -75,29 +73,18 @@ class App extends React.Component {
     // Use size as Param
     this.toggleParam = this.toggleParam.bind(this)
 
-    // Size Methods
-    this.getAllSizes = this.getAllSizes.bind(this);
-    this.addSize = this.addSize.bind(this);
-    this.updateSize = this.updateSize.bind(this);
-    this.deleteSize = this.deleteSize.bind(this);
-
     // Helper Methods
     this.instantiateEmitters = this.instantiateEmitters.bind(this)
   }
 
-  componentWillReceiveProps() {
-    // this.props.store.clear()
-    // this.getAllParams();
-    // this.getAllSizes();
-    // this.instantiateEmitters();
-    this.setState({
-      sizes: this.props.sizes
-    });
-  }
-
   componentDidMount() {
-    this.setState({
-      sizes: this.props.sizes
+    const { addOptions, fetchOptions } = this.props
+    fetchOptions().then((data) => {
+      if(data.length == 0){
+        for( const option of OptionInitialState ){
+          addOptions(option)
+        }
+      }
     });
   }
 
@@ -165,46 +152,9 @@ class App extends React.Component {
       return {[param]: temp }; })
   }
 
-  // Size Methods
-  getAllSizes(){
-    this.props.store.getAllSizes().then(sizes => {
-      this.setState({sizes})
-    })
-  }
-
-  addSize( width, height ) {
-    const newSize = new SizeModel( uuid(), width, height, true );
-    let exists = this.state.sizes.filter(s => s.width === width && s.height === height );
-    if( exists.length > 0 ) { return this.getAllSizes() }
-    this.props.store.set(newSize).then(() => {
-      this.getAllSizes();
-    });
-  }
-
-  updateSize(size){
-    this.props.store.updateSize(size).then(sizes => {
-      this.getAllSizes();
-    });
-  }
-
-  deleteSize(id){
-    this.props.store.delete(id).then(()=>{
-      this.getAllSizes();
-    });
-
-    // process.nextTick(() => {
-    //   const views = this.state.views.filter(v => v.props.id !== id);
-    //   this.setState({views});
-    // });
-  }
-
   // Toggle
   toggle(name){
     const temp = !this.state.editables[name];
-    // Emitter.sizeEditableEmitter.emit('toggle-edit', temp);
-    // this.setState({
-    //   editables: { [name]: temp }
-    // })
   }
 
   // URL Methods
@@ -236,7 +186,6 @@ class App extends React.Component {
   }
 
   render() {
-    const { sizes, views } = this.state;
     return (
       <div className="app__container">
 
@@ -266,12 +215,7 @@ class App extends React.Component {
                 components={[ <AddSize /> ]}
                 title="Size"/>
               <TabSection
-                components={[
-                  <SizeList
-                    update={this.updateSize}
-                    deleteSize={this.deleteSize}
-                  />
-                  ]}
+                components={[ <SizeList/> ]}
                 title="Size List"
                 is_editable={true}
                 is_editing={this.state.editables.size}
@@ -311,12 +255,16 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    sizes: state.Sizes,
-    params: state.Params
+    sizes: state.SizeReducer.sizes,
+    params: state.Params,
+    options: state.OptionReducer.payload
   };
 }
 
-const mapActionsToProps = {}
+const mapDispatchToProps = dispatch => ({
+  addOptions: option => dispatch(addOptions(option)),
+  fetchOptions: option => dispatch(fetchOptions(option)),
+})
 
-export default connect( mapStateToProps, mapActionsToProps )(App);
+export default connect( mapStateToProps, mapDispatchToProps )(App);
 

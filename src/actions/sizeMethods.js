@@ -8,16 +8,6 @@ export function fetchSizes(){
       .then(data => {
         dispatch(FetchSizeAction(data));
         return data;
-    })
-  }
-}
-
-export function updateSize(size){
-  return dispatch => {
-    return store.updateSize(size)
-      .then(size => {
-        dispatch(UpdateSizeAction(size));
-        dispatch(fetchSizes())
       }
     );
   }
@@ -28,6 +18,17 @@ export function addSize(size){
     const payload = transformSize(size);
     return store.setSize(payload)
       .then(() => { dispatch(AddSizeAction(payload)) }
+    );
+  }
+}
+
+export function updateSize(size){
+  return dispatch => {
+    return store.updateSize(size)
+      .then(size => {
+        dispatch(UpdateSizeAction(size));
+        dispatch(fetchSizes())
+      }
     );
   }
 }
@@ -43,7 +44,6 @@ export function deleteSize(size){
 }
 
 const transformSize = (payload) => {
-  
   return {
       id: uuid(),
       width: payload.width,
