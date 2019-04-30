@@ -16,6 +16,11 @@ class AddSize extends Component {
     super(props)
     this.onAddSize = this.onAddSize.bind(this);
     this.addErrorClass = this.addErrorClass.bind(this);
+    this.clearForms = this.clearForms.bind(this);
+
+    // Refs
+    this.width = React.createRef();
+    this.height = React.createRef();
   }
 
   onAddSize(e) {
@@ -35,8 +40,15 @@ class AddSize extends Component {
           width: Number(e.target.elements[0].value),
           height: Number(e.target.elements[1].value)
         }
+        this.clearForms();
         this.props.dispatch(addSize(payload));
     }
+  }
+
+  clearForms(){
+    this.width.current.resetField();
+    this.height.current.resetField();
+    this.width.current.field.current.focus()
   }
 
   addErrorClass(e){
@@ -53,8 +65,8 @@ class AddSize extends Component {
         className="input__row add__size"
         onSubmit={this.onAddSize}>
           <div className="inputs">
-            <Input label="W" name="width" id="width" type="number"/>
-            <Input label="H" name="height" id="height" type="number"/>
+            <Input ref={this.width} label="W" name="width" id="width" type="number"/>
+            <Input ref={this.height} label="H" name="height" id="height" type="number"/>
           </div>
           <Button cName="btn btn__main--gray" content="Clear" type="clear"/>
           <Button cName="btn btn__main--orange" content="Add Size" type="submit"/>

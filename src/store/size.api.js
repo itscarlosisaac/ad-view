@@ -22,8 +22,7 @@ export const sizeAPI = {
   async delete(id){
     const db = await StorePromise;
     const tx = db.transaction('size', 'readwrite');
-    const store = tx.objectStore('size')
-    store.delete(id)
+    tx.objectStore('size').delete(id)
     return tx.complete;
   },
   async clear() {

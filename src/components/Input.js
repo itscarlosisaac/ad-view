@@ -10,6 +10,8 @@ export default class Input extends Component {
     this.onChange = this.onChange.bind(this)
     this.isDirty = this.isDirty.bind(this)
     this.resetField = this.resetField.bind(this)
+    // Refs
+    this.field = React.createRef();
   }
 
   onChange(e){
@@ -39,6 +41,7 @@ export default class Input extends Component {
         { label ? <label htmlFor='{name}'>{label}:</label> : ''}
         { type == "number" ? <span>px</span> : ''}
         <input
+          ref={this.field}
           disabled={disabled}
           className={dirty}
           placeholder={placeholder}
