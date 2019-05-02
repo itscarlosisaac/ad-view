@@ -13,22 +13,12 @@ export default class Header extends Component {
       url: "",
       validURL: false,
     }
-    this.toggleProtocol = this.toggleProtocol.bind(this);
     this.toggleChange = this.toggleChange.bind(this);
     this.validateURL = this.validateURL.bind(this);
   }
+
   componentWillMount() {
     this.setState({url: this.props.url})
-  }
-
-  toggleProtocol(e){
-    const temp = this.state.isOpen;
-    const protocol = e.target.dataset.protocol || this.state.protocol;
-    this.props.getURL(protocol + this.state.url)
-    this.setState({
-      isOpen: !temp,
-      protocol,
-    });
   }
 
   toggleChange(e){
@@ -53,12 +43,12 @@ export default class Header extends Component {
   }
 
   render() {
-    const { protocol, isOpen, url } = this.state;
+    const { protocol, url } = this.state;
     return (
       <header className="app__header">
         <Logo />
         <div className="input__container">
-          <span className="input__protocol" onClick={this.toggleProtocol}>
+          <span className="input__protocol">
             {protocol}
           </span>
           <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>

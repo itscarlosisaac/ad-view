@@ -115,6 +115,9 @@
   width: 12px;
 }
 /* Track */
+.app__tab__section--content::-webkit-scrollbar-corner {
+  background: #151515;
+}
 .app__tab__section--content::-webkit-scrollbar-track {
   -webkit-border-radius: 0;
   border-radius: 0;

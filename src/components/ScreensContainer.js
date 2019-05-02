@@ -41,7 +41,6 @@ export default class ScreensContainer extends Component {
       temp = temp.parentNode;
     }
     id = temp.id
-    console.log(id);
     Emitter.screenEmitter.emit('remove-screen', id)
   }
 
@@ -80,7 +79,7 @@ export default class ScreensContainer extends Component {
   }
 
   render() {
-    const screenCSS = this.props.isSidebarVisible ? `app__screens` : `app__screens no-sidebar`;
+    const screenCSS = `app__screens`;
 
     return (
       <section className='app__screens'>

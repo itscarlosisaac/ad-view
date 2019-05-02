@@ -184,3 +184,38 @@
 .edit__row input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+
+/* Add a thumb */
+textarea#value::-webkit-scrollbar-thumb {
+    background: #000; 
+}
+
+/* textarea#value::-webkit-scrollbar {
+  display: none;
+} */
+
+textarea#value::-webkit-scrollbar {
+  width: 8px;
+  margin-bottom: -10px;
+}
+
+/* Track */
+textarea#value:focus::-webkit-scrollbar-corner,
+textarea#value:focus::-webkit-resizer,
+textarea#value::-webkit-resizer,
+textarea#value::-webkit-scrollbar-corner {
+  border: none;
+}
+textarea#value::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: black;
+}
+
+/* Handle */
+textarea#value::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+  background: rgb(87, 87, 87);
+}

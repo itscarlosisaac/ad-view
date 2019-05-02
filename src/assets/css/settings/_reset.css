@@ -75,6 +75,6 @@ button:focus {
 
 textarea {
 	resize: vertical;
-	min-height: 60px;
+	min-height: 80px;
 	max-height: 100px;
 }

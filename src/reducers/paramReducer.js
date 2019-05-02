@@ -4,7 +4,6 @@ const ParamReducer = ( state = [], {type, payload} ) => {
 
   switch(type) {
     case ADD_PARAM:
-    console.log(state)
       return {
         ...state,
         params: [

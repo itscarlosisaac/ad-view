@@ -2,7 +2,7 @@ import '../assets/css/App.css'
 import React, { Fragment } from 'react'
 import { ipcRenderer } from 'electron';
 
-// Import components
+// Import Components
 import ScreensContainer from './ScreensContainer';
 import TabsPanel from './TabsPanel';
 import TabSection from './TabSection';
@@ -12,8 +12,7 @@ import Toolbar from './Toolbar';
 import Footer from './Footer';
 import GlobalSettings from './GlobalSettings';
 
-// MODELS
-import SizeModel from '../models/SizeModel';
+// Options Initial State
 import OptionInitialState from '../models/OptionsInitialState';
 
 // Size components
@@ -24,7 +23,7 @@ import SizeList from './SizeList';
 import AddParam from '../containers/AddParam'
 import ParamList from './ParamList';
 
-// Import helpers
+// Import Emitters
 import Emitter from '../emitter/emitter'
 
 // Icons
@@ -36,37 +35,24 @@ import HideSidebarSVG from './icons/HideSidebar'
 
 // REDUX
 import { addOptions, fetchOptions } from '../actions/optionsMethods'
+import { fetchSizes } from '../actions/sizeMethods'
+import { fetchParams } from '../actions/paramMethods'
 import { connect, } from 'react-redux';
 
 class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      editables: {
-        size: false,
-        params: false
-      },
       views: [],
       history: [],
       url: "www.google.com",
       viewsCreated: false,
-      isSidebarVisible: true,
     }
-
-    // Sidebar Method
-    this.toggleSidebar = this.toggleSidebar.bind(this);
-    this.toggle = this.toggle.bind(this);
 
     // Header Methods
     this.createViews = this.createViews.bind(this);
     this.reloadViews = this.reloadViews.bind(this);
     this.getURL = this.getURL.bind(this);
-
-    // Params Methods
-    // this.getAllParams = this.getAllParams.bind(this);
-    // this.addParam = this.addParam.bind(this);
-    // this.updateParam = this.updateParam.bind(this);
-    // this.deleteParam = this.deleteParam.bind(this);
 
     // Use size as Param
     this.toggleParam = this.toggleParam.bind(this)
@@ -76,7 +62,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { addOptions, fetchOptions } = this.props
+    const { addOptions, fetchOptions, fetchParams, fetchSizes } = this.props
+    fetchSizes()
+    fetchParams()
     fetchOptions().then((data) => {
       if(data.length == 0){
         for( const option of OptionInitialState ){
@@ -106,53 +94,10 @@ class App extends React.Component {
     views.forEach(view => view.reload() );
   }
 
-  // Sidebar Method
-  toggleSidebar(){
-    const isSidebarVisible = !this.state.isSidebarVisible;
-    this.setState({ isSidebarVisible })
-  }
-
-  // Params Methods
-  // getAllParams(){
-  //   this.props.store.getAllParams().then(params => {
-  //     this.setState({params})
-  //   })
-  // }
-
-  // addParam(params){
-  //   const { name, value } = params
-  //   let exists = this.state.params.filter(p => p.param.name === name && p.param.value === value );
-  //   if( exists.length > 0 ) { return this.getAllParams() }
-  //   this.props.store.setParam({
-  //     id: uuid(),
-  //     param: { name, value }
-  //   }).then(() => {
-  //     this.getAllParams();
-  //   })
-  // }
-
-  // updateParam(params){
-  //   this.props.store.updateParam(params).then(()=>{
-  //     this.getAllParams();
-  //   })
-  // }
-
-  // deleteParam(e){
-  //   const id = e
-  //   this.props.store.deleteParam(id).then(()=>{
-  //     this.getAllParams();
-  //   })
-  // }
-
   toggleParam(param){
     const temp = !this.state[param];
     this.setState((prev) => {
       return {[param]: temp }; })
-  }
-
-  // Toggle
-  toggle(name){
-    const temp = !this.state.editables[name];
   }
 
   // URL Methods
@@ -162,22 +107,25 @@ class App extends React.Component {
   }
 
   createViews(){
-    const { url , sizes, params, useSizeAsParam, usePreviewParam } = this.state;
+    const { url } = this.state;
+    const { sizes, params, options } = this.props;
     const ProductionURL = new URL(url)
-    if ( params.length > 0){
-      params.map(p => ProductionURL.searchParams.append(p.param.name, p.param.value) );
-    }
-
-    if( usePreviewParam ) {
+    if( options[0].value ) {
       ProductionURL.searchParams.append('provider', 'preview')
     }
-    const views =  sizes.map((size,index) => {
+    const filteredSizes = sizes.filter(size => size.checked );
+    const filteredParams = params.filter(param => param.checked );
+
+    filteredParams.length > 0 ? filteredParams.map(p => ProductionURL.searchParams.append(p.name, p.value) ) : false;
+
+    const views =  filteredSizes.map((size,index) => {
       const id = size.id
       const { width, height,  } = size;
-      if( useSizeAsParam ) {
+      if( options[1].value ) {
         ProductionURL.searchParams.append('size', '')
         ProductionURL.searchParams.set('size',`${width}x${height}`);
       }
+
       return <View key={index} className="layoutHolder" id={id} url={ProductionURL.href} width={width} height={height}/>
     });
     this.setState({views})
@@ -197,17 +145,12 @@ class App extends React.Component {
             viewsCreated={true}
           />
           <Toolbar />
-          <ScreensContainer
-            sizes={[]}
-            views={[]}
-            toggleSidebar={this.toggleSidebar}
-            isSidebarVisible={this.state.isSidebarVisible}
-          />
+          <ScreensContainer views={this.state.views} />
           <Footer />
         </div>
 
         <div className="app__right">
-          <TabsPanel activeTab="params">
+          <TabsPanel activeTab="size">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
                 components={[ <AddSize /> ]}
@@ -216,8 +159,6 @@ class App extends React.Component {
                 components={[ <SizeList/> ]}
                 title="Size List"
                 is_editable={true}
-                is_editing={this.state.editables.size}
-                toggle={this.toggle}
                  />
             </div>
             <div label="params" icon={<ParamsSVG/>}>
@@ -227,15 +168,11 @@ class App extends React.Component {
               <TabSection
                 components={[ <ParamList /> ]}
                 title="Param List"
-                is_editing={this.state.editables.size}
-                toggle={this.toggle}
                 editable={true} />
             </div>
             <div label="settings" icon={<SettingsSVG/>}>
               <TabSection
-                components={[
-                    <GlobalSettings />
-                  ]}
+                components={[ <GlobalSettings /> ]}
                 title="Global Settings"
                 editable={false} />
             </div>
@@ -250,12 +187,17 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    sizes: state.SizeReducer.sizes || [],
+    params: state.ParamReducer.params || [],
+    options: state.OptionReducer.options || []
   };
 }
 
 const mapDispatchToProps = dispatch => ({
   addOptions: option => dispatch(addOptions(option)),
   fetchOptions: option => dispatch(fetchOptions(option)),
+  fetchParams: option => dispatch(fetchParams(option)),
+  fetchSizes: option => dispatch(fetchSizes(option)),
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(App);

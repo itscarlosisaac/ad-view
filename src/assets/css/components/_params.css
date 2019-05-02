@@ -39,6 +39,13 @@
   width: 100%;
 }
 
+.app__list--param .app__list--param--content .param__value span{
+  white-space: normal;
+  text-overflow: initial;
+  display: block;
+  word-break: break-all;
+}
+
 .app__list--param .checkbox {
   margin-right: 10px;
   top: 2px;
