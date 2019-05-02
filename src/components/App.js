@@ -23,6 +23,7 @@ class App extends React.Component {
       url: "localhost:9090",
       useSizeAsParam: true,
       usePreviewParam: true,
+      showTitleBar: true,
       viewsCreated: false,
       isSidebarVisible: true,
     }
@@ -231,6 +232,7 @@ class App extends React.Component {
           this.state.isSidebarVisible ?
           <Sidebar
             useSizeAsParam={this.state.useSizeAsParam}
+            showTitleBar={this.state.showTitleBar}
             usePreviewParam={this.state.usePreviewParam}
             toggleParam={this.toggleParam}
             store={this.props.store}
@@ -244,6 +246,7 @@ class App extends React.Component {
         <ScreensContainer
           sizes={sizes}
           views={views}
+          showTitleBar={this.state.showTitleBar}
           toggleSidebar={this.toggleSidebar}
           isSidebarVisible={this.state.isSidebarVisible}
           />

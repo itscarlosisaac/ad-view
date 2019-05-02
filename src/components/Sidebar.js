@@ -62,7 +62,13 @@ export default class Sidebar extends Component {
             <i className="material-icons on">check_box</i> :
             <i className="material-icons off">check_box_outline_blank</i>
           }
-         Use provider preview parameter</p>
+          Use provider preview parameter </p>
+         <p className="app__option" onClick={() => this.props.toggleParam('showTitleBar') }>
+          {
+            this.props.showTitleBar ?
+            <i className="material-icons on">check_box</i> :
+            <i className="material-icons off">check_box_outline_blank</i>
+          } Show title bar</p>
         </section>
 
         <section className="app__params">

@@ -54,6 +54,11 @@
   z-index: 15;
 }
 
+.app__screens .screens .layoutHolder .no__title {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .app__screens .screens .layoutHolder .title__bar .close {
   color: var(--main-red);
   cursor: pointer;

@@ -1,10 +1,12 @@
-import { openDb } from 'idb';
+import { openDb, deleteDb } from 'idb';
 
 const StorePromise = openDb('app-store', 1, upgradeDB => {
   upgradeDB.createObjectStore('layout', { keyPath: 'id' });
   upgradeDB.createObjectStore('params', { keyPath: 'id' });
   upgradeDB.createObjectStore('history',{ keyPath: 'id' });
 });
+
+deleteDb('app-store');
 
 export default {
   store: StorePromise,

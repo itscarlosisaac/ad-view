@@ -35,10 +35,11 @@ export default class ScreensContainer extends Component {
   }
 
   renderViews(){
+    const showTitleBar = this.props.showTitleBar
     return this.props.views.map(v => {
       const { width, height, id } = v.props;
       return <div className="layoutHolder" id={id}  key={v.key} style={ { width, height: height + 30 } }>
-        <div className="title__bar">
+        <div className={showTitleBar ? 'title__bar' : 'no__title'}>
           <span>{width}x{height}</span>
           <i className="material-icons close" id={id} onClick={this.removeScreen}>clear</i>
         </div>
