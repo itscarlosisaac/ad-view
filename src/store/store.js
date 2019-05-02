@@ -4,7 +4,7 @@ import { paramAPI } from './param.api';
 import { historyAPI } from './history.api';
 import { optionsAPI } from './options.api';
 
-// deleteDb('app-store');
+deleteDb('app-store');
 
 export const StorePromise = openDb('app-store', 1, upgradeDB => {
   upgradeDB.createObjectStore('size', { keyPath: 'id' });
