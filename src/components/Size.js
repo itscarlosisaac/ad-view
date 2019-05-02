@@ -40,9 +40,7 @@ class Size extends Component {
   onChange(e){
     const newState = e.target.value;
     const name = e.target.name;
-    this.setState({
-      [name]: newState,
-    });
+    this.setState({ [name]: newState });
   }
 
   deleteSize(){
@@ -60,8 +58,8 @@ class Size extends Component {
     const { width, height, id } = this.props.model;
     return (
       <form className="edit__row" id={id} onChange={this.onChange}>
-        <input type="number" defaultValue={width} name="width" />
-        <input type="number" defaultValue={height} name="height" />
+        <input type="number" defaultValue={width} placeholder={width} name="width" />
+        <input type="number" defaultValue={height} placeholder={height} name="height" />
         <span onClick={this.deleteSize} className="edit__row--delete">
           <Close />
         </span>
@@ -72,7 +70,7 @@ class Size extends Component {
   renderView(){
     const { width, height, id, checked } = this.props.model;
     return (
-      <li className="app__list--size" id={id} onClick={this.onUpdateVisibility}>
+      <li className="app__list--size" id={id} onClick={this.onUpdateVisibility} onDoubleClick={this.deleteSize}>
         <CheckBox isChecked={checked} />
         <span> {width}x{height} </span>
       </li>
@@ -81,6 +79,7 @@ class Size extends Component {
 
   render() {
     // return !this.state.isEditing ? this.renderView() : this.renderEditView()
+    // return this.renderEditView();
     return this.renderView();
   }
 }

@@ -53,6 +53,10 @@
   z-index: 15;
 }
 
+.app__screens .screens .layoutHolder .no__title {
+  opacity: 0 !important;
+}
+
 .app__screens .screens .layoutHolder .title__bar .close {
   cursor: pointer;
   transform: scale(0.5);

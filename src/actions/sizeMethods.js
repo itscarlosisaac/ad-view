@@ -38,7 +38,8 @@ export function deleteSize(size){
     store.delete(size.id)
       .then(() => {
         dispatch(DeleteSizeAction(size))
-        dispatch(fetchSizes())
+        // dispatch(fetchSizes())
+        console.log(`deleted size: ${size.width}x${size.height}`)
       });
   }
 }

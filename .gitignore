@@ -7,6 +7,7 @@ builds/
 .tmp/
 dist/
 _design/
+_versioning/
 node_modules/
 *.compiled.*
 

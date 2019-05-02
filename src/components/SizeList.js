@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 class SizeList extends Component {
 
   componentDidMount() {
-    this.props.dispatch(fetchSizes())
+    this.props.dispatch(fetchSizes());
   }
 
   render() {

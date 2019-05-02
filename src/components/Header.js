@@ -15,10 +15,16 @@ export default class Header extends Component {
     }
     this.toggleChange = this.toggleChange.bind(this);
     this.validateURL = this.validateURL.bind(this);
+    this.reloadViews = this.reloadViews.bind(this);
   }
 
   componentWillMount() {
     this.setState({url: this.props.url})
+  }
+
+  reloadViews(){
+    const views = document.querySelectorAll('webview');
+    views.forEach(view => view.reload() );
   }
 
   toggleChange(e){
@@ -58,7 +64,7 @@ export default class Header extends Component {
             <SendSVG/>
             <span>Create Views</span>
           </button>
-          <button className="btn__h" onClick={this.props.reloadViews}>
+          <button className="btn__h" onClick={this.reloadViews}>
             <ReloadSVG/>
             <span>Reload Views</span>
           </button>

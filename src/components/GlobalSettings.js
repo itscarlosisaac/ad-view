@@ -11,10 +11,24 @@ class GlobalSettings extends Component {
   }
 
   render() {
-    const options = this.props.options;
+    const options = this.props.options[0];
+    const optionsTags = [];
+ 
+    for( const opt in options ) {
+      if( opt !== "id" ) {
+        optionsTags.push(
+          <Setting
+            name={opt}
+            options={options}
+            key={options[opt].label}
+            option={options[opt]}
+            id={options.id} />
+        )
+      }
+    }
     return (
       <section className="app__global__settings">
-        { options.map((option, i) => <Setting key={i} option={option} /> ) }
+        { optionsTags }
       </section>
     )
   }

@@ -44,18 +44,13 @@ class App extends React.Component {
     super(props)
     this.state = {
       views: [],
-      history: [],
-      url: "www.google.com",
+      url: "localhost:",
       viewsCreated: false,
     }
 
     // Header Methods
     this.createViews = this.createViews.bind(this);
-    this.reloadViews = this.reloadViews.bind(this);
     this.getURL = this.getURL.bind(this);
-
-    // Use size as Param
-    this.toggleParam = this.toggleParam.bind(this)
 
     // Helper Methods
     this.instantiateEmitters = this.instantiateEmitters.bind(this)
@@ -67,9 +62,7 @@ class App extends React.Component {
     fetchParams()
     fetchOptions().then((data) => {
       if(data.length == 0){
-        for( const option of OptionInitialState ){
-          addOptions(option)
-        }
+        addOptions(OptionInitialState)
       }
     });
   }
@@ -89,17 +82,6 @@ class App extends React.Component {
     })
   }
 
-  reloadViews(){
-    const views = document.querySelectorAll('webview');
-    views.forEach(view => view.reload() );
-  }
-
-  toggleParam(param){
-    const temp = !this.state[param];
-    this.setState((prev) => {
-      return {[param]: temp }; })
-  }
-
   // URL Methods
 
   getURL(url){
@@ -110,7 +92,7 @@ class App extends React.Component {
     const { url } = this.state;
     const { sizes, params, options } = this.props;
     const ProductionURL = new URL(url)
-    if( options[0].value ) {
+    if( options[0].usePreviewParam ) {
       ProductionURL.searchParams.append('provider', 'preview')
     }
     const filteredSizes = sizes.filter(size => size.checked );
@@ -121,12 +103,12 @@ class App extends React.Component {
     const views =  filteredSizes.map((size,index) => {
       const id = size.id
       const { width, height,  } = size;
-      if( options[1].value ) {
+      if( options[0].useSizeAsParam ) {
         ProductionURL.searchParams.append('size', '')
         ProductionURL.searchParams.set('size',`${width}x${height}`);
       }
-
-      return <View key={index} className="layoutHolder" id={id} url={ProductionURL.href} width={width} height={height}/>
+      console.log(options)
+      return <View showViewsHeader={options[0].showViewsHeader.value } key={index} className="layoutHolder" id={id} url={ProductionURL.href} width={width} height={height}/>
     });
     this.setState({views})
   }
@@ -141,11 +123,11 @@ class App extends React.Component {
             getProtocol={this.getProtocol}
             url={this.state.url}
             createViews={this.createViews}
-            reloadViews={this.reloadViews}
             viewsCreated={true}
           />
           <Toolbar />
-          <ScreensContainer views={this.state.views} />
+          <ScreensContainer
+            views={this.state.views} />
           <Footer />
         </div>
 

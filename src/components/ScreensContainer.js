@@ -58,7 +58,8 @@ export default class ScreensContainer extends Component {
 
   renderViews(){
     return this.props.views.map(v => {
-      const { width, height, id } = v.props;
+      const { width, height, id, showViewsHeader  } = v.props;
+      
       return (
         <div className="layoutHolder"
              onClick={this.activeScreen}
@@ -66,7 +67,7 @@ export default class ScreensContainer extends Component {
              key={v.key}
              style={ { width, height: height + 30 } }>
 
-          <div className="title__bar">
+          <div className={showViewsHeader ? 'title__bar' : 'no__title'}>
             <span>{width}x{height}</span>
             <span className="close" id={id} onClick={this.removeScreen}>
               <CloseSVG />

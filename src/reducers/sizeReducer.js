@@ -1,4 +1,4 @@
-import { ADD_SIZE, FETCH_SIZE } from '../actions/sizeActions';
+import { ADD_SIZE, FETCH_SIZE, DELETE_SIZE } from '../actions/sizeActions';
 
 const SizeReducer = ( state = [], {type, payload} ) => {
   switch(type) {
@@ -16,6 +16,15 @@ const SizeReducer = ( state = [], {type, payload} ) => {
         ...state,
         sizes: payload
       };
+
+    case DELETE_SIZE:
+    const id = payload.id
+    const remaining = state.sizes.filter((size) => size.id !== id);
+    console.log(state, remaining)
+    return {
+      ...state,
+      sizes: remaining
+    }
     // Default
     default:
       return state

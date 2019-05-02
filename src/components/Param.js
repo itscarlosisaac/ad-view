@@ -39,9 +39,7 @@ class Param extends Component {
   onChange(e){
     const newState = e.target.value;
     const name = e.target.name;
-    this.setState({
-      [name]: newState,
-    });
+    this.setState({ [name]: newState });
   }
 
   deleteParam(){

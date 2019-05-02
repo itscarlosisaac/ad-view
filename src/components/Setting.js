@@ -15,14 +15,14 @@ class Setting extends Component {
   }
 
   onUpdateOption(){
-    const {dispatch, option} = this.props;
-          option.value = !option.value ;
-    dispatch(updateOption(option))
-
+    const {dispatch, option, id, options, name} = this.props;
+          options[name].value = !options[name].value ;
+    dispatch(updateOption(options))
   }
 
   render() {
-    const { id, label, value } = this.props.option;
+    const { id } = this.props
+    const { label, value } = this.props.option;
     return (
       <div id={id} className="app__global__settings-item" onClick={this.onUpdateOption}>
         <Checkbox isChecked={value} />

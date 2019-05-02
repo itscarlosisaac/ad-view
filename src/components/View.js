@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-const { exec } = require('child_process');
-const path = require('path');
-
 export default class View extends Component {
 
   render() {
@@ -11,7 +8,7 @@ export default class View extends Component {
       height: this.props.height,
     }
     return (
-      <div className="view" url={this.props.url}>
+      <div className="view" url={this.props.url} data-show-header= {this.props.showViewsHeader }>
         <webview src={this.props.url} style={styles}></webview>
       </div>
     )
