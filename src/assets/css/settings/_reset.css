@@ -67,7 +67,14 @@ button {
 	cursor: pointer;
 }
 
+textarea,
 input,
 button:focus {
 	outline: none;
+}
+
+textarea {
+	resize: vertical;
+	min-height: 60px;
+	max-height: 100px;
 }

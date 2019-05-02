@@ -62,6 +62,14 @@
   justify-content: space-between;
 }
 
+.input__row .inputs.inputs--vertical {
+  flex-direction: column;
+}
+
+.input__row .inputs.inputs--vertical .form-control {
+  margin-bottom: 10px;
+}
+
 .input__row .inputs .form-control {
   width: 100%;
 }
@@ -82,8 +90,8 @@
 .input__row .form-control.has-label input {
   padding-left: 25px;
 }
-
-.input__row .form-control input {
+.input__row .form-control input,
+.input__row .form-control textarea {
   background: #101010;
   border: 1px solid #313131;
   border-radius: 3px;

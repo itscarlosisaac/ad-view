@@ -52,9 +52,9 @@ class AddParam extends Component {
   }
 
   clearForms(){
-    this.name.current.resetField();
-    this.value.current.resetField();
-    this.name.current.field.current.focus()
+    // this.name.current.resetField();
+    // this.value.current.resetField();
+    // this.name.current.field.current.focus()
   }
 
   render() {
@@ -64,9 +64,12 @@ class AddParam extends Component {
           id="add-param"
           className="input__row add__size"
           onSubmit={this.onAddParam}>
-          <div className="inputs">
+          <div className="inputs inputs--vertical">
             <Input ref={this.name} placeholder="Name" name="name" id="name" type="text"/>
-            <Input ref={this.value} placeholder="Value" name="value" id="value" type="text"/>
+            {/* <Input ref={this.value} placeholder="Value" name="value" id="value" type="text"/> */}
+            <div className="form-control">
+              <textarea ref={this.value} placeholder="Value" name="value" id="value" ></textarea>
+            </div>
           </div>
           <Button cName="btn btn__main--gray" content="Clear" type="clear"/>
           <Button cName="btn btn__main--orange" content="Add Param" type="submit"/>

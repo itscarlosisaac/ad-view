@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import CheckBox from './icons/CheckBox';
 import Close from './icons/Close';
+import CheckBox from './icons/CheckBox';
 
 // REDUX
 import { updateParamAction } from '../actions/paramActions';
