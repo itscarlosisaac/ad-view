@@ -21,11 +21,10 @@ import AddSize from '../containers/AddSize';
 import SizeList from './SizeList';
 
 // Param components
-import AddParam from './AddParam'
+import AddParam from '../containers/AddParam'
 import ParamList from './ParamList';
 
 // Import helpers
-import uuid from 'uuid';
 import Emitter from '../emitter/emitter'
 
 // Icons
@@ -48,7 +47,6 @@ class App extends React.Component {
         params: false
       },
       views: [],
-      params: [],
       history: [],
       url: "www.google.com",
       viewsCreated: false,
@@ -65,10 +63,10 @@ class App extends React.Component {
     this.getURL = this.getURL.bind(this);
 
     // Params Methods
-    this.getAllParams = this.getAllParams.bind(this);
-    this.addParam = this.addParam.bind(this);
-    this.updateParam = this.updateParam.bind(this);
-    this.deleteParam = this.deleteParam.bind(this);
+    // this.getAllParams = this.getAllParams.bind(this);
+    // this.addParam = this.addParam.bind(this);
+    // this.updateParam = this.updateParam.bind(this);
+    // this.deleteParam = this.deleteParam.bind(this);
 
     // Use size as Param
     this.toggleParam = this.toggleParam.bind(this)
@@ -115,36 +113,36 @@ class App extends React.Component {
   }
 
   // Params Methods
-  getAllParams(){
-    this.props.store.getAllParams().then(params => {
-      this.setState({params})
-    })
-  }
+  // getAllParams(){
+  //   this.props.store.getAllParams().then(params => {
+  //     this.setState({params})
+  //   })
+  // }
 
-  addParam(params){
-    const { name, value } = params
-    let exists = this.state.params.filter(p => p.param.name === name && p.param.value === value );
-    if( exists.length > 0 ) { return this.getAllParams() }
-    this.props.store.setParam({
-      id: uuid(),
-      param: { name, value }
-    }).then(() => {
-      this.getAllParams();
-    })
-  }
+  // addParam(params){
+  //   const { name, value } = params
+  //   let exists = this.state.params.filter(p => p.param.name === name && p.param.value === value );
+  //   if( exists.length > 0 ) { return this.getAllParams() }
+  //   this.props.store.setParam({
+  //     id: uuid(),
+  //     param: { name, value }
+  //   }).then(() => {
+  //     this.getAllParams();
+  //   })
+  // }
 
-  updateParam(params){
-    this.props.store.updateParam(params).then(()=>{
-      this.getAllParams();
-    })
-  }
+  // updateParam(params){
+  //   this.props.store.updateParam(params).then(()=>{
+  //     this.getAllParams();
+  //   })
+  // }
 
-  deleteParam(e){
-    const id = e
-    this.props.store.deleteParam(id).then(()=>{
-      this.getAllParams();
-    })
-  }
+  // deleteParam(e){
+  //   const id = e
+  //   this.props.store.deleteParam(id).then(()=>{
+  //     this.getAllParams();
+  //   })
+  // }
 
   toggleParam(param){
     const temp = !this.state[param];
@@ -209,7 +207,7 @@ class App extends React.Component {
         </div>
 
         <div className="app__right">
-          <TabsPanel activeTab="size">
+          <TabsPanel activeTab="params">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
                 components={[ <AddSize /> ]}
@@ -224,17 +222,14 @@ class App extends React.Component {
             </div>
             <div label="params" icon={<ParamsSVG/>}>
               <TabSection
-                components={[ <AddParam add={this.addParam} /> ]}
+                components={[ <AddParam /> ]}
                 title="Param"/>
-              {/* <TabSection
-                components={[
-                  <ParamList
-                      update={this.updateParam}
-                      deleteParam={this.deleteParam}
-                      params={this.state.params} />
-                  ]}
+              <TabSection
+                components={[ <ParamList /> ]}
                 title="Param List"
-                editable={true} /> */}
+                is_editing={this.state.editables.size}
+                toggle={this.toggle}
+                editable={true} />
             </div>
             <div label="settings" icon={<SettingsSVG/>}>
               <TabSection
@@ -255,9 +250,6 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    sizes: state.SizeReducer.sizes,
-    params: state.Params,
-    options: state.OptionReducer.payload
   };
 }
 

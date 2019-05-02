@@ -9,11 +9,6 @@ import thunk from "redux-thunk";
 
 // App
 import App from './components/App';
-import Store from './store/store';
-
-
-let SizeInitialState = [];
-Store.getAllSizes().then( r => SizeInitialState.push(...r));
 
 const store = createStore(
   combinedReducer,

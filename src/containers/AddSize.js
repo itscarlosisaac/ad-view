@@ -5,7 +5,7 @@ import validate from 'validate.js';
 import { AddSizeAction } from '../actions/sizeActions';
 import { addSize } from '../actions/sizeMethods'
 import { bindActionCreators } from 'redux'
-import { connect, } from 'react-redux';
+import { connect } from 'react-redux';
 
 // Components
 import Input from '../components/Input';
@@ -16,6 +16,7 @@ class AddSize extends Component {
     super(props)
     this.onAddSize = this.onAddSize.bind(this);
     this.addErrorClass = this.addErrorClass.bind(this);
+    this.submitSize = this.submitSize.bind(this);
     this.clearForms = this.clearForms.bind(this);
 
     // Refs
@@ -27,22 +28,24 @@ class AddSize extends Component {
     e.preventDefault();
     const values = validate.collectFormValues(document.getElementById('add-size'));
     for( const v in values) {
-      if( values[v] === null || values[v] === 0 ) {
-        this.addErrorClass(v);
-      }
+      values[v] === null || values[v] === 0  ?  this.addErrorClass(v) : false;
     }
 
     if (
       values.width !== null && values.height !== null &&
       values.width !== 0 && values.height !== 0 )
-      {
-        const payload = {
-          width: Number(e.target.elements[0].value),
-          height: Number(e.target.elements[1].value)
-        }
-        this.clearForms();
-        this.props.dispatch(addSize(payload));
+    {
+      this.submitSize(values)
     }
+  }
+
+  submitSize(values){
+    const payload = {
+      width: values.width,
+      height: values.height,
+    }
+    this.clearForms();
+    this.props.dispatch(addSize(payload));
   }
 
   clearForms(){

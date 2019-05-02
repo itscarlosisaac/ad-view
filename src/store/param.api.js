@@ -25,5 +25,10 @@ export const paramAPI = {
     const store = tx.objectStore('params')
     store.delete(id)
     return tx.complete;
+  },
+  async clear() {
+    const db = await StorePromise;
+    const tx = db.transaction('params', 'readwrite').objectStore('params').clear();
+    return tx.complete;
   }
 }

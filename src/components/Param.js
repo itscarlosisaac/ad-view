@@ -1,35 +1,27 @@
 import React, { Component } from 'react'
 import CheckBox from './icons/CheckBox';
 import Close from './icons/Close';
-import Emitter from '../emitter/emitter'
+
+// REDUX
+import { updateParamAction } from '../actions/paramActions';
+import { bindActionCreators } from 'redux'
+import { connect, } from 'react-redux';
+import { updateParam, deleteParam } from '../actions/paramMethods';
 
 
-export default class Param extends Component {
+class Param extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isEditing: false,
-      name: this.props.name,
-      value: this.props.value
-    }
+
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
 
     this.deleteParam = this.deleteParam.bind(this)
     this.onChange = this.onChange.bind(this)
-    
+
     this.changeEditMode = this.changeEditMode.bind(this)
-  }
 
-
-  componentDidMount() {
-    // Emitter.sizeEditableEmitter.on('toggle-edit', () => {
-    //   this.changeEditMode()
-    // })
-  }
-
-  componentWillUnmount() {
-    // Emitter.sizeEditableEmitter.removeAllListeners('toggle-edit');
+    this.onUpdateVisibility = this.onUpdateVisibility.bind(this)
   }
 
   changeEditMode(){
@@ -53,12 +45,19 @@ export default class Param extends Component {
   }
 
   deleteParam(){
-    const { id, deleteParam } = this.props;
-    deleteParam(id);
+    const { model, dispatch } = this.props;
+    dispatch(deleteParam(model))
   }
 
+  onUpdateVisibility(){
+    const {model, dispatch} = this.props;
+          model.checked = !model.checked ;
+    dispatch(updateParam(model))
+  }
+
+
   renderEditView() {
-    const { name, value, } = this.props;
+    const { name, value, id} = this.props.model;
     return (
       <form className="edit__row" onChange={this.onChange}>
         <input type="text" defaultValue={name} name="name" />
@@ -71,13 +70,13 @@ export default class Param extends Component {
   }
 
   renderView(){
-  const { index, name, value } = this.props;
+  const { name, value, id, checked } = this.props.model;
   return (
-      <li key={index} className="app__list--param">
-        <CheckBox isChecked={true} />
+      <li className="app__list--param" id={id} onDoubleClick={this.deleteParam} onClick={this.onUpdateVisibility}>
+        <CheckBox isChecked={checked} />
         <div className="app__list--param--content">
           <p className="param__name">
-          <b>Name: </b> <span> {name} </span>
+            <b>Name: </b> <span> {name} </span>
           </p>
           <p className="param__value">
             <b>Value: </b> <span> {value}</span>
@@ -88,6 +87,15 @@ export default class Param extends Component {
   }
 
   render() {
-    return !this.state.isEditing ? this.renderView() : this.renderEditView()
+    // return !this.state.isEditing ? this.renderView() : this.renderEditView()
+    return this.renderView();
   }
 }
+
+const mapActionsToProps = dispatch => {
+  return bindActionCreators({
+    onUpdateAction: updateParamAction
+  }, dispatch)
+}
+
+export default connect(mapActionsToProps)(Param)

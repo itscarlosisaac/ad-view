@@ -1,30 +1,29 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Param from './Param';
+import  { fetchParams } from '../actions/paramMethods';
 
-export default class ParamList extends Component {
-  constructor(props){
-    super(props);
+import { connect } from 'react-redux';
+
+class ParamList extends Component {
+
+  componentDidMount() {
+    this.props.dispatch(fetchParams())
   }
+
   render() {
-    const { params, update, deleteParam } = this.props;
+    const { params } = this.props;
     return (
-      <div>
-        {
-          params.map((p, index) => {
-            const { param:{name, value} } = p
-            return (
-              <Param
-                key={index}
-                update={update}
-                deleteParam={deleteParam}
-                name={p.param.name}
-                value={p.param.value}
-                id={p.id}
-                />
-            )
-          })
-        }
-      </div>
+      <Fragment>
+        { params.map((param, i) => <Param key={i} model={param} /> ) }
+      </Fragment>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    params: state.ParamReducer.params || []
+  }
+}
+
+export default  connect(mapStateToProps)(ParamList)
