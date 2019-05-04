@@ -1,4 +1,4 @@
-import {StorePromise} from './store'
+import { StorePromise } from './store'
 
 export const optionsAPI = {
   async getAllOptions(){
@@ -16,7 +16,6 @@ export const optionsAPI = {
   async updateOption(option){
     const db = await StorePromise;
     const tx = db.transaction('options', 'readwrite');
-    console.log(option)
     tx.objectStore('options').put(option);
     return tx.complete;
   }

@@ -16,5 +16,4 @@ const OptionInitialState = {
   }
 }
 
-
 export default OptionInitialState;
