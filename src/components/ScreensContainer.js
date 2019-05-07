@@ -59,10 +59,10 @@ export default class ScreensContainer extends Component {
   renderViews(){
     return this.props.views.map(v => {
       const { width, height, id, showViewsHeader  } = v.props;
-      
+
       return (
         <div className="layoutHolder"
-             onClick={this.activeScreen}
+            //  onClick={this.activeScreen}
              id={id}
              key={v.key}
              style={ { width, height: height + 30 } }>

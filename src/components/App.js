@@ -107,7 +107,6 @@ class App extends React.Component {
         ProductionURL.searchParams.append('size', '')
         ProductionURL.searchParams.set('size',`${width}x${height}`);
       }
-      console.log(options)
       return <View showViewsHeader={options[0].showViewsHeader.value } key={index} className="layoutHolder" id={id} url={ProductionURL.href} width={width} height={height}/>
     });
     this.setState({views})

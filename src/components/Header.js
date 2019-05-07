@@ -15,6 +15,7 @@ export default class Header extends Component {
     }
     this.toggleChange = this.toggleChange.bind(this);
     this.validateURL = this.validateURL.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.reloadViews = this.reloadViews.bind(this);
   }
 
@@ -48,6 +49,11 @@ export default class Header extends Component {
     }
   }
 
+  handleSubmit(e){
+    e.preventDefault();
+    this.props.createViews();
+  }
+
   render() {
     const { protocol, url } = this.state;
     return (
@@ -57,7 +63,9 @@ export default class Header extends Component {
           <span className="input__protocol">
             {protocol}
           </span>
-          <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>
+          <form id="form-url" onSubmit={this.handleSubmit}>
+            <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>
+          </form>
         </div>
         <div className="action__container">
           <button className="btn__h" onClick={this.props.createViews}>
