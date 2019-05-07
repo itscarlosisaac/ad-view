@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { UpdateOptionAction } from '../actions/optionsActions';
 import { updateOption } from '../actions/optionsMethods';
 
-
 class Setting extends Component {
 
   constructor(props){

@@ -13,12 +13,8 @@ export const StorePromise = openDb('app-store', 1, upgradeDB => {
   upgradeDB.createObjectStore('options', { keyPath: 'id' });
 });
 
-export default {
-  store: StorePromise,
-  ...sizeAPI,
-  ...paramAPI,
-  ...optionsAPI,
-  ...historyAPI,
-};
+const store = Object.assign({
+  store: StorePromise
+}, sizeAPI, paramAPI, optionsAPI, historyAPI )
 
-// export default Store;
+export default store;

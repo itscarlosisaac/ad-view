@@ -13,7 +13,7 @@ class GlobalSettings extends Component {
   render() {
     const options = this.props.options[0];
     const optionsTags = [];
- 
+
     for( const opt in options ) {
       if( opt !== "id" ) {
         optionsTags.push(

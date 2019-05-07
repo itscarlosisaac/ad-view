@@ -15,7 +15,7 @@ const store = createStore(
   applyMiddleware(thunk)
 )
 
-// console.log(store.getState());
+console.log(store.getState());
 
 // DOM
 let root = document.createElement('div')
@@ -29,3 +29,6 @@ render(
   </Provider>,
 document.getElementById('root'))
 
+// render(
+//   <h1>Hello</h1>,
+// document.getElementById('root'))

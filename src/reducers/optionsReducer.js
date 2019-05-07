@@ -3,28 +3,19 @@ import { ADD_OPTION, FETCH_OPTION, UPDATE_OPTION } from '../actions/optionsActio
 const OptionReducer = ( state = {} , { type, payload } ) => {
   switch (type) {
     case ADD_OPTION:
-      return {
-        ...state,
-        payload
-      }
-    break;
+      return Object.assign({state}, payload)
 
     case FETCH_OPTION:
-      return {
-        options: payload
-      }
-    break;
+    return Object.assign({}, state, {
+      options: payload
+    })
 
     case UPDATE_OPTION:
-      return {
-        ...state,
-         payload
-      }
+      return Object.assign({state}, payload)
     break;
 
     default:
       return state;
-      break;
   }
 }
 

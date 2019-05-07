@@ -4,19 +4,14 @@ const ParamReducer = ( state = [], {type, payload} ) => {
 
   switch(type) {
     case ADD_PARAM:
-      return {
-        ...state,
-        params: [
-          ...state.params,
-          payload
-        ]
-      }
+      return Object.assign({}, state, {
+        params: state.params.concat(payload)
+      })
 
     case FECTH_PARAM:
-      return {
-        ...state,
-        params: payload
-      };
+    return Object.assign({}, state, {
+      params: payload
+    })
 
     // Default
     default:

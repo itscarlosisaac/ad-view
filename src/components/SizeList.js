@@ -9,6 +9,7 @@ class SizeList extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchSizes());
+    console.log(this.props)
   }
 
   render() {
