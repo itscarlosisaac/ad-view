@@ -35,10 +35,10 @@ export function updateSize(size){
 
 export function deleteSize(size){
   return dispatch => {
-    store.delete(size.id)
+    return store.delete(size.id)
       .then(() => {
-        dispatch(DeleteSizeAction(size))
-        // dispatch(fetchSizes())
+        dispatch(DeleteSizeAction(size));
+        dispatch(fetchSizes());
         console.log(`deleted size: ${size.width}x${size.height}`)
       });
   }

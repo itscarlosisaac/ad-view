@@ -14,6 +14,7 @@ import GlobalSettings from './GlobalSettings';
 
 // Options Initial State
 import OptionInitialState from '../models/OptionsInitialState';
+import AppSettings from '../models/AppSettingsInitialState';
 
 // Size components
 import AddSize from '../containers/AddSize';
@@ -44,8 +45,8 @@ class App extends React.Component {
     super(props)
     this.state = {
       views: [],
-      url: "localhost:",
-      viewsCreated: false,
+      url: "",
+      appSettings: null
     }
 
     // Header Methods
@@ -54,6 +55,11 @@ class App extends React.Component {
 
     // Helper Methods
     this.instantiateEmitters = this.instantiateEmitters.bind(this)
+    this.toggleSetting = this.toggleSetting.bind(this)
+  }
+
+  componentWillMount() {
+    this.setState({appSettings: AppSettings})
   }
 
   componentDidMount() {
@@ -61,9 +67,7 @@ class App extends React.Component {
     fetchSizes()
     fetchParams()
     fetchOptions().then((data) => {
-      if(data.length == 0){
-        addOptions(OptionInitialState)
-      }
+      data.length == 0 ?  addOptions(OptionInitialState) : false;
     });
   }
 
@@ -88,12 +92,16 @@ class App extends React.Component {
     this.setState({url})
   }
 
+  toggleSetting(name, value){
+    this.setState( prev => prev.appSettings[name] = value )
+  }
+
   createViews(){
     const { url } = this.state;
     const { sizes, params, options } = this.props;
-    const ProductionURL = new URL(url)
+    const ProductionURL = new URL(url);
     if( options[0].usePreviewParam ) {
-      ProductionURL.searchParams.append('provider', 'preview')
+      ProductionURL.searchParams.append('provider', 'preview');
     }
     const filteredSizes = sizes.filter(size => size.checked );
     const filteredParams = params.filter(param => param.checked );
@@ -107,12 +115,21 @@ class App extends React.Component {
         ProductionURL.searchParams.append('size', '')
         ProductionURL.searchParams.set('size',`${width}x${height}`);
       }
-      return <View showViewsHeader={options[0].showViewsHeader.value } key={index} className="layoutHolder" id={id} url={ProductionURL.href} width={width} height={height}/>
+      return <View
+        showViewsHeader={options[0].showViewsHeader.value }
+        key={index}
+        className="layoutHolder"
+        id={id}
+        url={ProductionURL.href}
+        width={width}
+        height={height} />
     });
     this.setState({views})
   }
 
   render() {
+
+    const { areViewsCreated, areSizesEditable, areParamsEditable  } = this.state.appSettings
     return (
       <div className="app__container">
 
@@ -122,12 +139,10 @@ class App extends React.Component {
             getProtocol={this.getProtocol}
             url={this.state.url}
             createViews={this.createViews}
-            viewsCreated={true}
           />
           <Toolbar />
-          <ScreensContainer
-            views={this.state.views} />
-          <Footer />
+          <ScreensContainer views={this.state.views} />
+          <Footer url={this.state.url} />
         </div>
 
         <div className="app__right">
@@ -137,25 +152,31 @@ class App extends React.Component {
                 components={[ <AddSize /> ]}
                 title="Size"/>
               <TabSection
-                components={[ <SizeList/> ]}
+                components={[ <SizeList is_editing={areSizesEditable}/> ]}
                 title="Size List"
+                is_editing={areSizesEditable}
+                name={'areSizesEditable'}
+                toggle={this.toggleSetting}
                 is_editable={true}
                  />
             </div>
-            <div label="params" icon={<ParamsSVG/>}>
+            <div label="params" icon={<ParamsSVG is_editing={areParamsEditable}/>}>
               <TabSection
                 components={[ <AddParam /> ]}
                 title="Param"/>
               <TabSection
                 components={[ <ParamList /> ]}
                 title="Param List"
-                editable={true} />
+                is_editing={areParamsEditable}
+                name={'areParamsEditable'}
+                toggle={this.toggleSetting}
+                is_editable={true} />
             </div>
             <div label="settings" icon={<SettingsSVG/>}>
               <TabSection
                 components={[ <GlobalSettings /> ]}
                 title="Global Settings"
-                editable={false} />
+                is_editable={false} />
             </div>
             <div label="console" icon={<ConsoleSVG/>}>4</div>
             <div label="togglesidebar" icon={<HideSidebarSVG/>}>5</div>

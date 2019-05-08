@@ -4,7 +4,6 @@ import { fetchSizes } from '../actions/sizeMethods'
 
 // REDUX
 import { connect } from 'react-redux';
-
 class SizeList extends Component {
 
   componentDidMount() {
@@ -12,10 +11,10 @@ class SizeList extends Component {
   }
 
   render() {
-    const { sizes } = this.props;
+    const { sizes, is_editing } = this.props;
     return (
       <Fragment>
-        { sizes.map((size, i) => <Size key={i} model={size} /> ) }
+        { sizes.map((size, i) => <Size is_editing={is_editing} key={i} model={size} /> ) }
       </Fragment>
     )
   }

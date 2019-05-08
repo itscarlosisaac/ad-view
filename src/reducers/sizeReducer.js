@@ -14,7 +14,7 @@ function SizeReducer ( state = [], action ){
 
     case DELETE_SIZE:
       const id = action.payload.id
-      const remaining = state.sizes.filter((size) => size.id !== id);
+      const remaining = state.sizes.filter(size => size.id !== id);
       return Object.assign({}, state, {
         sizes: remaining,
       })

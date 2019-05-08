@@ -11,10 +11,10 @@ class ParamList extends Component {
   }
 
   render() {
-    const { params } = this.props;
+    const { params, is_editing } = this.props;
     return (
       <Fragment>
-        { params.map((param, i) => <Param key={i} model={param} /> ) }
+        { params.map((param, i) => <Param key={i} is_editing={is_editing} model={param} /> ) }
       </Fragment>
     )
   }

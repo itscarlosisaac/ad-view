@@ -41,7 +41,6 @@ class AddParam extends Component {
       value: param.value,
     }
     this.clearForms();
-
     this.props.dispatch(addParam(payload));
   }
 
@@ -52,9 +51,9 @@ class AddParam extends Component {
   }
 
   clearForms(){
-    // this.name.current.resetField();
-    // this.value.current.resetField();
-    // this.name.current.field.current.focus()
+    this.name.current.resetField();
+    this.value.current.value = '';
+    this.name.current.field.current.focus();
   }
 
   render() {
@@ -66,7 +65,6 @@ class AddParam extends Component {
           onSubmit={this.onAddParam}>
           <div className="inputs inputs--vertical">
             <Input ref={this.name} placeholder="Name" name="name" id="name" type="text"/>
-            {/* <Input ref={this.value} placeholder="Value" name="value" id="value" type="text"/> */}
             <div className="form-control">
               <textarea ref={this.value} placeholder="Value" name="value" id="value" ></textarea>
             </div>

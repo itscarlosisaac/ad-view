@@ -12,6 +12,9 @@ class Size extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      updatedAt: new Date(),
+    }
 
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
@@ -33,14 +36,14 @@ class Size extends Component {
       model.height = Number(height);
       this.props.update( model );
     }
-
-    this.setState({isEditing: param})
   }
 
   onChange(e){
-    const newState = e.target.value;
+    const { model, dispatch } = this.props;
     const name = e.target.name;
-    this.setState({ [name]: newState });
+          model[name] = e.target.value;
+          model.updatedAt = new Date();
+    dispatch(updateSize(model))
   }
 
   deleteSize(){
@@ -58,8 +61,8 @@ class Size extends Component {
     const { width, height, id } = this.props.model;
     return (
       <form className="edit__row" id={id} onChange={this.onChange}>
-        <input type="number" defaultValue={width} placeholder={width} name="width" />
-        <input type="number" defaultValue={height} placeholder={height} name="height" />
+        <input type="number" placeholder={width} name="width" />
+        <input type="number" placeholder={height} name="height" />
         <span onClick={this.deleteSize} className="edit__row--delete">
           <Close />
         </span>
@@ -70,7 +73,7 @@ class Size extends Component {
   renderView(){
     const { width, height, id, checked } = this.props.model;
     return (
-      <li className="app__list--size" id={id} onClick={this.onUpdateVisibility} onDoubleClick={this.deleteSize}>
+      <li className="app__list--size" id={id} onClick={this.onUpdateVisibility}>
         <CheckBox isChecked={checked} />
         <span> {width}x{height} </span>
       </li>
@@ -78,9 +81,9 @@ class Size extends Component {
   }
 
   render() {
-    // return !this.state.isEditing ? this.renderView() : this.renderEditView()
+    return !this.props.is_editing ? this.renderView() : this.renderEditView()
     // return this.renderEditView();
-    return this.renderView();
+    // return this.renderView();
   }
 }
 

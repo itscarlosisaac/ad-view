@@ -60,21 +60,17 @@ export default class Header extends Component {
       <header className="app__header">
         <Logo />
         <div className="input__container">
-          <span className="input__protocol">
-            {protocol}
-          </span>
+          <span className="input__protocol"> {protocol} </span>
           <form id="form-url" onSubmit={this.handleSubmit}>
             <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>
           </form>
         </div>
         <div className="action__container">
           <button className="btn__h" onClick={this.props.createViews}>
-            <SendSVG/>
-            <span>Create Views</span>
+            <SendSVG/> <span>Create Views</span>
           </button>
           <button className="btn__h" onClick={this.reloadViews}>
-            <ReloadSVG/>
-            <span>Reload Views</span>
+            <ReloadSVG/> <span>Reload Views</span>
           </button>
         </div>
       </header>

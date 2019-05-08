@@ -70,7 +70,7 @@ class Param extends Component {
   renderView(){
   const { name, value, id, checked } = this.props.model;
   return (
-      <li className="app__list--param" id={id} onDoubleClick={this.deleteParam} onClick={this.onUpdateVisibility}>
+      <li className="app__list--param" id={id} onClick={this.onUpdateVisibility}>
         <CheckBox isChecked={checked} />
         <div className="app__list--param--content">
           <p className="param__name">
@@ -85,8 +85,7 @@ class Param extends Component {
   }
 
   render() {
-    // return !this.state.isEditing ? this.renderView() : this.renderEditView()
-    return this.renderView();
+    return !this.props.is_editing ? this.renderView() : this.renderEditView()
   }
 }
 

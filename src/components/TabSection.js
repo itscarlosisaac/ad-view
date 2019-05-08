@@ -2,13 +2,15 @@ import React, { Component, Fragment } from 'react'
 import Toggle from './icons/Toggle';
 
 export default class TabSection extends Component {
-  constructor(props) {
+  constructor(props){
     super(props);
-    this.toggleEditable = this.toggleEditable.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
-  toggleEditable(){
-    this.props.toggle('size')
+  toggle(){
+    const { is_editing, name } = this.props;
+    const value = !is_editing
+    this.props.toggle(name, value)
   }
 
   render() {
@@ -19,7 +21,7 @@ export default class TabSection extends Component {
         <div className="title">
           <span>{title}</span>
           { is_editable ?
-            <span className="editable" onClick={this.toggleEditable}>
+            <span className="editable" onClick={this.toggle}>
               {<Toggle state={is_editing}/>}
               <span>editable</span>
             </span>

@@ -6,7 +6,7 @@ export default class Footer extends Component {
     return (
       <footer className="app__footer">
         <div className="app__url__holder">
-          <p>http://localhost:9090/?mod=Model:34830232</p>
+          <p>{this.props.url}</p>
         </div>
         <div className="app__copy__url">
           <CopySVG />
