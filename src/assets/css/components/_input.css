@@ -148,8 +148,8 @@
   align-items: center;
   border-top: 1px solid  #2d2d2d;
   border-bottom: 1px solid  black;
-  margin: 0 -10px 0;
-  padding: 5px 10px
+  margin: 0 -10px 10px;
+  padding: 10px 10px;
 }
 
 .edit__row:last-child {
@@ -160,11 +160,18 @@
 }
 
 .edit__row--delete {
-  transform: scale(0.3);
-  border: 2px solid red;
-  padding: 14px;
-  border-radius: 8px;
+  border: 1px solid red;
+  border-radius: 5px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+}
+
+.edit__row--delete svg {
+  transform: scale(0.4);
 }
 
 .edit__row input{
@@ -187,7 +194,7 @@
 
 /* Add a thumb */
 textarea#value::-webkit-scrollbar-thumb {
-    background: #000; 
+    background: #000;
 }
 
 /* textarea#value::-webkit-scrollbar {

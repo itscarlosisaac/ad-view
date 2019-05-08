@@ -19,29 +19,16 @@ class Size extends Component {
     this.renderView = this.renderView.bind(this)
     this.renderEditView = this.renderEditView.bind(this)
 
-    this.changeEditMode = this.changeEditMode.bind(this)
-
     this.onChange = this.onChange.bind(this)
     this.deleteSize = this.deleteSize.bind(this)
 
     this.onUpdateVisibility = this.onUpdateVisibility.bind(this)
   }
 
-  changeEditMode(param){
-    const model = this.props.model;
-    if( !param ) {
-      const { width, height } = this.state;
-      model.updatedAt = new Date();
-      model.width = Number(width);
-      model.height = Number(height);
-      this.props.update( model );
-    }
-  }
-
   onChange(e){
     const { model, dispatch } = this.props;
     const name = e.target.name;
-          model[name] = e.target.value;
+          model[name] = Number(e.target.value);
           model.updatedAt = new Date();
     dispatch(updateSize(model))
   }
@@ -82,8 +69,6 @@ class Size extends Component {
 
   render() {
     return !this.props.is_editing ? this.renderView() : this.renderEditView()
-    // return this.renderEditView();
-    // return this.renderView();
   }
 }
 

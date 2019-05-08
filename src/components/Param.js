@@ -19,27 +19,26 @@ class Param extends Component {
     this.deleteParam = this.deleteParam.bind(this)
     this.onChange = this.onChange.bind(this)
 
-    this.changeEditMode = this.changeEditMode.bind(this)
-
     this.onUpdateVisibility = this.onUpdateVisibility.bind(this)
   }
 
-  changeEditMode(){
-    const temp = this.state.isEditing;
-    if( temp ) {
-      const { update, id  } = this.props;
-      const { name, value  } = this.state;
-      update({id, param:{name, value} });
+  componentWillUpdate(nextProps, nextState) {
+    const editor = document.getElementById("editor");
+    if( editor !== null ){
+      editor.addEventListener("input", function() {
+        console.log("input event fired");
+      }, false);
     }
-    process.nextTick(() => {
-      this.setState({isEditing: !temp})
-    });
   }
 
+
+
   onChange(e){
-    const newState = e.target.value;
+    const { model, dispatch } = this.props;
     const name = e.target.name;
-    this.setState({ [name]: newState });
+          model[name] = e.target.value;
+          model.updatedAt = new Date();
+    dispatch(updateParam(model))
   }
 
   deleteParam(){
@@ -53,16 +52,15 @@ class Param extends Component {
     dispatch(updateParam(model))
   }
 
-
   renderEditView() {
     const { name, value, id} = this.props.model;
     return (
-      <form className="edit__row" onChange={this.onChange}>
-        <input type="text" defaultValue={name} name="name" />
-        <input type="text" defaultValue={value} name="value" />
+      <form id="edit__param" className="edit__row" onChange={this.onChange} >
+        <input type="text" name="name" placeholder={name} />
         <span onClick={this.deleteParam} className="edit__row--delete">
           <Close />
         </span>
+        <textarea name="value" placeholder={value} />
       </form>
     );
   }
@@ -92,7 +90,7 @@ class Param extends Component {
 const mapActionsToProps = dispatch => {
   return bindActionCreators({
     onUpdateAction: updateParamAction
-  }, dispatch)
+  }, dispatch )
 }
 
 export default connect(mapActionsToProps)(Param)

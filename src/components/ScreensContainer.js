@@ -70,7 +70,7 @@ export default class ScreensContainer extends Component {
           <div className={showViewsHeader ? 'title__bar' : 'no__title'}>
             <span>{width}x{height}</span>
             <span className="close" id={id} onClick={this.removeScreen}>
-              <CloseSVG />
+              {/* <CloseSVG /> */}
             </span>
           </div>
           {v}

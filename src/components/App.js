@@ -99,6 +99,7 @@ class App extends React.Component {
   createViews(){
     const { url } = this.state;
     const { sizes, params, options } = this.props;
+    console.log(sizes);
     const ProductionURL = new URL(url);
     if( options[0].usePreviewParam ) {
       ProductionURL.searchParams.append('provider', 'preview');
@@ -160,12 +161,12 @@ class App extends React.Component {
                 is_editable={true}
                  />
             </div>
-            <div label="params" icon={<ParamsSVG is_editing={areParamsEditable}/>}>
+            <div label="params" icon={<ParamsSVG/>}>
               <TabSection
                 components={[ <AddParam /> ]}
                 title="Param"/>
               <TabSection
-                components={[ <ParamList /> ]}
+                components={[ <ParamList is_editing={areParamsEditable} /> ]}
                 title="Param List"
                 is_editing={areParamsEditable}
                 name={'areParamsEditable'}
