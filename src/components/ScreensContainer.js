@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import $ from 'jquery';
 import Packery from 'packery'
 import Emitter from '../emitter/emitter'
-import CloseSVG from './icons/Close';
 
 export default class ScreensContainer extends Component {
   constructor(props){

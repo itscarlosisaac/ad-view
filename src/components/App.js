@@ -99,7 +99,7 @@ class App extends React.Component {
   createViews(){
     const { url } = this.state;
     const { sizes, params, options } = this.props;
-    console.log(sizes);
+    console.log(url);
     const ProductionURL = new URL(url);
     if( options[0].usePreviewParam ) {
       ProductionURL.searchParams.append('provider', 'preview');

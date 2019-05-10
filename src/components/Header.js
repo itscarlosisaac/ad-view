@@ -3,23 +3,23 @@ import Logo from './Logo';
 import SendSVG from './icons/Send';
 import ReloadSVG from './icons/Reload';
 import validate from 'validate.js'
+import toastr from 'toastr'
 export default class Header extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      protocol: "Http://",
-      isOpen: false,
       url: "",
       validURL: false,
     }
     this.toggleChange = this.toggleChange.bind(this);
     this.validateURL = this.validateURL.bind(this);
+    this.addErrorClass = this.addErrorClass.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.reloadViews = this.reloadViews.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({url: this.props.url})
   }
 
@@ -30,43 +30,55 @@ export default class Header extends Component {
 
   toggleChange(e){
     const temp = e.target.value;
-    this.validateURL(temp);
     this.setState({url: temp})
   }
 
   validateURL(e){
-    const isValid = validate({website: this.state.protocol + e }, {
+    const webConstraint = {
       website: {
-        url: { allowLocal: true }
+        url: {
+          allowLocal: true
+        }
       }
-    })
-
-    if( isValid === undefined){
-      this.setState({ validURL: true })
-      this.props.getURL(this.state.protocol + e)
-    }else {
-      this.setState({ validURL: false })
     }
+    const isValid = validate({website: e}, webConstraint);
+
+    if( isValid === undefined ) { return true; }
+    return false;
+  }
+
+  addErrorClass(){
+    const element = document.querySelector("#form-url .input__url");
+    element.classList.add('input__error')
+    setTimeout(() => {element.classList.remove('input__error')}, 3000)
   }
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.createViews();
+    const URL = validate.collectFormValues(document.querySelector('form#form-url')).url;
+    const urlValid = this.validateURL(URL);
+
+    if( urlValid && URL !== null ) {
+      this.setState({ validURL: true })
+      this.props.getURL(URL)
+      process.nextTick(() => this.props.createViews() );
+    } else {
+      toastr.error('Please insert a valid URL')
+    }
   }
 
   render() {
-    const { protocol, url } = this.state;
+    const { url } = this.state;
     return (
       <header className="app__header">
         <Logo />
         <div className="input__container">
-          <span className="input__protocol"> {protocol} </span>
           <form id="form-url" onSubmit={this.handleSubmit}>
-            <input className="input__url" type="url" placeholder="example.com" onChange={this.toggleChange} value={url}/>
+            <input name="url" className="input__url" type="url" placeholder="http://www.example.com" onChange={this.toggleChange} value={url}/>
           </form>
         </div>
         <div className="action__container">
-          <button className="btn__h" onClick={this.props.createViews}>
+          <button className="btn__h" onClick={this.handleSubmit}>
             <SendSVG/> <span>Create Views</span>
           </button>
           <button className="btn__h" onClick={this.reloadViews}>

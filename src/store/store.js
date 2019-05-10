@@ -5,8 +5,20 @@ import { optionsAPI } from './options.api';
 import { historyAPI } from './history.api';
 
 // deleteDb('app-store');
+let dbName = 'prod-store';
 
-export const StorePromise = openDb('app-store', 1, upgradeDB => {
+
+// Keep a reference for dev mode
+let dev = false
+
+if (process.defaultApp ||
+  /[\\/]electron-prebuilt[\\/]/.test(process.execPath) ||
+  /[\\/]electron[\\/]/.test(process.execPath)) {
+  dev = true;
+  dbName = 'app-store';
+}
+
+export const StorePromise = openDb(dbName, 1, upgradeDB => {
   upgradeDB.createObjectStore('size', { keyPath: 'id' });
   upgradeDB.createObjectStore('params', { keyPath: 'id' });
   upgradeDB.createObjectStore('history', { keyPath: 'id' });

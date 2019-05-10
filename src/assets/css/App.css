@@ -5,6 +5,7 @@
 /* Importing Settings */
 @import 'settings/_colors.css';
 @import 'settings/_reset.css';
+@import "toastr";
 
 /* Importin components */
 @import 'components/_main.css';
