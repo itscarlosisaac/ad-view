@@ -160,9 +160,9 @@
 }
 
 .edit__row--delete {
+  cursor: pointer;
   /* border: 1px solid #FF646B; */
   /* border-radius: 5px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
