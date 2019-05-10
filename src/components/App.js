@@ -1,6 +1,5 @@
 import '../assets/css/App.css'
 import React, { Fragment } from 'react'
-import { ipcRenderer } from 'electron';
 
 // Import Components
 import ScreensContainer from './ScreensContainer';
@@ -69,21 +68,14 @@ class App extends React.Component {
     fetchOptions().then((data) => {
       data.length == 0 ?  addOptions(OptionInitialState) : false;
     });
+    this.instantiateEmitters();
   }
 
   instantiateEmitters(){
-    Emitter.screenEmitter.on('remove-screen', (e)=> {
-      this.props.store.delete(e).then(e => this.getAllSizes() )
 
-      process.nextTick(() => {
-        const views = this.state.views.filter(v => v.props.id !== e);
-        this.setState({views});
-      });
-    })
-
-    ipcRenderer.on('create-views', () => {
-      this.createViews();
-    })
+    Emitter.ShortcutEmitter.on('create-views', () => {
+      this.createViews()
+    });
   }
 
   // URL Methods
@@ -98,8 +90,9 @@ class App extends React.Component {
 
   createViews(){
     const { url } = this.state;
+    if( url.length === 0 ) return false;
+
     const { sizes, params, options } = this.props;
-    console.log(url);
     const ProductionURL = new URL(url);
     if( options[0].usePreviewParam ) {
       ProductionURL.searchParams.append('provider', 'preview');

@@ -7,8 +7,10 @@ import { Provider } from 'react-redux';
 import combinedReducer from './reducers'
 import thunk from "redux-thunk";
 
+
 // App
 import App from './components/App';
+import '../electron/registerShortcuts';
 
 const store = createStore(
   combinedReducer,

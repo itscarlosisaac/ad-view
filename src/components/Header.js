@@ -4,6 +4,10 @@ import SendSVG from './icons/Send';
 import ReloadSVG from './icons/Reload';
 import validate from 'validate.js'
 import toastr from 'toastr'
+
+// Import Emitters
+import Emitter from '../emitter/emitter'
+
 export default class Header extends Component {
 
   constructor(props){
@@ -21,6 +25,13 @@ export default class Header extends Component {
 
   componentDidMount() {
     this.setState({url: this.props.url})
+    Emitter.ShortcutEmitter.on('reload-views', () => {
+      this.reloadViews();
+    });
+
+    Emitter.ShortcutEmitter.on('create-views', (e) => {
+      this.handleSubmit(e = {preventDefault: () => {}})
+    });
   }
 
   reloadViews(){

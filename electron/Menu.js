@@ -6,7 +6,6 @@ const {
   dialog
 } = require('electron');
 
-// const Emitter = require('../src/emitter/emitter');
 const mainProcess = require('../main');
 const createAppMenu = () => {
   const name = 'Ad Viewer';
@@ -53,8 +52,14 @@ const createAppMenu = () => {
           label: "Make Screens",
           accelerator: 'CommandOrControl+Enter',
           click(){
-            console.log(mainProcess.createViews())
-            // Emitter.screenEmitter.emit('create-views')
+            mainProcess.createViews();
+          }
+        },
+        {
+          label: "Reload Screens",
+          accelerator: 'CommandOrControl+Shift+R',
+          click(){
+            mainProcess.reloadViews();
           }
         }
       ]

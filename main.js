@@ -1,7 +1,7 @@
 'use strict'
 
 // Import parts of electron to use
-const { app, BrowserWindow, ipcRenderer, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -100,8 +100,13 @@ app.on('activate', () => {
   }
 })
 
-const createViews = exports.createViews = (   ) => {
+const createViews = exports.createViews = () => {
   mainWindow.webContents.send('create-views')
+  console.log("FROM MAIN.js")
+}
+
+const reloadViews = exports.reloadViews = () => {
+  mainWindow.webContents.send('reload-views')
 }
 
 // const views = []

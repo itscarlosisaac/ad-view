@@ -4,7 +4,7 @@ const newSizeEmitter = new EventEmitter();
 const layoutEmitter = new EventEmitter();
 const screenEmitter = new EventEmitter();
 const sizeEditableEmitter = new EventEmitter();
-
+const ShortcutEmitter = new EventEmitter();
 
 export default {
   appEmitter,
@@ -12,4 +12,5 @@ export default {
   newSizeEmitter,
   screenEmitter,
   sizeEditableEmitter,
+  ShortcutEmitter
 }

@@ -1,5 +1,16 @@
-// import { BrowserWindow, remote, ipcRenderer } from 'electron';
-// import Emitter from '../emitter/emitter';
+import { BrowserWindow, remote, ipcRenderer } from 'electron';
+
+const createWindows = exports.createWindows = () => {
+  console.log("CREATE")
+}
+
+const reloadWindows = exports.reloadWindows = () => {
+  console.log("RELOAD")
+}
+
+ipcRenderer.on('create-views', () => {
+  console.log("CREATE")
+})
 
 // const offsetY = 60;
 // const offsetX = 365;
@@ -48,4 +59,4 @@
 //   // let windows = BrowserWindow.getAllWindows();
 // // })
 
-// export default createWindow;
+// default createWindow;
