@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import Tab from './Tab';
 
+// Import Emitters
+import Emitter from '../emitter/emitter'
+
 export default class TabsPanel extends Component {
 
   constructor(props) {
@@ -10,6 +13,13 @@ export default class TabsPanel extends Component {
     }
     this.onClickTabItem = this.onClickTabItem.bind(this);
   }
+
+  componentDidMount() {
+    Emitter.ShortcutEmitter.on('show-sizes', () => this.onClickTabItem('size') );
+    Emitter.ShortcutEmitter.on('show-params', () => this.onClickTabItem('params') );
+    Emitter.ShortcutEmitter.on('show-settings', () => this.onClickTabItem('settings') );
+  }
+
 
   onClickTabItem(tab){
     this.setState({ activeTab: tab });

@@ -73,9 +73,6 @@ class App extends React.Component {
 
   instantiateEmitters(){
 
-    Emitter.ShortcutEmitter.on('create-views', () => {
-      this.createViews()
-    });
   }
 
   // URL Methods
