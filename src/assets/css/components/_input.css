@@ -160,18 +160,18 @@
 }
 
 .edit__row--delete {
-  border: 1px solid red;
-  border-radius: 5px;
+  /* border: 1px solid #FF646B; */
+  /* border-radius: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 18px;
-  height: 18px;
+  height: 18px; */
 }
 
 .edit__row--delete svg {
-  transform: scale(0.4);
+  /* transform: scale(0.4); */
 }
 
 .edit__row input{

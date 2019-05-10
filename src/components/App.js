@@ -147,7 +147,7 @@ class App extends React.Component {
         </div>
 
         <div className="app__right">
-          <TabsPanel activeTab="size">
+          <TabsPanel activeTab="params">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
                 components={[ <AddSize /> ]}

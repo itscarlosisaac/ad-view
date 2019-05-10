@@ -31,7 +31,12 @@ class Param extends Component {
     }
   }
 
-
+  componentDidMount() {
+    this.setState({
+      name: this.props.model.name,
+      value: this.props.model.value
+    })
+  }
 
   onChange(e){
     const { model, dispatch } = this.props;
@@ -53,14 +58,11 @@ class Param extends Component {
   }
 
   renderEditView() {
-    const { name, value, id} = this.props.model;
+    const { name, value} = this.props.model;
     return (
       <form id="edit__param" className="edit__row" onChange={this.onChange} >
-        <input type="text" name="name" placeholder={name} />
-        <span onClick={this.deleteParam} className="edit__row--delete">
-          <Close />
-        </span>
-        <textarea name="value" placeholder={value} />
+        <input type="text" name="name" defaultValue={name} />
+        <textarea name="value" defaultValue={value} />
       </form>
     );
   }
@@ -68,16 +70,22 @@ class Param extends Component {
   renderView(){
   const { name, value, id, checked } = this.props.model;
   return (
-      <li className="app__list--param" id={id} onClick={this.onUpdateVisibility}>
-        <CheckBox isChecked={checked} />
-        <div className="app__list--param--content">
-          <p className="param__name">
-            <b>Name: </b> <span> {name} </span>
-          </p>
-          <p className="param__value">
-            <b>Value: </b> <span> {value}</span>
-          </p>
+      <li className="app__list--param" id={id} >
+        <div className="app__list--param--container" onClick={this.onUpdateVisibility}>
+          <CheckBox isChecked={checked} />
+          <div className="app__list--param--content">
+            <p className="param__name">
+              <b>Name: </b> <span> {name} </span>
+            </p>
+            <p className="param__value">
+              <b>Value: </b> <span> {value}</span>
+            </p>
+          </div>
         </div>
+        <span onClick={this.deleteParam} className="edit__row--delete">
+          {/* <Close /> */}
+          remove
+        </span>
       </li>
     );
   }
