@@ -23,6 +23,9 @@ import SizeList from './SizeList';
 import AddParam from '../containers/AddParam'
 import ParamList from './ParamList';
 
+// DevToolsContainer
+import DevToolsContainer from './DevToolsContainer';
+
 // Import Emitters
 import Emitter from '../emitter/emitter'
 
@@ -137,7 +140,7 @@ class App extends React.Component {
         </div>
 
         <div className="app__right">
-          <TabsPanel activeTab="size">
+          <TabsPanel activeTab="console">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
                 components={[ <AddSize /> ]}
@@ -169,7 +172,13 @@ class App extends React.Component {
                 title="Global Settings"
                 is_editable={false} />
             </div>
-            <div label="console" icon={<ConsoleSVG/>}>4</div>
+            <div label="console" icon={<ConsoleSVG/>}>
+              <TabSection
+                components={[ <DevToolsContainer /> ]}
+                title="Development Tools"
+                is_editable={false} />
+
+            </div>
             <div label="togglesidebar" icon={<HideSidebarSVG/>}>5</div>
           </TabsPanel>
         </div>

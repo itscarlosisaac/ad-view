@@ -26,7 +26,7 @@
 }
 
 .app__screens .screens .layoutHolder.active .title__bar{
-  background: red !important;
+  background: #F97072 !important;
 }
 
 .dashed {

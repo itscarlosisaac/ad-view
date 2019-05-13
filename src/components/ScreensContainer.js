@@ -60,7 +60,7 @@ export default class ScreensContainer extends Component {
 
       return (
         <div className="layoutHolder"
-            //  onClick={this.activeScreen}
+             onClick={this.activeScreen}
              id={id}
              key={v.key}
              style={ { width, height: height + 30 } }>

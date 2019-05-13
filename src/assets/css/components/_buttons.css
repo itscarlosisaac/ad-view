@@ -118,3 +118,12 @@ button[disabled]{
   display: block;
   white-space: nowrap;
 }
+
+.dev__tools {
+  background: #E37833;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 12px;
+}
