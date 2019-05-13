@@ -7,6 +7,7 @@ const {
 } = require('electron');
 
 const mainProcess = require('../main');
+
 const createAppMenu = () => {
   const name = 'Ad Viewer';
   const template = [

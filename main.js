@@ -6,6 +6,8 @@ const path = require('path')
 const url = require('url')
 
 const createAppMenu = require('./electron/Menu');
+// const Emitter = require('./src/emitter/emitter');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -57,6 +59,11 @@ function createWindow() {
   // Don't show until we are ready and loaded`
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
+
+    // Emitter.ShortcutEmitter.on('open-devtools', () => {
+    //   mainWindow.webContents.openDevTools({ mode: 'detach' })
+    // });
+
     createAppMenu();
 
     // Open the DevTools automatically if developing
@@ -99,17 +106,3 @@ app.on('activate', () => {
     // createWindow()
   }
 })
-
-const createViews = exports.createViews = () => {
-  mainWindow.webContents.send('create-views')
-  console.log("FROM MAIN.js")
-}
-
-const reloadViews = exports.reloadViews = () => {
-  mainWindow.webContents.send('reload-views')
-}
-
-// const views = []
-// ipcMain.on('create-screen', (evt, params) => {
-//   views.push(createView(evt, {params, mainWindow}))
-// });
