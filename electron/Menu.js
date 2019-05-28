@@ -7,7 +7,7 @@ const {
 } = require('electron');
 
 const mainProcess = require('../main');
-const { exportSettings } = require('./dialog')
+const { exportSettingsDialog, importSettingsDialog } = require('./dialog')
 
 const createAppMenu = (mainWindow) => {
   const name = 'Ad Viewer';
@@ -65,9 +65,15 @@ const createAppMenu = (mainWindow) => {
           }
         },
         {
+          label: 'Import Settings',
+          click() {
+            importSettingsDialog(mainWindow)
+          }
+        },
+        {
           label: 'Export Settings',
           click() {
-            exportSettings(mainWindow)
+            exportSettingsDialog(mainWindow)
           }
         },
       ]

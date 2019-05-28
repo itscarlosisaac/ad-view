@@ -1,16 +1,15 @@
-const { dialog, app, ipcMain } = require('electron');
+const { dialog, app } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const { ElectronEmitters } = require('./ElectronEmitters');
 
 const exportSettingsDialog = (mainWindow, settings) => {
-  console.log("ASSAS")
   const options = {
     defaultPath: path.join(app.getPath('downloads'), 'settings.json'),
   }
   dialog.showSaveDialog(null, options, (filename) => {
     if ( filename ) {
-      const memInfo = settings;
-      fs.writeFile( filename, memInfo, 'utf-8', (err) => {
+      fs.writeFile( filename, settings, 'utf-8', (err) => {
         if ( err ) {
           dialog.showErrorBox('Save Failed', err );
         }
@@ -19,7 +18,7 @@ const exportSettingsDialog = (mainWindow, settings) => {
   });
 }
 
-const importSettingsDialog = (mainWindow, addSizeBunch) => {
+const importSettingsDialog = (mainWindow) => {
   const options = {
     defaultPath: path.join(app.getPath('downloads')),
     filters: [
@@ -27,12 +26,11 @@ const importSettingsDialog = (mainWindow, addSizeBunch) => {
     ]
   }
 
-  dialog.showOpenDialog(null, options, (filepaths) => {
-    if( filepaths ) {
-      // console.log(filepaths, fs.readFileSync(filepaths[0], 'utf8'))
-      return fs.readFileSync(filepaths[0], 'utf8');
-    }
-  })
+  const file = dialog.showOpenDialog(mainWindow, options)
+  if( file ) {
+    const content = fs.readFileSync(file[0]).toString();
+    mainWindow.send('open-file', file[0], content);
+  }
 }
 
 module.exports =  {

@@ -13,6 +13,12 @@ export const paramAPI = {
     tx.objectStore('params').add(val);
     return tx.complete
   },
+  async addParamBunch(arr){
+    const db = await StorePromise;
+    const tx = db.transaction('params', 'readwrite');
+    arr.map(item => tx.objectStore('params').add(item));
+    return tx.complete;
+  },
   async updateParam(val){
     const db = await StorePromise;
     const tx = db.transaction('params', 'readwrite');
@@ -26,7 +32,7 @@ export const paramAPI = {
     store.delete(id)
     return tx.complete;
   },
-  async clear() {
+  async clearParams() {
     const db = await StorePromise;
     const tx = db.transaction('params', 'readwrite').objectStore('params').clear();
     return tx.complete;

@@ -1,6 +1,8 @@
 import '../assets/css/App.css'
 import React, { Fragment } from 'react'
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, remote } from 'electron';
+import { deleteDb } from 'idb';
+// const mainProcess = remote.require('../../main.js');
 
 // Import Components
 import ScreensContainer from './ScreensContainer';
@@ -27,9 +29,9 @@ import ParamList from './ParamList';
 // DevToolsContainer
 import DevToolsContainer from './DevToolsContainer';
 
-// Import Emitters
-import Emitter from '../emitter/emitter'
-import fs from 'fs';
+// // Import Emitters
+// import Emitter from '../emitter/emitter'
+// import fs from 'fs';
 
 // Icons
 import SizesSVG from './icons/Sizes'
@@ -45,7 +47,9 @@ import { fetchParams } from '../actions/paramMethods'
 import { connect, } from 'react-redux';
 
 // Store test
-
+import { sizeAPI } from '../store/size.api';
+import { paramAPI } from '../store/param.api';
+import { ElectronEmitters } from '../../electron/ElectronEmitters';
 class App extends React.Component {
   constructor(props){
     super(props)
@@ -70,6 +74,11 @@ class App extends React.Component {
 
   componentWillMount() {
     this.setState({appSettings: AppSettings})
+
+    ElectronEmitters.on('update-settings', (data) => {
+      console.log("FROM DATA");
+      console.log(data)
+    })
   }
 
   componentDidMount() {
@@ -79,22 +88,23 @@ class App extends React.Component {
     fetchOptions().then((data) => {
       data.length == 0 ?  addOptions(OptionInitialState) : false;
     });
-    // this.instantiateEmitters();
-  }
 
-  importSettings(){
-    const sizes = JSON.stringify(this.props.sizes);
-    const params = JSON.stringify(this.props.params);
+    ipcRenderer.on("open-file", (event, file, content) => {
+      const parsedContent = JSON.parse(content)
+      sizeAPI.clearSizes();
+      paramAPI.clearParams();
+      sizeAPI.addSizeBunch(parsedContent.sizes);
+      paramAPI.addParamBunch(parsedContent.params);
+    });
   }
 
   exportSettings(){
-    const sizes = JSON.stringify(this.props.sizes);
-    const params = JSON.stringify(this.props.params);
-    ipcRenderer.send("export-settings", [sizes, params]);
+    const { sizes , params } = this.props
+    const settings = JSON.stringify({sizes: sizes, params:params})
+    ipcRenderer.send("export-settings", settings);
   }
 
   importSettings(){
-    const addSizeBunch = this.props.addSizeBunch;
     ipcRenderer.send("import-settings");
   }
 
@@ -220,8 +230,7 @@ const mapDispatchToProps = dispatch => ({
   addOptions: option => dispatch(addOptions(option)),
   fetchOptions: option => dispatch(fetchOptions(option)),
   fetchParams: option => dispatch(fetchParams(option)),
-  fetchSizes: option => dispatch(fetchSizes(option)),
-  addSizeBunch: option => dispatch(addSizeBunch(option))
+  fetchSizes: option => dispatch(fetchSizes(option))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(App);

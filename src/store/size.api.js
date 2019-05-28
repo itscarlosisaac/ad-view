@@ -13,13 +13,13 @@ export const sizeAPI = {
     tx.objectStore('size').add(val);
     return tx.complete
   },
-  async addBunch(arr){
+  async addSizeBunch(arr){
     const db = await StorePromise;
     const tx = db.transaction('size', 'readwrite');
     arr.map(item => tx.objectStore('size').add(item));
     return tx.complete;
   },
-  async updateBunch(arr){
+  async updateSizeBunch(arr){
     const db = await StorePromise;
     const tx = db.transaction('size', 'readwrite');
     arr.map(item => tx.objectStore('size').put(item));
@@ -37,7 +37,7 @@ export const sizeAPI = {
     tx.objectStore('size').delete(id)
     return tx.complete;
   },
-  async clear() {
+  async clearSizes() {
     const db = await StorePromise;
     const tx = db.transaction('size', 'readwrite').objectStore('size').clear();
     return tx.complete;

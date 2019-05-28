@@ -127,3 +127,21 @@ button[disabled]{
   padding: 10px 0;
   font-size: 12px;
 }
+
+.button-group{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button-group button {
+  max-width: 45%;
+}
+
+.button-group button:first-child {
+  background: var(--color-dark-green)
+}
+
+.button-group button:last-child {
+  background: var(--color-main-orange)
+}

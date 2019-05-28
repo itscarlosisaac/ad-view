@@ -7,7 +7,6 @@ import { historyAPI } from './history.api';
 // deleteDb('app-store');
 let dbName = 'prod-store';
 
-
 // Keep a reference for dev mode
 let dev = false
 

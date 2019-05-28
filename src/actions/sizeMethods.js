@@ -22,25 +22,6 @@ export function addSize(size){
   }
 }
 
-export function addSizeBunch(sizes){
-  console.log(sizes)
-  // return dispatch => {
-  //   const payload = transformSize(size);
-  //   return store.setSize(payload)
-  //     .then(() => { dispatch(AddSizeAction(payload)) }
-  //   );
-  // }
-}
-
-export function updateSizeBunch(sizes){
-  // return dispatch => {
-  //   return store.updateSizeBunch(sizes)
-  //     .then(size => {
-  //       dispatch(UpdateSizeAction(size))
-  //       dispatch(fetchSizes())
-  //     })
-  // }
-}
 
 export function updateSize(size){
   return dispatch => {
