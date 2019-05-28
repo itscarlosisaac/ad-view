@@ -4,6 +4,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
+const { exportSettingsDialog, importSettingsDialog } = require('./electron/Dialog');
 
 const createAppMenu = require('./electron/Menu');
 // const Emitter = require('./src/emitter/emitter');
@@ -64,7 +65,7 @@ function createWindow() {
     //   mainWindow.webContents.openDevTools({ mode: 'detach' })
     // });
 
-    createAppMenu();
+    createAppMenu(mainWindow);
 
     // Open the DevTools automatically if developing
     if (dev) {
@@ -105,4 +106,15 @@ app.on('activate', () => {
   if (mainWindow === null) {
     // createWindow()
   }
+})
+
+ipcMain.on("export-settings", (mainWindow, settings) => {
+  exportSettingsDialog(mainWindow, settings)
+})
+
+
+ipcMain.on("import-settings", (event, addSizeBunch) => {
+  // importSettingsDialog(mainWindow);
+  console.log("EVENT: ", event)
+  console.log("Import: ", addSizeBunch)
 })

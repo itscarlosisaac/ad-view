@@ -1,5 +1,6 @@
 import '../assets/css/App.css'
 import React, { Fragment } from 'react'
+import { ipcRenderer } from 'electron';
 
 // Import Components
 import ScreensContainer from './ScreensContainer';
@@ -28,6 +29,7 @@ import DevToolsContainer from './DevToolsContainer';
 
 // Import Emitters
 import Emitter from '../emitter/emitter'
+import fs from 'fs';
 
 // Icons
 import SizesSVG from './icons/Sizes'
@@ -38,9 +40,11 @@ import HideSidebarSVG from './icons/HideSidebar'
 
 // REDUX
 import { addOptions, fetchOptions } from '../actions/optionsMethods'
-import { fetchSizes } from '../actions/sizeMethods'
+import { fetchSizes, addSizeBunch } from '../actions/sizeMethods'
 import { fetchParams } from '../actions/paramMethods'
 import { connect, } from 'react-redux';
+
+// Store test
 
 class App extends React.Component {
   constructor(props){
@@ -56,8 +60,12 @@ class App extends React.Component {
     this.getURL = this.getURL.bind(this);
 
     // Helper Methods
-    this.instantiateEmitters = this.instantiateEmitters.bind(this)
+    // this.instantiateEmitters = this.instantiateEmitters.bind(this)
     this.toggleSetting = this.toggleSetting.bind(this)
+
+    // Import and Export
+    this.exportSettings = this.exportSettings.bind(this);
+    this.importSettings = this.importSettings.bind(this);
   }
 
   componentWillMount() {
@@ -71,11 +79,23 @@ class App extends React.Component {
     fetchOptions().then((data) => {
       data.length == 0 ?  addOptions(OptionInitialState) : false;
     });
-    this.instantiateEmitters();
+    // this.instantiateEmitters();
   }
 
-  instantiateEmitters(){
+  importSettings(){
+    const sizes = JSON.stringify(this.props.sizes);
+    const params = JSON.stringify(this.props.params);
+  }
 
+  exportSettings(){
+    const sizes = JSON.stringify(this.props.sizes);
+    const params = JSON.stringify(this.props.params);
+    ipcRenderer.send("export-settings", [sizes, params]);
+  }
+
+  importSettings(){
+    const addSizeBunch = this.props.addSizeBunch;
+    ipcRenderer.send("import-settings");
   }
 
   // URL Methods
@@ -140,7 +160,7 @@ class App extends React.Component {
         </div>
 
         <div className="app__right">
-          <TabsPanel activeTab="console">
+          <TabsPanel activeTab="settings">
             <div label="size" icon={<SizesSVG/>}>
               <TabSection
                 components={[ <AddSize /> ]}
@@ -168,7 +188,9 @@ class App extends React.Component {
             </div>
             <div label="settings" icon={<SettingsSVG/>}>
               <TabSection
-                components={[ <GlobalSettings /> ]}
+                components={[ <GlobalSettings
+                importSettings={this.importSettings}
+                exportSettings={this.exportSettings} /> ]}
                 title="Global Settings"
                 is_editable={false} />
             </div>
@@ -177,7 +199,6 @@ class App extends React.Component {
                 components={[ <DevToolsContainer /> ]}
                 title="Development Tools"
                 is_editable={false} />
-
             </div>
             <div label="togglesidebar" icon={<HideSidebarSVG/>}>5</div>
           </TabsPanel>
@@ -200,6 +221,7 @@ const mapDispatchToProps = dispatch => ({
   fetchOptions: option => dispatch(fetchOptions(option)),
   fetchParams: option => dispatch(fetchParams(option)),
   fetchSizes: option => dispatch(fetchSizes(option)),
+  addSizeBunch: option => dispatch(addSizeBunch(option))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(App);

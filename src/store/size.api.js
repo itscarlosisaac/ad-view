@@ -13,6 +13,18 @@ export const sizeAPI = {
     tx.objectStore('size').add(val);
     return tx.complete
   },
+  async addBunch(arr){
+    const db = await StorePromise;
+    const tx = db.transaction('size', 'readwrite');
+    arr.map(item => tx.objectStore('size').add(item));
+    return tx.complete;
+  },
+  async updateBunch(arr){
+    const db = await StorePromise;
+    const tx = db.transaction('size', 'readwrite');
+    arr.map(item => tx.objectStore('size').put(item));
+    return tx.complete;
+  },
   async updateSize(val){
     const db = await StorePromise;
     const tx = db.transaction('size', 'readwrite');

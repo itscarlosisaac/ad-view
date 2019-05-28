@@ -29,6 +29,10 @@ class GlobalSettings extends Component {
     return (
       <section className="app__global__settings">
         { optionsTags }
+        <div className="button-group">
+          <button className="dev__tools" onClick={this.props.importSettings}>Import Settings</button>
+          <button className="dev__tools" onClick={this.props.exportSettings}>Export Settings</button>
+        </div>
       </section>
     )
   }

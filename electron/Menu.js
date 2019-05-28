@@ -7,8 +7,9 @@ const {
 } = require('electron');
 
 const mainProcess = require('../main');
+const { exportSettings } = require('./dialog')
 
-const createAppMenu = () => {
+const createAppMenu = (mainWindow) => {
   const name = 'Ad Viewer';
   const template = [
     {
@@ -62,7 +63,13 @@ const createAppMenu = () => {
           click(){
             mainProcess.reloadViews();
           }
-        }
+        },
+        {
+          label: 'Export Settings',
+          click() {
+            exportSettings(mainWindow)
+          }
+        },
       ]
     }
   ];
