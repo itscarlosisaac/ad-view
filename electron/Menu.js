@@ -7,9 +7,10 @@ const {
 } = require('electron');
 
 const mainProcess = require('../main');
-const { exportSettingsDialog, importSettingsDialog } = require('./dialog')
+const { exportSettingsDialog, importSettingsDialog } = require('./Dialog');
+const { createTestingWindow } = require('./TestingTool');
 
-const createAppMenu = (mainWindow) => {
+const createAppMenu = (mainWindow, indexPath) => {
   const name = 'Ad Viewer';
   const template = [
     {
@@ -76,6 +77,17 @@ const createAppMenu = (mainWindow) => {
             exportSettingsDialog(mainWindow)
           }
         },
+      ]
+    }, {
+      label: "Testing",
+      submenu: [
+        {
+          label: "Open Testing Parameter Tool",
+          accelerator: "CommandOrControl+T",
+          click(){
+            createTestingWindow(mainWindow, indexPath);
+          }
+        }
       ]
     }
   ];

@@ -19,7 +19,7 @@
   letter-spacing: 0.36px;
 }
 
-.app__copy__url {
+.app__save__images {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,12 +27,12 @@
   cursor: pointer;
 }
 
-.app__copy__url svg {
+.app__save__images svg {
   width: 20px;
   margin-bottom: -5px;
 }
 
-.app__copy__url small {
+.app__save__images small {
   font-family: Roboto-Bold;
   font-size: 10px;
   color: #848484;

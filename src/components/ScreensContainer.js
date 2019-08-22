@@ -82,7 +82,7 @@ export default class ScreensContainer extends Component {
 
     return (
       <section className='app__screens'>
-        <div className="screens">
+        <div className="screens" id="app__screens">
         { this.renderViews() }
         </div>
       </section>

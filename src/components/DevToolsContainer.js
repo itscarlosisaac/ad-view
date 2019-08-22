@@ -24,7 +24,7 @@ export default class DevToolsContainer extends Component {
   render() {
     return (
       <div id="dev-tools">
-        <button className="dev__tools" onClick={this.openDevTools}>Open DevToolsContainer</button>
+        <button className="dev__tools" onClick={this.openDevTools}>Open Development Tools</button>
       </div>
     )
   }

@@ -11,6 +11,7 @@ import thunk from "redux-thunk";
 // App
 import App from './components/App';
 import '../electron/registerShortcuts';
+import ViewManager from './ViewManager';
 
 const store = createStore(
   combinedReducer,
@@ -24,7 +25,10 @@ document.body.appendChild(root)
 
 // Now we can render our application into it
 render(
+  // <Provider store={store}>
+  //   <App />
+  // </Provider>,
   <Provider store={store}>
-    <App />
+    <ViewManager/>
   </Provider>,
 document.getElementById('root'))

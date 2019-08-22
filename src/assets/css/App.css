@@ -21,6 +21,7 @@
 @import 'components/_globalSettings.css';
 @import 'components/_toolbar.css';
 @import 'components/_footer.css';
+@import 'components/_testingTool.css';
 
 #root {
   width: 100vw;

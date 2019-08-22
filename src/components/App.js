@@ -29,10 +29,6 @@ import ParamList from './ParamList';
 // DevToolsContainer
 import DevToolsContainer from './DevToolsContainer';
 
-// // Import Emitters
-// import Emitter from '../emitter/emitter'
-// import fs from 'fs';
-
 // Icons
 import SizesSVG from './icons/Sizes'
 import ParamsSVG from './icons/Params'
@@ -55,7 +51,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       views: [],
-      url: "",
+      url: "http://localhost:9090",
       appSettings: null
     }
 

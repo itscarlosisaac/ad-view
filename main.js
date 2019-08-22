@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url')
 const { exportSettingsDialog } = require('./electron/Dialog');
+const { createTestingWindow } = require("./electron/TestingTool");
 
 const createAppMenu = require('./electron/Menu');
 // const Emitter = require('./src/emitter/emitter');
@@ -13,7 +14,7 @@ const createAppMenu = require('./electron/Menu');
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-
+let indexPath;
 // Keep a reference for dev mode
 let dev = false
 
@@ -36,10 +37,10 @@ function createWindow() {
     minWidth: 1024,
     minHeight: 768,
     show: false
-  })
+  });
 
   // and load the index.html of the app.
-  let indexPath
+
 
   if (dev && process.argv.indexOf('--noDevServer') === -1) {
     indexPath = url.format({
@@ -56,6 +57,7 @@ function createWindow() {
     })
   }
 
+
   mainWindow.loadURL(indexPath)
 
   // Don't show until we are ready and loaded`
@@ -66,7 +68,7 @@ function createWindow() {
     //   mainWindow.webContents.openDevTools({ mode: 'detach' })
     // });
 
-    createAppMenu(mainWindow);
+    createAppMenu(mainWindow, indexPath);
 
     // Open the DevTools automatically if developing
     if (dev) {
