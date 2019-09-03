@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import validate from 'validate.js';
 
 export default class AddProperty extends Component {
@@ -47,7 +47,7 @@ export default class AddProperty extends Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <form onSubmit={this.onSubmit} id="add__property">
           <fieldset id="add-property">
             <h1 className="app__testing__title">Add Property</h1>
@@ -60,10 +60,10 @@ export default class AddProperty extends Component {
               <input id="value" name="value" type="text" placeholder="Value" required />
             </div>
             </fieldset>
-            <button onClick={this.onSubmit}>Add Property</button>
+            <button disabled={this.props.isDisabled} onClick={this.onSubmit}>Add Property</button>
           <fieldset/>
         </form>
-      </div>
+      </Fragment>
     )
   }
 }

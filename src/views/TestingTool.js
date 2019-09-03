@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import validate from 'validate.js';
 import AddProperty from '../components/TestingToolComponents/AddProperty';
+import DataView from '../components/TestingToolComponents/DataView';
 
 export default class TestingTool extends Component {
   constructor(props){
@@ -13,9 +14,8 @@ export default class TestingTool extends Component {
 
     // Property Form
     this.addProperty = this.addProperty.bind(this);
-
-    // this.submitParams = this.submitParams.bind(this);
-    // this.removeParam = this.removeParam.bind(this);
+    this.saveEdited = this.saveEdited.bind(this);
+    this.upadteCurrentItem = this.upadteCurrentItem.bind(this);
 
     // Pagination
     this.nextPage = this.nextPage.bind(this);
@@ -26,7 +26,6 @@ export default class TestingTool extends Component {
       url: 'https://record-store.azurewebsites.net/api/records',
       response: null,
       error: null,
-      params: [{parameter: "c.Make", value: "'Genesis'"}],
       pages: null,
       currentPage: 0,
       currentItem: {},
@@ -55,10 +54,6 @@ export default class TestingTool extends Component {
       })
   }
 
-  /*
-  c.Condition='Used'
-  c.Status='accepted'
-  */
   encodeURL(APIURL){
     const query = validate.collectFormValues(document.getElementById('app__testing__query'));
     if( query['query'] != null ) {
@@ -66,28 +61,6 @@ export default class TestingTool extends Component {
     }
     return APIURL;
   }
-
-  // onSubmit(e){
-  //   e.preventDefault();
-  //   const values = validate.collectFormValues(document.getElementById('add-param'));
-  //   for( const v in values ){
-  //     values[v] === null || undefined ? this.addErrorClass(v) : false;
-  //   }
-  //   if ( values.name !== null && values.value !== null ) {
-  //     this.submitParams(values);
-  //   }
-  // }
-
-  // submitParams(param) {
-  //   const payload = {
-  //     active: true,
-  //     parameter: param.parameter,
-  //     value: param.value,
-  //   }
-  //   const newParams = this.state;
-  //   newParams.push(payload)
-  //   this.setState({ params: newParams })
-  // }
 
   addProperty(property) {
     const { currentItem } = this.state;
@@ -127,14 +100,13 @@ export default class TestingTool extends Component {
       isEmpty = object[param].length > 0;
       DisplayItem.push(
         <p className={!isEmpty ? 'row row--emtpy' : 'row'} key={index}>
-          <span className="name">{param}:</span>
+          <span className="name">{param}</span>:
           <span className="details">{object[param]}</span>
         </p>);
       index++
     }
     return DisplayItem;
   }
-
 
   // PAGINATION
   nextPage(){
@@ -155,13 +127,27 @@ export default class TestingTool extends Component {
     })
   }
 
-  saveEdited(){
+  // UPDATE AND SAVE
+  upadteCurrentItem(data, field, oldValue){
+    const current = this.state.currentItem;
+    if( Object.keys(current).includes(oldValue) ){
+      current[data] = current[oldValue]
+      delete current[oldValue];
+    } else if (Object.values(current).includes(oldValue) ){
+      const key = Object.keys(current).find(key => current[key] === oldValue);
+      current[key] = data;
+    }
+    this.setState({
+      currentItem: current,
+    })
+  }
 
+  saveEdited(){
+    console.log("Save");
   }
 
   render() {
-    const {pages, currentPage} = this.state;
-    console.log(this.state);
+    const {pages, currentPage, temporaryCurrentItem, currentItem} = this.state;
     return (
       <div className="app__testing">
         <aside className="app__testing__form">
@@ -173,17 +159,11 @@ export default class TestingTool extends Component {
             </div>
             <button className="app__load__query" onClick={this.onRequest}>Load Live Data</button>
           </header>
-          <AddProperty addProperty={this.addProperty} />
+          <AddProperty addProperty={this.addProperty} isDisabled={pages == null} />
+          <button onClick={this.saveEdited} disabled={temporaryCurrentItem == null}>Save </button>
         </aside>
         <div className="app__testing__data">
-          { pages != null && pages > 0 ?  (
-            <div className="app__testing__content">
-              <h3>Data Set</h3>
-              {this.renderView()}
-            </div>
-          ) : <div className="app__testing__content no--data">
-                <h3>No Data</h3>
-              </div>}
+          <DataView upadteCurrentItem={this.upadteCurrentItem} data={currentItem} />
           <div className="app__pagination">
             <button className="prev" onClick={this.prevPage}>Previous Page</button>
             {pages != null && pages > 0 ? <div className="pages">{currentPage + 1}/{pages}</div> : ''}
