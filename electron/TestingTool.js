@@ -1,6 +1,13 @@
 const {  BrowserWindow } = require('electron');
 
 let view = null;
+// Keep a reference for dev mode
+let dev = false
+
+if (process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) || /[\\/]electron[\\/]/.test(process.execPath)) {
+  dev = true
+}
+
 
 const createTestingWindow = (mainWindow, path) => {
   if ( view == null ){
@@ -19,8 +26,11 @@ const createTestingWindow = (mainWindow, path) => {
     })
     const url = path + '?testingTool';
     view.loadURL(url)
-    view.webContents.openDevTools()
-    console.log("URL: " + url)
+
+    if (dev) {
+      view.webContents.openDevTools()
+      console.log("URL: " + url)
+    }
   }
 }
 
