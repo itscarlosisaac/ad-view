@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import uuidv1 from 'uuid/v1';
 import validate from 'validate.js';
 import AddProperty from '../components/TestingToolComponents/AddProperty';
 import DataView from '../components/TestingToolComponents/DataView';
@@ -16,6 +17,7 @@ export default class TestingTool extends Component {
     this.addProperty = this.addProperty.bind(this);
     this.saveEdited = this.saveEdited.bind(this);
     this.upadteCurrentItem = this.upadteCurrentItem.bind(this);
+    this.createNewDataSet = this.createNewDataSet.bind(this);
 
     // Pagination
     this.nextPage = this.nextPage.bind(this);
@@ -146,8 +148,20 @@ export default class TestingTool extends Component {
     console.log("Save");
   }
 
+  createNewDataSet(){
+    this.setState({
+      currentItem: {
+        id: uuidv1()
+      },
+      currentPage: 0,
+      temporaryCurrentItem: null,
+      pages: null
+    })
+  }
+
   render() {
     const {pages, currentPage, temporaryCurrentItem, currentItem} = this.state;
+    console.log(this.state)
     return (
       <div className="app__testing">
         <aside className="app__testing__form">
@@ -159,8 +173,9 @@ export default class TestingTool extends Component {
             </div>
             <button className="app__load__query" onClick={this.onRequest}>Load Live Data</button>
           </header>
-          <AddProperty addProperty={this.addProperty} isDisabled={pages == null} />
+          <AddProperty addProperty={this.addProperty} isDisabled={currentItem == {}} />
           <button onClick={this.saveEdited} disabled={temporaryCurrentItem == null}>Save </button>
+          <button onClick={this.createNewDataSet}>Create New Data Set</button>
         </aside>
         <div className="app__testing__data">
           <DataView upadteCurrentItem={this.upadteCurrentItem} data={currentItem} />
