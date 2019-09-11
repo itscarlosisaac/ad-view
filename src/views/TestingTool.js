@@ -18,6 +18,10 @@ export default class TestingTool extends Component {
     this.saveEdited = this.saveEdited.bind(this);
     this.upadteCurrentItem = this.upadteCurrentItem.bind(this);
     this.createNewDataSet = this.createNewDataSet.bind(this);
+    this.onSaveNewDataSet = this.onSaveNewDataSet.bind(this);
+
+    // FORM
+    this.onChange = this.onChange.bind(this);
 
     // Pagination
     this.nextPage = this.nextPage.bind(this);
@@ -25,7 +29,10 @@ export default class TestingTool extends Component {
 
     this.state = {
       // url: 'https://record-store.azurewebsites.net/api/records?where=c.Make%3D%27Genesis%27&q%3Dc.Condition%3D%27Used%27',
-      url: 'https://record-store.azurewebsites.net/api/records',
+      // url: 'https://record-store.azurewebsites.net/api/records',
+      url: 'https://apix.purecars.com/display/test/v1/data',
+      datasets: [],
+      selectedDataSet: null,
       response: null,
       error: null,
       pages: null,
@@ -35,15 +42,34 @@ export default class TestingTool extends Component {
     }
   }
 
+  componentWillMount() {
+    const URL = 'https://apix.purecars.com/display/test/v1/data';
+    axios.get(URL).then(response => {
+      this.setState({datasets: response.data})
+    }).catch(error => console.log(error));
+  }
+
+  onChange(e){
+    const value = e.target.value;
+    const targetArray = Array.from(e.target.childNodes);
+    const selected = targetArray.filter( child => child.text == value);
+    selected[0].id == "" ?
+      this.setState({selectedDataSet: null}) :
+      this.setState({selectedDataSet: selected[0].id});
+  }
+
+
   onRequest(){
-    const {url} = this.state;
-    const APIURL = new URL(url);
+    const {url, selectedDataSet} = this.state;
+    const APIURL = new URL(`${url}/${selectedDataSet}`);
+    console.log(APIURL)
     const EncodedURL = this.encodeURL(APIURL);
 
     const self = this;
     axios.get(EncodedURL.href)
       .then(function (response) {
         // handle success
+        // console.log("Response", response);
         self.setState({
           response: response.data,
           pages: response.data.length,
@@ -53,7 +79,21 @@ export default class TestingTool extends Component {
       .catch(function (error) {
         // handle error
         self.setState({error: error})
-      })
+      });
+  }
+
+  onSaveNewDataSet() {
+    const { url }= this.state;
+    axios.post( url, {
+      name: "Chevy DataSet",
+      data: [
+        {
+          name: 'Chevy DataSet',
+          make: "Chevrolet",
+          model: "Camaron"
+        }
+      ]
+    })
   }
 
   encodeURL(APIURL){
@@ -160,22 +200,36 @@ export default class TestingTool extends Component {
   }
 
   render() {
-    const {pages, currentPage, temporaryCurrentItem, currentItem} = this.state;
+    const {pages, currentPage, datasets, currentItem, selectedDataSet} = this.state;
     console.log(this.state)
     return (
       <div className="app__testing">
-        <aside className="app__testing__form">
-          <header className="app__testing__query" id="app__testing__query">
-            <h1 className="app__testing__title">Query Settings</h1>
-            <div className="app__input__row">
-              <label>Query: </label>
-              <textarea name="query" placeholder="c.Make='Chevrolet'"></textarea>
-            </div>
-            <button className="app__load__query" onClick={this.onRequest}>Load Live Data</button>
+        <aside className="app__testing__aside">
+          <header className="app__testing__query">
+            <h3>Datasets</h3>
           </header>
-          <AddProperty addProperty={this.addProperty} isDisabled={currentItem == {}} />
-          <button onClick={this.saveEdited} disabled={temporaryCurrentItem == null}>Save </button>
+
+          <div className="q_form" id="app__testing__query">
+            <div className="form-control">
+              <select onChange={this.onChange} name="q_dataset">
+                <option>DataSet</option>
+                { datasets.map( set => (<option id={set.id} key={set.id}>{set.name}</option>) )}
+              </select>
+            </div>
+
+            <div className="form-control">
+              <textarea name="q_query" placeholder="Custom query"></textarea>
+            </div>
+
+            <div className="form-control end">
+              <button disabled={selectedDataSet == null} className="app__load__query" onClick={this.onRequest}>Load Data</button>
+            </div>
+
+          </div>
+          {/* <AddProperty addProperty={this.addProperty} isDisabled={currentItem == {}} /> */}
+          {/* <button onClick={this.saveEdited} disabled={temporaryCurrentItem == null}>Save </button>
           <button onClick={this.createNewDataSet}>Create New Data Set</button>
+          <button onClick={this.onSaveNewDataSet}>Save New Data Set</button> */}
         </aside>
         <div className="app__testing__data">
           <DataView upadteCurrentItem={this.upadteCurrentItem} data={currentItem} />
