@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import uuidv1 from 'uuid/v1';
 import validate from 'validate.js';
-import AddProperty from '../components/TestingToolComponents/AddProperty';
 import DataView from '../components/TestingToolComponents/DataView';
 
 export default class TestingTool extends Component {
@@ -22,6 +21,7 @@ export default class TestingTool extends Component {
 
     // FORM
     this.onChange = this.onChange.bind(this);
+    this.onToggle = this.onToggle.bind(this);
 
     // Pagination
     this.nextPage = this.nextPage.bind(this);
@@ -29,11 +29,15 @@ export default class TestingTool extends Component {
 
     this.state = {
       // url: 'https://record-store.azurewebsites.net/api/records?where=c.Make%3D%27Genesis%27&q%3Dc.Condition%3D%27Used%27',
-      // url: 'https://record-store.azurewebsites.net/api/records',
-      url: 'https://apix.purecars.com/display/test/v1/data',
+      recordsUrl: 'https://record-store.azurewebsites.net/api/records',
+      dataSetUrl: 'https://apix.purecars.com/display/test/v1/data',
+
+      useQuery: false,
+
       datasets: [],
-      selectedDataSet: null,
       response: null,
+      selectedDataSet: null,
+
       error: null,
       pages: null,
       currentPage: 0,
@@ -50,31 +54,48 @@ export default class TestingTool extends Component {
   }
 
   onChange(e){
-    const value = e.target.value;
-    const targetArray = Array.from(e.target.childNodes);
-    const selected = targetArray.filter( child => child.text == value);
-    selected[0].id == "" ?
+    e.target.value == "" ?
       this.setState({selectedDataSet: null}) :
-      this.setState({selectedDataSet: selected[0].id});
+      this.setState({selectedDataSet: e.target.value});
+  }
+
+  onToggle(e){
+    this.setState({useQuery: !this.state.useQuery})
   }
 
 
   onRequest(){
-    const {url, selectedDataSet} = this.state;
-    const APIURL = new URL(`${url}/${selectedDataSet}`);
+    const {dataSetUrl, recordsUrl, selectedDataSet, useQuery } = this.state;
+    let APIURL
+    console.log(useQuery)
+    if( !useQuery ){
+      APIURL = new URL(`${dataSetUrl}/${selectedDataSet}`);
+    }else {
+      APIURL = new URL(`${recordsUrl}`);
+      APIURL = this.encodeURL(APIURL);
+    }
     console.log(APIURL)
-    const EncodedURL = this.encodeURL(APIURL);
 
     const self = this;
-    axios.get(EncodedURL.href)
+    axios.get(APIURL.href)
       .then(function (response) {
         // handle success
-        // console.log("Response", response);
-        self.setState({
-          response: response.data,
-          pages: response.data.length,
-          currentItem: response.data[0]
-        })
+        if( !useQuery ) {
+          self.setState({
+            response: response.data.data,
+            pages: response.data.data.length,
+            currentItem: response.data.data[0],
+            currentPage: 0
+          });
+        }else {
+          self.setState({
+            response: response.data,
+            pages: response.data.length,
+            currentItem: response.data[0],
+            currentPage: 0
+          });
+        }
+
       })
       .catch(function (error) {
         // handle error
@@ -83,21 +104,25 @@ export default class TestingTool extends Component {
   }
 
   onSaveNewDataSet() {
-    const { url }= this.state;
-    axios.post( url, {
+    const { dataSetUrl }= this.state;
+    axios.post( dataSetUrl, {
       name: "Chevy DataSet",
       data: [
         {
-          name: 'Chevy DataSet',
           make: "Chevrolet",
           model: "Camaron"
+        },
+        {
+          make: 'Ford',
+          model: 'Focus'
         }
       ]
     })
   }
 
   encodeURL(APIURL){
-    const query = validate.collectFormValues(document.getElementById('app__testing__query'));
+    const query = validate.collectFormValues(document.getElementById('app__query'));
+    console.log(query)
     if( query['query'] != null ) {
       APIURL.search = "?where=" + query['query'];
     }
@@ -200,43 +225,56 @@ export default class TestingTool extends Component {
   }
 
   render() {
-    const {pages, currentPage, datasets, currentItem, selectedDataSet} = this.state;
+    const {pages, currentPage, datasets, currentItem, selectedDataSet, useQuery} = this.state;
     console.log(this.state)
     return (
       <div className="app__testing">
         <aside className="app__testing__aside">
-          <header className="app__testing__query">
+          <header className="app__testing__header">
             <h3>Datasets</h3>
           </header>
 
-          <div className="q_form" id="app__testing__query">
-            <div className="form-control">
-              <select onChange={this.onChange} name="q_dataset">
-                <option>DataSet</option>
-                { datasets.map( set => (<option id={set.id} key={set.id}>{set.name}</option>) )}
+          <div className="app__testing__query">
+
+            <div className="form-control v-centered">
+              <label className="switch">
+                <input type="checkbox" onClick={this.onToggle} />
+                <span className="slider round"></span>
+              </label>
+              <span className="label">Create Dataset from Query</span>
+            </div>
+
+            <div className="q_form--divider"></div>
+
+            <div className="form-control no-margin" id="app__select">
+              <select disabled={useQuery} onChange={this.onChange} name="q_dataset">
+                <option value="">Select a Dataset</option>
+                { datasets.map( set => (<option value={set.id} key={set.id}>{set.name}</option>) )}
               </select>
             </div>
 
-            <div className="form-control">
-              <textarea name="q_query" placeholder="Custom query"></textarea>
+            <div className="q_form--divider"></div>
+
+            <div className="form-control"  id="app__query">
+              <textarea disabled={!useQuery} name="query" placeholder="c.Make='Ford'"></textarea>
             </div>
 
             <div className="form-control end">
-              <button disabled={selectedDataSet == null} className="app__load__query" onClick={this.onRequest}>Load Data</button>
+              <button disabled={selectedDataSet == null && !useQuery} className="app__load__query" onClick={this.onRequest}>Load Data</button>
             </div>
-
           </div>
-          {/* <AddProperty addProperty={this.addProperty} isDisabled={currentItem == {}} /> */}
-          {/* <button onClick={this.saveEdited} disabled={temporaryCurrentItem == null}>Save </button>
-          <button onClick={this.createNewDataSet}>Create New Data Set</button>
-          <button onClick={this.onSaveNewDataSet}>Save New Data Set</button> */}
+
+          <div className="app__testing--actions">
+            <button className="app__testing--new--dataset">Create new dataset</button>
+            <button className="app__testing--new--item">Create new item</button>
+          </div>
         </aside>
         <div className="app__testing__data">
           <DataView upadteCurrentItem={this.upadteCurrentItem} data={currentItem} />
           <div className="app__pagination">
-            <button className="prev" onClick={this.prevPage}>Previous Page</button>
+            <button className="prev" onClick={this.prevPage}>Previous Item</button>
             {pages != null && pages > 0 ? <div className="pages">{currentPage + 1}/{pages}</div> : ''}
-            <button className="next" onClick={this.nextPage}>Next Page</button>
+            <button className="next" onClick={this.nextPage}>Next Item</button>
           </div>
         </div>
       </div>

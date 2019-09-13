@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import CheckIcon from '../icons/Checked';
+import CancelIcon from '../icons/Cancel';
 
 export default class Cell extends Component {
   constructor(props){
@@ -33,12 +35,13 @@ export default class Cell extends Component {
     return (
       <Fragment>
         <input
+          className="data__cell--edit"
           name={this.props.name}
           type="text"
           ref="row"
           defaultValue={this.state.value} />
-        <button onClick={this.updateData}>Save</button>
-        <button onClick={this.changeEditMode}>Cancel</button>
+        <button className="data__cell--save" onClick={this.updateData}><CheckIcon/></button>
+        <button className="data__cell--cancel" onClick={this.changeEditMode}><CancelIcon/></button>
       </Fragment>
     )
   }
@@ -46,7 +49,7 @@ export default class Cell extends Component {
   renderDefaultView(){
     const {value} = this.props
     return (
-      <span name={this.props.name} onDoubleClick={this.changeEditMode}>{value}</span>
+      <span className="data__cell" name={this.props.name} onDoubleClick={this.changeEditMode}>{value}</span>
     )
   }
 
