@@ -3,6 +3,7 @@ import axios from 'axios';
 import uuidv1 from 'uuid/v1';
 import validate from 'validate.js';
 import DataView from '../components/TestingToolComponents/DataView';
+import DataSetTemplate from '../utils/DatasetTemplate';
 
 export default class TestingTool extends Component {
   constructor(props){
@@ -15,9 +16,12 @@ export default class TestingTool extends Component {
     // Property Form
     this.addProperty = this.addProperty.bind(this);
     this.saveEdited = this.saveEdited.bind(this);
-    this.upadteCurrentItem = this.upadteCurrentItem.bind(this);
+    this.updateCurrentItem = this.updateCurrentItem.bind(this);
     this.createNewDataSet = this.createNewDataSet.bind(this);
     this.onSaveNewDataSet = this.onSaveNewDataSet.bind(this);
+
+    // ITEM
+    this.createNewItem = this.createNewItem.bind(this);
 
     // FORM
     this.onChange = this.onChange.bind(this);
@@ -33,6 +37,7 @@ export default class TestingTool extends Component {
       dataSetUrl: 'https://apix.purecars.com/display/test/v1/data',
 
       useQuery: false,
+      isLoading: false,
 
       datasets: [],
       response: null,
@@ -63,21 +68,22 @@ export default class TestingTool extends Component {
     this.setState({useQuery: !this.state.useQuery})
   }
 
-
   onRequest(){
     const {dataSetUrl, recordsUrl, selectedDataSet, useQuery } = this.state;
-    let APIURL
-    console.log(useQuery)
+    let APIURL;
+
     if( !useQuery ){
       APIURL = new URL(`${dataSetUrl}/${selectedDataSet}`);
     }else {
       APIURL = new URL(`${recordsUrl}`);
       APIURL = this.encodeURL(APIURL);
     }
-    console.log(APIURL)
 
     const self = this;
-    axios.get(APIURL.href)
+    console.log(this.state);
+
+    this.setState({ isLoading: true }, () => {
+      axios.get(APIURL.href)
       .then(function (response) {
         // handle success
         if( !useQuery ) {
@@ -85,22 +91,31 @@ export default class TestingTool extends Component {
             response: response.data.data,
             pages: response.data.data.length,
             currentItem: response.data.data[0],
-            currentPage: 0
+            currentPage: 0,
+            isLoading: false
           });
         }else {
           self.setState({
             response: response.data,
             pages: response.data.length,
             currentItem: response.data[0],
-            currentPage: 0
+            currentPage: 0,
+            isLoading: false
           });
         }
-
       })
       .catch(function (error) {
         // handle error
-        self.setState({error: error})
+        self.setState({
+          response: null,
+          pages: 0,
+          currentItem: null,
+          currentPage: 0,
+          error: error,
+          isLoading: false
+        })
       });
+    });
   }
 
   onSaveNewDataSet() {
@@ -122,10 +137,7 @@ export default class TestingTool extends Component {
 
   encodeURL(APIURL){
     const query = validate.collectFormValues(document.getElementById('app__query'));
-    console.log(query)
-    if( query['query'] != null ) {
-      APIURL.search = "?where=" + query['query'];
-    }
+    query['query'] != null ? APIURL.search = "?where=" + query['query'] : false;
     return APIURL;
   }
 
@@ -194,8 +206,13 @@ export default class TestingTool extends Component {
     })
   }
 
+  // Creeate ITEM
+  createNewItem(){
+
+  }
+
   // UPDATE AND SAVE
-  upadteCurrentItem(data, field, oldValue){
+  updateCurrentItem(data, field, oldValue){
     const current = this.state.currentItem;
     if( Object.keys(current).includes(oldValue) ){
       current[data] = current[oldValue]
@@ -225,7 +242,7 @@ export default class TestingTool extends Component {
   }
 
   render() {
-    const {pages, currentPage, datasets, currentItem, selectedDataSet, useQuery} = this.state;
+    const {pages, currentPage, datasets, currentItem, selectedDataSet, useQuery, isLoading} = this.state;
     console.log(this.state)
     return (
       <div className="app__testing">
@@ -266,11 +283,11 @@ export default class TestingTool extends Component {
 
           <div className="app__testing--actions">
             <button className="app__testing--new--dataset">Create new dataset</button>
-            <button className="app__testing--new--item">Create new item</button>
+            <button className="app__testing--new--item" onClick={this.createNewItem}>Create new item</button>
           </div>
         </aside>
         <div className="app__testing__data">
-          <DataView upadteCurrentItem={this.upadteCurrentItem} data={currentItem} />
+          <DataView updateCurrentItem={this.updateCurrentItem} data={currentItem} isLoading={isLoading}/>
           <div className="app__pagination">
             <button className="prev" onClick={this.prevPage}>Previous Item</button>
             {pages != null && pages > 0 ? <div className="pages">{currentPage + 1}/{pages}</div> : ''}

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { DotLoader } from 'react-spinners';
 import Row from './Row';
 
 export default class DataView extends Component {
@@ -8,12 +9,12 @@ export default class DataView extends Component {
   }
 
   renderRow(){
-    const { data, upadteCurrentItem } = this.props;
+    const { data, updateCurrentItem } = this.props;
     const Rows = [];
     let index = 0;
     if( data != {}){
       for( let key in data ){
-        Rows.push(<Row upadteCurrentItem={upadteCurrentItem} k={key} v={data[key]} key={index} index={index} />)
+        Rows.push(<Row updateCurrentItem={updateCurrentItem} k={key} v={data[key]} key={index} index={index} />)
         index++;
       }
     }
@@ -21,6 +22,8 @@ export default class DataView extends Component {
   }
 
   render() {
+    const { isLoading } = this.props;
+
     return (
       <Fragment>
         <header className="dataview__header">
@@ -30,7 +33,7 @@ export default class DataView extends Component {
           </div>
           <div className="dataview__header--actions">
             <button className="dataview__btn dataview__btn--primary">Save</button>
-            <button className="dataview__btn dataview__btn--secondary">Delete</button>
+            <button className="dataview__btn dataview__btn--secondary">Delete Dataset</button>
           </div>
         </header>
         <section className="dataview__content">
@@ -38,8 +41,12 @@ export default class DataView extends Component {
             <button>Add Property</button>
           </div>
           <h3>Request</h3>
-          <div className="dataview__content--rows">
-            {this.renderRow()}
+          <div className={`${isLoading ? 'is_loading' : ''} dataview__content--rows`}>
+            {
+              isLoading
+              ? <DotLoader sizeUnit={"px"} size={50} color={'#6979F8'} loading={isLoading} />
+              : this.renderRow()
+            }
           </div>
         </section>
       </Fragment>

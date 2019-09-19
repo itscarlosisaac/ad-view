@@ -7,14 +7,14 @@ export default class Row extends Component {
   }
 
   render() {
-    const { k, v, upadteCurrentItem, index  } = this.props;
+    const { k, v, updateCurrentItem, index  } = this.props;
     let isEmpty = v.length > 0;
     return (
       <Fragment>
         <p className={!isEmpty ? 'row row--emtpy' : 'row'}>
-          <Cell name={`key-${index}`} upadteCurrentItem={upadteCurrentItem} value={k} />
+          <Cell name={`key-${index}`} updateCurrentItem={updateCurrentItem} value={k} />
           <span>:</span>
-          <Cell name={`value-${index}`} upadteCurrentItem={upadteCurrentItem} value={v} />
+          <Cell name={`value-${index}`} updateCurrentItem={updateCurrentItem} value={v} />
           <span className="row--end">
             <button className="row--delete">Delete</button>
           </span>

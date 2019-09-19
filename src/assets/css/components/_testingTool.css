@@ -24,12 +24,12 @@
 .app__testing__aside {
   background-color: #F6F8FB;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   min-width: 350px;
   padding: 25px 30px;
   width: 30%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 .app__testing__data {
@@ -117,8 +117,8 @@
 }
 
 .app__testing--actions {
-  display: flex;
   align-items: flex-end;
+  display: flex;
   justify-content: space-between;
 }
 
@@ -128,8 +128,8 @@
   color: #ffffff;
   font-size: 12px;
   font-weight: 600;
-  padding: 0 10px;
   height: 40px;
+  padding: 0 10px;
   text-transform: uppercase;
   transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s background;
 }
@@ -139,9 +139,9 @@
   border-radius: 3px;
   color: #6979F8;
   font-size: 12px;
-  padding: 0 10px;
   font-weight: 600;
   height: 40px;
+  padding: 0 10px;
   text-transform: uppercase;
   transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s background;
 }
@@ -154,11 +154,11 @@
   bottom: 0;
   box-sizing: border-box;
   display: flex;
-  min-height: 100px;
-  max-height: 100px;
   justify-content: space-between;
   margin-left: -20px;
   margin-right: -20px;
+  max-height: 100px;
+  min-height: 100px;
   padding: 5px 10px;
   width: initial;
 }
@@ -430,9 +430,11 @@ input:checked + .slider:before {
 .dataview__header {
   align-items: flex-end;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   margin: 0 -20px;
+  min-height: 100px;
   padding: 20px;
 }
 
@@ -480,6 +482,12 @@ input:checked + .slider:before {
   padding-bottom: 20px;
 }
 
+.dataview__content--rows.is_loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .dataview__content--actions button {
   background: #6979F8;
   border-radius: 6px;
@@ -500,7 +508,7 @@ input:checked + .slider:before {
   color: #ffffff;
   display: flex;
   font-size: 14px;
-  height: 60px;
+  min-height: 60px;
   justify-content: flex-start;
   line-height: 1.5em;
   padding-bottom: 10px;
@@ -510,18 +518,18 @@ input:checked + .slider:before {
 .app__testing__data .row .row--delete {
   align-items: center;
   background: #DE6565;
+  border-radius: 2px;
   color: #ffffff;
   display: flex;
   font-size: 9px;
+  font-weight: 600;
   height: 18px;
   justify-content: center;
+  justify-self: flex-end;
+  letter-spacing: .1pt;
+  line-height: 16px;
   text-transform: uppercase;
   width: 55px;
-  line-height: 16px;
-  font-weight: 600;
-  letter-spacing: .1pt;
-  border-radius: 2px;
-  justify-self: flex-end;
 }
 
 .app__testing__data .row span:first-child {
@@ -539,8 +547,8 @@ input:checked + .slider:before {
 }
 
 .row--end {
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
   justify-content: flex-end;
 }
 
@@ -561,7 +569,7 @@ input:checked + .slider:before {
   margin: 0 10px;
   text-transform: uppercase;
   transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s background;
-  width: 100px;
+  padding: 0 20px;
 }
 
 .dataview__btn--primary {

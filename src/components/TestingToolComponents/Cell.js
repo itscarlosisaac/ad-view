@@ -24,7 +24,7 @@ export default class Cell extends Component {
   }
 
   updateData(){
-    this.props.upadteCurrentItem(this.refs.row.value, this.refs.row.name, this.state.value)
+    this.props.updateCurrentItem(this.refs.row.value, this.refs.row.name, this.state.value)
     this.setState({
       value: this.refs.row.value,
       isInEditMode: false
